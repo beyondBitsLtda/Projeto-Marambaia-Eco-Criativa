@@ -8,9 +8,11 @@
 <body>
 <x-dc>
 <helmet>
+<link rel="preload" as="image" href="assets/bg-2000.avif" type="image/avif" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: #ffffff; color: #2C2C2C; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
@@ -20,6 +22,13 @@
   img { display: block; max-width: 100%; }
   h1, h2, h3, h4 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; letter-spacing: -0.02em; margin: 0; }
   p { margin: 0; }
+
+
+  /* --- performance de imagens --- */
+  picture { display: block; }
+  picture img { width: 100%; height: 100%; }
+  img { content-visibility: auto; }
+  figure img, picture img { transition: opacity 400ms ease; }
 
   /* Fade-in on enter (JS-triggered) */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 900ms cubic-bezier(.2,.7,.2,1), transform 900ms cubic-bezier(.2,.7,.2,1); }
@@ -71,7 +80,7 @@
        ============================================================ -->
   <div id="bg-layer" aria-hidden="true"
        style="position: fixed; inset: 0; width: 100%; height: 100vh; pointer-events: none; z-index: 1; overflow: hidden;">
-    <img id="bg-img" src="assets/bg.png" alt=""
+    <img id="bg-img" src="assets/bg-2000.webp" alt="" fetchpriority="high" decoding="async" width="6000" height="3375"
          style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center top; transform-origin: 50% 15%; transform: scale(6); will-change: transform; opacity: 0.9;">
   </div>
   <svg id="root-svg-legacy" style="display:none;" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -223,23 +232,43 @@
       <!-- Asymmetric editorial grid -->
       <div class="mec-gallery reveal">
         <figure style="grid-column: span 7; grid-row: span 3; margin: 0; position: relative; overflow: hidden; background: #F5DEB3;">
-          <img src="assets/ceramica.png" alt="Cerâmica artesanal" style="width: 100%; height: 100%; object-fit: cover;">
+          <picture style="display:block;width:100%;height:100%;">
+            <source type="image/avif" srcset="assets/ceramica-640.avif 640w, assets/ceramica-1280.avif 1280w, assets/ceramica-1920.avif 1920w" sizes="(max-width:560px) 100vw, (max-width:900px) 58vw, 700px">
+            <source type="image/webp" srcset="assets/ceramica-640.webp 640w, assets/ceramica-1280.webp 1280w, assets/ceramica-1920.webp 1920w" sizes="(max-width:560px) 100vw, (max-width:900px) 58vw, 700px">
+            <img src="assets/ceramica-1280.webp" alt="Cerâmica artesanal" width="1920" height="1080" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;background:#F5DEB3;">
+          </picture>
           <figcaption style="position: absolute; left: 20px; bottom: 20px; background: rgba(255,255,240,0.94); padding: 10px 14px; font-family: 'Fraunces', serif; font-size: 18px;">Cerâmica <span style="font-family: 'JetBrains Mono', monospace; color: #8B4513; font-size: 11px; letter-spacing: 0.1em;">— barro</span></figcaption>
         </figure>
         <figure style="grid-column: span 5; grid-row: span 2; margin: 0; position: relative; overflow: hidden; background: #D2B48C;">
-          <img src="assets/fibras.png" alt="Fibras e trançados" style="width: 100%; height: 100%; object-fit: cover;">
+          <picture style="display:block;width:100%;height:100%;">
+            <source type="image/avif" srcset="assets/fibras-640.avif 640w, assets/fibras-1280.avif 1280w, assets/fibras-1920.avif 1920w" sizes="(max-width:560px) 100vw, (max-width:900px) 42vw, 500px">
+            <source type="image/webp" srcset="assets/fibras-640.webp 640w, assets/fibras-1280.webp 1280w, assets/fibras-1920.webp 1920w" sizes="(max-width:560px) 100vw, (max-width:900px) 42vw, 500px">
+            <img src="assets/fibras-1280.webp" alt="Fibras e trançados" width="1920" height="1080" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;background:#D2B48C;">
+          </picture>
           <figcaption style="position: absolute; left: 16px; bottom: 16px; background: rgba(255,255,240,0.94); padding: 8px 12px; font-family: 'Fraunces', serif; font-size: 16px;">Fibras <span style="font-family: 'JetBrains Mono', monospace; color: #8B4513; font-size: 11px;">— palha</span></figcaption>
         </figure>
         <figure style="grid-column: span 5; grid-row: span 2; margin: 0; position: relative; overflow: hidden; background: #C68E17;">
-          <img src="assets/madeira.png" alt="Madeira entalhada" style="width: 100%; height: 100%; object-fit: cover;">
+          <picture style="display:block;width:100%;height:100%;">
+            <source type="image/avif" srcset="assets/madeira-640.avif 640w, assets/madeira-1280.avif 1280w, assets/madeira-1920.avif 1920w" sizes="(max-width:560px) 100vw, (max-width:900px) 42vw, 500px">
+            <source type="image/webp" srcset="assets/madeira-640.webp 640w, assets/madeira-1280.webp 1280w, assets/madeira-1920.webp 1920w" sizes="(max-width:560px) 100vw, (max-width:900px) 42vw, 500px">
+            <img src="assets/madeira-1280.webp" alt="Madeira entalhada" width="1920" height="1080" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;background:#C68E17;">
+          </picture>
           <figcaption style="position: absolute; left: 16px; bottom: 16px; background: rgba(255,255,240,0.94); padding: 8px 12px; font-family: 'Fraunces', serif; font-size: 16px;">Madeira <span style="font-family: 'JetBrains Mono', monospace; color: #8B4513; font-size: 11px;">— entalhe</span></figcaption>
         </figure>
         <figure style="grid-column: span 4; grid-row: span 2; margin: 0; position: relative; overflow: hidden; background: #A0522D;">
-          <img src="assets/bijuterias.png" alt="Bijuterias" style="width: 100%; height: 100%; object-fit: cover;">
+          <picture style="display:block;width:100%;height:100%;">
+            <source type="image/avif" srcset="assets/bijuterias-640.avif 640w, assets/bijuterias-1280.avif 1280w, assets/bijuterias-1920.avif 1920w" sizes="(max-width:560px) 100vw, (max-width:900px) 34vw, 400px">
+            <source type="image/webp" srcset="assets/bijuterias-640.webp 640w, assets/bijuterias-1280.webp 1280w, assets/bijuterias-1920.webp 1920w" sizes="(max-width:560px) 100vw, (max-width:900px) 34vw, 400px">
+            <img src="assets/bijuterias-1280.webp" alt="Bijuterias" width="1920" height="1080" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;background:#A0522D;">
+          </picture>
           <figcaption style="position: absolute; left: 16px; bottom: 16px; background: rgba(255,255,240,0.94); padding: 8px 12px; font-family: 'Fraunces', serif; font-size: 16px;">Bijuterias <span style="font-family: 'JetBrains Mono', monospace; color: #8B4513; font-size: 11px;">— sementes</span></figcaption>
         </figure>
         <figure style="grid-column: span 8; grid-row: span 2; margin: 0; position: relative; overflow: hidden; background: #E1A95F;">
-          <img src="assets/bonito.png" alt="Cidade de Bonito — MS" style="width: 100%; height: 100%; object-fit: cover;">
+          <picture style="display:block;width:100%;height:100%;">
+            <source type="image/avif" srcset="assets/bonito-640.avif 640w, assets/bonito-1280.avif 1280w, assets/bonito-1920.avif 1920w" sizes="(max-width:560px) 100vw, (max-width:900px) 66vw, 800px">
+            <source type="image/webp" srcset="assets/bonito-640.webp 640w, assets/bonito-1280.webp 1280w, assets/bonito-1920.webp 1920w" sizes="(max-width:560px) 100vw, (max-width:900px) 66vw, 800px">
+            <img src="assets/bonito-1280.webp" alt="Cidade de Bonito — MS" width="1920" height="1080" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;background:#E1A95F;">
+          </picture>
           <figcaption style="position: absolute; left: 20px; bottom: 20px; background: rgba(255,255,240,0.94); padding: 10px 14px; font-family: 'Fraunces', serif; font-size: 17px; font-style: italic;">Cidade de Bonito — MS</figcaption>
         </figure>
       </div>
@@ -254,7 +283,11 @@
 
       <div class="mec-avi-grid reveal" style="margin-bottom: 60px;">
         <figure style="margin: 0; overflow: hidden; height: 420px;">
-          <img src="assets/bird-1.png" alt="Ave do cerrado" style="width: 100%; height: 100%; object-fit: cover;">
+          <picture style="display:block;width:100%;height:100%;">
+            <source type="image/avif" srcset="assets/bird-1-640.avif 640w, assets/bird-1-1280.avif 1280w, assets/bird-1-1920.avif 1920w" sizes="(max-width:900px) 100vw, 600px">
+            <source type="image/webp" srcset="assets/bird-1-640.webp 640w, assets/bird-1-1280.webp 1280w, assets/bird-1-1920.webp 1920w" sizes="(max-width:900px) 100vw, 600px">
+            <img src="assets/bird-1-1280.webp" alt="Ave do cerrado" width="1920" height="1080" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;background:#dfe7e3;">
+          </picture>
         </figure>
         <div>
           <p style="font-size: 18px; line-height: 1.7; color: #4a4038; margin-bottom: 20px;">A serra da Bodoquena é um dos poucos lugares do país onde o Cerrado, a Mata Atlântica e o Pantanal se encontram — e as aves são o primeiro sinal disso.</p>
@@ -274,13 +307,25 @@
 
       <div class="reveal" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
         <figure style="margin: 0; overflow: hidden; height: 240px;">
-          <img src="assets/bird-2.png" alt="Ave 2" style="width: 100%; height: 100%; object-fit: cover;">
+          <picture style="display:block;width:100%;height:100%;">
+            <source type="image/avif" srcset="assets/bird-2-480.avif 480w, assets/bird-2-960.avif 960w, assets/bird-2-1440.avif 1440w" sizes="(max-width:900px) 33vw, 400px">
+            <source type="image/webp" srcset="assets/bird-2-480.webp 480w, assets/bird-2-960.webp 960w, assets/bird-2-1440.webp 1440w" sizes="(max-width:900px) 33vw, 400px">
+            <img src="assets/bird-2-960.webp" alt="Ave 2" width="1440" height="810" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;background:#dfe7e3;">
+          </picture>
         </figure>
         <figure style="margin: 0; overflow: hidden; height: 240px;">
-          <img src="assets/bird-3.png" alt="Ave 3" style="width: 100%; height: 100%; object-fit: cover;">
+          <picture style="display:block;width:100%;height:100%;">
+            <source type="image/avif" srcset="assets/bird-3-480.avif 480w, assets/bird-3-960.avif 960w, assets/bird-3-1440.avif 1440w" sizes="(max-width:900px) 33vw, 400px">
+            <source type="image/webp" srcset="assets/bird-3-480.webp 480w, assets/bird-3-960.webp 960w, assets/bird-3-1440.webp 1440w" sizes="(max-width:900px) 33vw, 400px">
+            <img src="assets/bird-3-960.webp" alt="Ave 3" width="1440" height="810" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;background:#dfe7e3;">
+          </picture>
         </figure>
         <figure style="margin: 0; overflow: hidden; height: 240px;">
-          <img src="assets/bird-4.png" alt="Ave 4" style="width: 100%; height: 100%; object-fit: cover;">
+          <picture style="display:block;width:100%;height:100%;">
+            <source type="image/avif" srcset="assets/bird-4-416.avif 416w, assets/bird-4-832.avif 832w" sizes="(max-width:900px) 33vw, 400px">
+            <source type="image/webp" srcset="assets/bird-4-416.webp 416w, assets/bird-4-832.webp 832w" sizes="(max-width:900px) 33vw, 400px">
+            <img src="assets/bird-4-832.webp" alt="Ave 4" width="832" height="1296" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;background:#dfe7e3;">
+          </picture>
         </figure>
       </div>
     </section>
@@ -295,7 +340,11 @@
         </div>
         <div style="display: flex; align-items: center; gap: 12px;">
           <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #696969; letter-spacing: 0.1em; text-transform: uppercase;">Em parceria com</span>
-          <img src="assets/museu-da-pessoa.png" alt="Museu da Pessoa" style="height: 44px; width: auto;">
+          <picture style="display:block;">
+            <source type="image/avif" srcset="assets/museu-da-pessoa-300.avif 300w, assets/museu-da-pessoa-600.avif 600w" sizes="150px">
+            <source type="image/webp" srcset="assets/museu-da-pessoa-300.webp 300w, assets/museu-da-pessoa-600.webp 600w" sizes="150px">
+            <img src="assets/museu-da-pessoa-600.webp" alt="Museu da Pessoa" width="600" height="205" loading="lazy" decoding="async" style="height:44px;width:auto;background:transparent;">
+          </picture>
         </div>
       </div>
 
