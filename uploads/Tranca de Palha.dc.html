@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #ffffff; }
+  * { box-sizing: border-box; }
+  a { color: #111111; }
+  a:hover { color: #555555; }
+</style>
+</helmet>
+<div style="position: relative; width: 100%;">
+  <canvas ref="{{ setCanvas }}" style="position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; display: block;"></canvas>
+
+  <div ref="{{ setOverlay }}" style="position: fixed; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; pointer-events: none; padding: 24px;">
+    <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-style: italic; color: #111111; font-size: clamp(44px, 9vw, 128px); line-height: 0.95; letter-spacing: 0.5px;">Trança de Palha</div>
+    <div style="margin-top: 22px; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; color: #444444; font-size: clamp(16px, 2.4vw, 26px); letter-spacing: 3px; text-transform: uppercase;">role para tecer o padrão</div>
+    <div ref="{{ setChevron }}" style="margin-top: 46px; width: 26px; height: 26px; border-right: 2px solid #111111; border-bottom: 2px solid #111111; transform: rotate(45deg); opacity: 0.8;"></div>
+  </div>
+
+  <div ref="{{ setProgress }}" style="position: fixed; left: 0; bottom: 0; height: 3px; width: 0%; z-index: 3; background: #111111;"></div>
+
+  <div style="height: 520vh;"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      setCanvas: (el) => { this.canvas = el; },
+      setOverlay: (el) => { this.overlay = el; },
+      setChevron: (el) => { this.chevron = el; },
+      setProgress: (el) => { this.progressBar = el; },
+    };
+  }
+
+  componentDidMount() {
+    this.angle = -0.5; // ~ -28.6deg weave tilt
+    this.s = 24;       // strand width in css px
+    this.gap = 0.86;   // strand fill ratio (rest is dark gap)
+    this.target = 0;
+    this.shown = 0;
+    this.raf = null;
+
+    this._resize = () => this.setup();
+    this._scroll = () => this.onScroll();
+    window.addEventListener('resize', this._resize);
+    window.addEventListener('scroll', this._scroll, { passive: true });
+
+    this.setup();
+    this.onScroll();
+    this.loop();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._resize);
+    window.removeEventListener('scroll', this._scroll);
+    if (this.raf) cancelAnimationFrame(this.raf);
+  }
+
+  setup() {
+    if (!this.canvas) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.W = window.innerWidth;
+    this.H = window.innerHeight;
+    this.canvas.width = Math.round(this.W * dpr);
+    this.canvas.height = Math.round(this.H * dpr);
+    this.ctx = this.canvas.getContext('2d');
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // radius to cover viewport corners after rotation
+    this.R = 0.5 * Math.sqrt(this.W * this.W + this.H * this.H) + this.s * 2;
+    this.n = Math.ceil((2 * this.R) / this.s) + 2;     // cells per axis
+    this.maxBand = (this.n - 1) * 2;                    // max i+j
+    this.draw(this.shown);
+  }
+
+  onScroll() {
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - window.innerHeight;
+    const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    this.target = p;
+    // fade the intro overlay out over first 18% of scroll
+    if (this.overlay) this.overlay.style.opacity = String(Math.max(0, 1 - p / 0.18));
+    if (this.chevron) this.chevron.style.transform = 'rotate(45deg) translateY(' + (p * 40) + 'px)';
+    if (this.progressBar) this.progressBar.style.width = (p * 100) + '%';
+  }
+
+  loop() {
+    // ease shown toward target so the weave animates in smoothly
+    const diff = this.target - this.shown;
+    if (Math.abs(diff) > 0.0008) {
+      this.shown += diff * 0.12;
+      this.draw(this.shown);
+    }
+    this.raf = requestAnimationFrame(() => this.loop());
+  }
+
+  draw(progress) {
+    const ctx = this.ctx;
+    if (!ctx) return;
+    const { W, H, R, n, s } = this;
+    ctx.save();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // white background
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.translate(W / 2, H / 2);
+    ctx.rotate(this.angle);
+
+    const reveal = progress * (this.maxBand + 6);
+
+    ctx.strokeStyle = '#111111';
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+
+    for (let j = 0; j < n; j++) {
+      for (let i = 0; i < n; i++) {
+        const band = i + j;
+        if (band > reveal) continue;
+        let alpha = 1;
+        const edge = reveal - band;
+        if (edge < 1.4) alpha = Math.max(0, edge / 1.4);
+        if (alpha <= 0) continue;
+
+        const x = i * s - R;
+        const y = j * s - R;
+        const warpTop = ((i + j) % 4) < 2; // 2/2 twill -> diagonals
+
+        ctx.globalAlpha = alpha;
+        this.cell(ctx, x, y, s, warpTop);
+      }
+    }
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  }
+
+  // minimalist single stroke per strand; "under" strands leave a gap -> woven look
+  cell(ctx, x, y, s, vertical) {
+    ctx.lineWidth = 1.5;
+    const over = s * 0.16; // overlap so top strands read as continuous
+    ctx.beginPath();
+    if (vertical) {
+      const cx = x + s / 2;
+      ctx.moveTo(cx, y - over);
+      ctx.lineTo(cx, y + s + over);
+    } else {
+      const cy = y + s / 2;
+      ctx.moveTo(x - over, cy);
+      ctx.lineTo(x + s + over, cy);
+    }
+    ctx.stroke();
+  }
+
+  roundRect(ctx, x, y, w, h, r) {
+    r = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+}
+</script>
+</body>
+</html>
