@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #FCFAF4; color: #23261E; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { overflow-x: hidden; }
+  a { color: var(--accent, #0C82BA); text-decoration: none; }
+  a:hover { opacity: 0.7; }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; margin: 0; letter-spacing: -0.02em; }
+  p { margin: 0; }
+  @keyframes cueBob { 0%,100% { transform: translateY(0); opacity: .55; } 50% { transform: translateY(7px); opacity: 1; } }
+  #mec-burger { display: none; }
+  @media (max-width: 900px) {
+    /* header + dropdown menu */
+    #site-header .mec-headbar { padding: 13px clamp(16px,5vw,24px) !important; gap: 12px !important; }
+    #mec-burger { display: inline-flex !important; }
+    .mec-nav {
+      position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column !important; align-items: stretch !important;
+      justify-content: flex-start !important; gap: 0 !important; flex-wrap: nowrap !important;
+      background: #201d14; padding: 4px clamp(16px,5vw,24px) 14px;
+      box-shadow: 0 22px 40px rgba(0,0,0,0.28);
+      max-height: 0; overflow: hidden; opacity: 0; pointer-events: none;
+      transition: max-height .42s cubic-bezier(.4,0,.2,1), opacity .3s ease;
+    }
+    .mec-nav.open { max-height: 72vh; opacity: 1; pointer-events: auto; }
+    .mec-nav .mec-navlink {
+      padding: 15px 2px !important; font-size: 16px !important;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .mec-nav .mec-navlink:last-child { border-bottom: 0; }
+  }
+  @media (max-width: 760px) {
+    #hero-scroll { height: 175vh !important; }
+    .intro-grid { grid-template-columns: 1fr !important; gap: 26px !important; }
+    .artesa-msgbox { width: 86vw !important; height: 300px !important; }
+    #car-prev, #car-next { width: 44px !important; height: 44px !important; }
+    .avi-msgs { width: 86vw !important; padding: 0 7vw !important; }
+    .avi-msgs h2 { font-size: clamp(44px, 15vw, 70px) !important; }
+    .avi-msgs p { font-size: clamp(19px, 5.4vw, 30px) !important; }
+    .avi-msgbox { height: 300px !important; }
+    .avi-sobre-grid { grid-template-columns: 1fr !important; gap: 30px !important; }
+    .avi-motmot-wrap { margin-left: 0 !important; }
+    #avi-motmot { height: 54vh !important; }
+    .mp-logo { width: 150px !important; top: 78px !important; }
+    .mp-msgs { width: 86vw !important; }
+    .mp-msgbox { height: 320px !important; }
+    .mp-grid { grid-template-columns: repeat(2, 1fr) !important; grid-auto-rows: calc((100vw - 4px) / 2) !important; }
+    .mp-card { grid-column: span 1 !important; grid-row: span 1 !important; }
+    .mp-card .mp-sum { display: none !important; }
+    .pc-sticky { padding: 84px 22px 40px !important; }
+    .pc-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+    #pc-num { font-size: clamp(64px, 22vw, 96px) !important; }
+    .pc-msgwrap { height: 200px !important; }
+    .pc-msgwrap .pc-msg p { font-size: clamp(20px, 5.4vw, 28px) !important; }
+  }
+  .mp-card { position: relative; overflow: hidden; background: #0A1A22; cursor: pointer; min-width: 0; }
+  .mp-card img.mp-thumb { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s ease; }
+  .mp-card:hover img.mp-thumb { transform: scale(1.04); filter: brightness(0.72); }
+  .mp-card iframe.mp-hover { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; z-index: 1; }
+  .mp-meta { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: clamp(16px,1.6vw,26px); background: linear-gradient(to top, rgba(4,20,28,0.92) 0%, rgba(4,20,28,0.55) 45%, transparent 100%); pointer-events: none; }
+  .mp-sum { max-height: 0; opacity: 0; overflow: hidden; transition: max-height .5s ease, opacity .4s ease, margin-top .4s ease; margin-top: 0; }
+  .mp-card:hover .mp-sum { max-height: 160px; opacity: 1; margin-top: 10px; }
+  .mp-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(.9); z-index: 2; opacity: 0; transition: opacity .4s ease, transform .4s ease; pointer-events: none; }
+  .mp-card:hover .mp-play { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+</style>
+</helmet>
+
+<div style="position: relative;">
+
+  <!-- ===== FIXED WOVEN-STRAW TEXTURE — revealed inside an organic blob around the cursor ===== -->
+  <canvas id="straw-canvas" aria-hidden="true"
+          style="position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none; display: block;"></canvas>
+
+  <div style="position: relative; z-index: 2;">
+
+    <!-- ==================== HEADER ==================== -->
+    <header id="site-header"
+            style="position: fixed; top: 0; left: 0; right: 0; z-index: 40; background: #E96C15; border-bottom: 1px solid rgba(120,52,4,0.35); box-shadow: 0 6px 24px rgba(120,52,4,0.18); transition: background .6s ease, border-color .6s ease, box-shadow .6s ease;">
+      <div class="mec-headbar" style="max-width: 1320px; margin: 0 auto; padding: 20px clamp(24px, 5vw, 56px); display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+        <a href="#top" class="mec-brand" style="display: inline-flex; align-items: center; gap: 11px; font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(17px, 1.6vw, 21px); letter-spacing: -0.01em; color: #FBF8EE;">
+          <svg width="26" height="26" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <path d="M20 4 C20 12 14 16 14 22 C14 28 20 32 20 38" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M20 12 C26 14 30 18 30 24" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M20 20 C14 22 10 26 10 32" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <span>Marambaia <em class="mec-brand-accent" style="font-style: italic; color: #FFE3C4;">Eco Criativa</em></span>
+        </a>
+        <nav class="mec-nav" style="display: flex; align-items: center; gap: clamp(18px, 2.4vw, 40px); flex-wrap: wrap; justify-content: flex-end;">
+          <a href="#intro" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Sobre</a>
+          <a href="#galeria" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Galeria</a>
+          <a href="#avi-scroll" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Aviturismo</a>
+          <a href="#museu" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Museu da Pessoa</a>
+          <a href="#prestacao" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Prestação de Contas</a>
+        </nav>
+        <button id="mec-burger" aria-label="Abrir menu" aria-expanded="false" style="width:44px;height:44px;border:0;background:transparent;color:#FBF8EE;cursor:pointer;align-items:center;justify-content:center;flex:0 0 auto;padding:0;margin-left:auto;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- ==================== HERO ==================== -->
+    <div id="top"></div>
+    <div id="hero-scroll" style="position: relative; height: 200vh;">
+      <div id="hero-stage" style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #14170F;">
+
+        <video id="hero-video" autoplay muted loop playsinline preload="auto"
+               style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; will-change: transform;">
+          <source src="assets/hero.mp4" type="video/mp4">
+        </video>
+
+        <div id="hero-shade" aria-hidden="true"
+             style="position: absolute; inset: 0; pointer-events: none;
+                    background: linear-gradient(to top, rgba(12,14,9,0.92) 0%, rgba(12,14,9,0.55) 26%, rgba(12,14,9,0.12) 52%, rgba(12,14,9,0.30) 100%);"></div>
+
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 clamp(24px, 6vw, 96px) clamp(64px, 9vh, 120px);">
+          <div id="hero-eyebrow" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: clamp(11px, 1vw, 13px); letter-spacing: 0.22em; text-transform: uppercase; color: #EDE7D6; margin-bottom: clamp(16px, 2.5vh, 28px);">
+            <span style="display: inline-block; width: 40px; height: 1px; background: var(--accent, #0C82BA);"></span>
+            <span>Bonito · Mato Grosso do Sul</span>
+          </div>
+
+          <h1 style="line-height: 0.92; font-weight: 500; color: #FBF8EE; margin: 0;">
+            <span style="display: block; overflow: hidden;"><span class="hero-line" style="display: block; font-size: clamp(30px, 4.6vw, 78px); font-weight: 400; letter-spacing: 0.01em;">Projeto</span></span>
+            <span style="display: block; overflow: hidden;"><span class="hero-line" style="display: block; font-size: clamp(56px, 12vw, 190px); font-weight: 500; letter-spacing: -0.03em;">Marambaia</span></span>
+            <span style="display: block; overflow: hidden;"><span class="hero-line" style="display: block; font-size: clamp(40px, 8.4vw, 132px); font-weight: 400; font-style: italic; letter-spacing: -0.01em; color: var(--accent, #0C82BA);">Eco Criativa</span></span>
+          </h1>
+
+          <div id="hero-sub" style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 24px; margin-top: clamp(24px, 4vh, 44px);">
+            <p style="max-width: 480px; font-size: clamp(14px, 1.3vw, 18px); line-height: 1.6; color: #E4E0D2;">Da terra às mãos, das mãos para o mundo — o ofício do artesão de Bonito e o avistamento de aves do cerrado, lado a lado.</p>
+            <a href="#intro" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #FBF8EE; padding-bottom: 6px; border-bottom: 1px solid rgba(251,248,238,0.4);">
+              Conheça o projeto
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div id="hero-cue" style="position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: #FBF8EE;">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; opacity: .7;">Role</span>
+          <svg width="16" height="22" viewBox="0 0 16 22" fill="none" style="animation: cueBob 2s ease-in-out infinite;"><path d="M8 2v16M2 12l6 6 6-6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== INTRO (white — woven palha reveals here) ==================== -->
+    <section id="intro" style="max-width: 1180px; margin: 0 auto; padding: clamp(90px, 16vh, 170px) clamp(24px, 6vw, 64px);">
+      <div class="intro-grid" style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(32px, 6vw, 80px); align-items: start;">
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 22px;">01 · O projeto</div>
+          <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 500; color: #23261E;">O ofício <em style="font-style: italic; color: var(--accent, #0C82BA);">tem raiz</em> — e a raiz precisa de cuidado.</h2>
+        </div>
+        <div style="padding-top: clamp(8px, 3vh, 40px);">
+          <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; margin-bottom: 22px;">O Marambaia Eco Criativa forma artesãos locais em Bonito, Mato Grosso do Sul, e integra a comunidade ao ecoturismo da serra da Bodoquena.</p>
+          <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E;">Da matéria-prima colhida no cerrado ao produto final na feira — quatro etapas que sustentam o ofício como fonte de renda estável.</p>
+          <div style="margin-top: 36px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar a trança de palha</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ARTESÃ — full-bleed image + scroll messages ==================== -->
+    <section id="artesa-scroll" style="position: relative; height: 300vh; z-index: 3;">
+      <div style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #1A140A;">
+        <img id="artesa-img" src="assets/artesa.png" alt="Artesã de Bonito segurando um cesto de palha trançada" decoding="async"
+             style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 28%; will-change: transform;">
+        <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(105deg, rgba(18,13,5,0.80) 0%, rgba(18,13,5,0.42) 46%, rgba(18,13,5,0.10) 100%);"></div>
+
+        <div style="position: absolute; inset: 0; display: flex; align-items: center; padding: 0 clamp(24px, 7vw, 130px);">
+          <div class="artesa-msgbox" style="position: relative; width: min(640px, 78vw); height: 340px;">
+            <div class="artesa-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">O saber</div>
+              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #FBF5E9; margin: 0;">Cada peça guarda um gesto que <em style="font-style: italic; color: #FFD9A6;">atravessa gerações</em>.</p>
+            </div>
+            <div class="artesa-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">A mão</div>
+              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #FBF5E9; margin: 0;">Da palha colhida no cerrado ao cesto que <em style="font-style: italic; color: #FFD9A6;">sustenta uma família</em>.</p>
+            </div>
+            <div class="artesa-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">O futuro</div>
+              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #FBF5E9; margin: 0;">Formar, valorizar e abrir mercado para <em style="font-style: italic; color: #FFD9A6;">quem faz com as mãos</em>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== GALERIA (carrossel) ==================== -->
+    <section id="galeria" style="position: relative; z-index: 2; background: transparent; padding: clamp(78px, 12vh, 128px) 0; overflow: hidden;">
+      <div style="max-width: 1240px; margin: 0 auto clamp(36px, 6vh, 56px); padding: 0 clamp(24px, 6vw, 64px); display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 16px;">02 · Galeria</div>
+          <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.06; font-weight: 500; color: #23261E; max-width: 640px;">O que sai <em style="font-style: italic; color: var(--accent, #0C82BA);">das bancadas</em>.</h2>
+        </div>
+        <p style="max-width: 300px; font-size: 15px; line-height: 1.6; color: #6b6656;">Cinco linguagens do ofício e da paisagem em Bonito. Navegue pelas peças.</p>
+      </div>
+
+      <div id="carousel" style="position: relative;">
+        <div id="car-viewport" style="position: relative; overflow: visible; touch-action: pan-y;">
+          <div id="car-track" style="position: relative; z-index: 1; display: flex; align-items: center; will-change: transform;">
+            <figure class="car-slide" data-title="Cerâmica — barro" data-desc="O barro colhido às margens dos rios de Bonito, moldado e queimado à mão. Cada peça nasce da terra e volta à mesa como utensílio e memória." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
+              <img src="assets/ceramica.avif" alt="Tigelas de cerâmica" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </figure>
+            <figure class="car-slide" data-title="Fibras — palha" data-desc="Palha de buriti e capim trançadas em cestos, esteiras e chapéus. Um saber de mãos pacientes que atravessa gerações no cerrado." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
+              <img src="assets/fibras.avif" alt="Mãos trançando palha" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </figure>
+            <figure class="car-slide" data-title="Madeira — entalhe" data-desc="Troncos caídos ganham vida no entalhe. Do utilitário ao ornamento, a madeira guarda o gesto de quem talha." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
+              <img src="assets/madeira.avif" alt="Entalhe em madeira" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </figure>
+            <figure class="car-slide" data-title="Bijuterias — sementes" data-desc="Sementes do cerrado — jatobá, olho-de-cabra, capim-dourado — furadas e polidas à mão, viram colares que carregam a floresta inteira." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
+              <img src="assets/bijuterias.avif" alt="Colar de sementes e pedras" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </figure>
+            <figure class="car-slide" data-title="Cidade de Bonito — MS" data-desc="Águas cristalinas, mata e serra. Bonito é o cenário onde o ofício e o ecoturismo se encontram — a paisagem que sustenta o projeto." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
+              <img src="assets/bonito.avif" alt="Rio de águas cristalinas em Bonito" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </figure>
+          </div>
+        </div>
+
+        <button id="car-prev" aria-label="Imagem anterior" style="position: absolute; left: clamp(10px, 3vw, 44px); top: 50%; transform: translateY(-50%); z-index: 5; width: 56px; height: 56px; border-radius: 50%; border: 1px solid rgba(35,38,30,0.22); background: rgba(255,255,255,0.7); color: #23261E; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(20,16,8,0.1); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); transition: background .25s ease, border-color .25s ease, color .25s ease;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button id="car-next" aria-label="Próxima imagem" style="position: absolute; right: clamp(10px, 3vw, 44px); top: 50%; transform: translateY(-50%); z-index: 5; width: 56px; height: 56px; border-radius: 50%; border: 1px solid rgba(35,38,30,0.22); background: rgba(255,255,255,0.7); color: #23261E; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(20,16,8,0.1); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); transition: background .25s ease, border-color .25s ease, color .25s ease;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <div style="max-width: 760px; margin: clamp(30px, 4.5vh, 46px) auto 0; padding: 0 clamp(24px, 6vw, 40px); text-align: center;">
+          <h3 id="car-title" style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(22px, 2.6vw, 34px); line-height: 1.1; color: #23261E; margin: 0 0 13px;"></h3>
+          <p id="car-desc" style="font-size: clamp(14px, 1.2vw, 17px); line-height: 1.7; color: #4B4A3E; margin: 0 auto; max-width: 640px;"></p>
+          <div id="car-counter" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #A89A76; margin-top: clamp(20px, 3vh, 28px);"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== AVITURISMO — hero 3D com pássaro saindo do BG ==================== -->
+    <section id="avi-scroll" style="position: relative; height: 300vh; z-index: 3;">
+      <div style="position: sticky; top: 0; height: 100vh; overflow: visible; background: #FCFAF4;">
+
+        <!-- BG cobrindo toda a área do hero — encolhe no scroll (clip-path) -->
+        <div id="avi-bg-wrap" style="position: absolute; inset: 0; overflow: hidden; will-change: clip-path;">
+          <img id="avi-bg" src="assets/avi/bg.jpg" alt="" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; will-change: transform;">
+          <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(9,15,7,0.86) 0%, rgba(9,15,7,0.55) 34%, rgba(9,15,7,0.12) 64%, rgba(9,15,7,0.30) 100%);"></div>
+          <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9,15,7,0.30) 0%, rgba(9,15,7,0) 42%, rgba(9,15,7,0.42) 100%);"></div>
+        </div>
+
+        <!-- galho + pássaro atravessando de ponta a ponta -->
+        <img id="avi-bird" src="assets/avi/passaro-flip.png" alt="Ave típica do cerrado pousada em galho coberto de musgo" decoding="async"
+             style="position: absolute; left: -2%; top: 6%; width: 104%; z-index: 3; pointer-events: none; will-change: transform; filter: drop-shadow(0 30px 40px rgba(0,0,0,0.5));">
+
+        <!-- frases (cross-fade no scroll) -->
+        <div class="avi-msgs" style="position: absolute; top: 0; bottom: 0; left: 0; z-index: 4; display: flex; align-items: center; padding: 0 clamp(24px, 6vw, 110px); width: min(720px, 58vw);">
+          <div class="avi-msgbox" style="position: relative; width: 100%; height: 320px;">
+            <div class="avi-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 14px;">03 · A serra que canta</div>
+              <h2 style="font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(64px, 11vw, 168px); line-height: 0.92; letter-spacing: -0.02em; color: #F3F7EC; margin: 0 0 18px; text-shadow: 0 4px 40px rgba(0,0,0,0.55);">Avi<em style="font-style: italic; color: #7FE0CE;">turismo</em></h2>
+              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(20px, 2.4vw, 34px); line-height: 1.12; color: #F3F7EC; margin: 0; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">A serra da Bodoquena desperta em <em style="font-style: italic; color: #7FE0CE;">centenas de vozes</em>.</p>
+            </div>
+            <div class="avi-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 18px;">O olhar</div>
+              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #F3F7EC; margin: 0; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">A espera vira <em style="font-style: italic; color: #7FE0CE;">encontro</em> — cada ave, uma descoberta.</p>
+            </div>
+            <div class="avi-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 18px;">O destino</div>
+              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #F3F7EC; margin: 0; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">Observar para <em style="font-style: italic; color: #7FE0CE;">preservar</em> a mata que abriga o voo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== AVITURISMO — hero branco (sobre) ==================== -->
+    <section id="avi-sobre" style="position: relative; overflow: hidden; background: #FCFAF4;">
+      <!-- textura oculta (padrão de aves) revelada no MESMO blob orgânico da palha -->
+      <canvas id="avi-reveal-canvas" aria-hidden="true" style="position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
+      <div style="position: relative; z-index: 2; max-width: 1180px; margin: 0 auto; padding: clamp(70px, 13vh, 150px) clamp(24px, 6vw, 64px);">
+        <div class="avi-sobre-grid" style="display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(32px, 5vw, 72px); align-items: center;">
+          <div class="avi-motmot-wrap" style="position: relative; margin-left: clamp(-280px, -16vw, -80px);">
+            <img id="avi-motmot" src="assets/avi/motmot2.jpg" alt="Casal de udus-de-coroa-azul (motmots) em galho na mata" decoding="async" style="display: block; width: 100%; height: clamp(440px, 66vh, 720px); object-fit: cover; object-position: 30% center; border-radius: 3px; box-shadow: 0 40px 80px -20px rgba(20,28,14,0.45), 0 16px 32px -12px rgba(20,28,14,0.32);">
+          </div>
+          <div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 22px;">03 · Aviturismo</div>
+            <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 500; color: #23261E; margin-bottom: 26px;">Onde o cerrado <em style="font-style: italic; color: var(--accent, #0C82BA);">ganha asas</em>.</h2>
+            <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; max-width: 46ch;">Bonito e a serra da Bodoquena estão entre os melhores destinos de observação de aves do Brasil. O aviturismo une renda e conservação — cada avistamento é um novo motivo para manter a floresta de pé.</p>
+            <div style="margin-top: 36px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar as aves</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== MUSEU DA PESSOA — galeria de vídeos ==================== -->
+    <section id="museu" style="position: relative; background: #FCFAF4; color: #23261E;">
+
+      <!-- intro: hero com imagem full-bleed + textos que reagem ao scroll -->
+      <div id="museu-scroll" style="position: relative; height: 260vh;">
+        <div style="position: sticky; top: 0; height: 100vh; overflow: hidden;">
+          <img id="mp-hero-photo" src="assets/avi/cesto.jpg" alt="Mãos tecendo um cesto de fibra com padrão azul" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; will-change: transform;">
+          <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(4,26,36,0.82) 0%, rgba(4,26,36,0.55) 38%, rgba(4,26,36,0.15) 66%, rgba(4,26,36,0.05) 100%);"></div>
+
+          <!-- logo em destaque -->
+          <div style="position: absolute; top: clamp(88px, 14vh, 130px); left: clamp(24px, 6vw, 96px); z-index: 3;">
+            <img src="assets/museu-logo.svg" alt="Museu da Pessoa" class="mp-logo" decoding="async" style="display: block; width: clamp(220px, 26vw, 340px); height: auto; filter: drop-shadow(0 6px 22px rgba(0,0,0,0.45));">
+          </div>
+
+          <!-- textos (cross-fade no scroll) sobre a imagem -->
+          <div class="mp-msgs" style="position: absolute; left: clamp(24px, 6vw, 96px); top: 0; bottom: 0; z-index: 3; display: flex; align-items: center; width: min(620px, 52vw);">
+            <div class="mp-msgbox" style="position: relative; width: 100%; height: 360px;">
+              <div class="mp-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FD3F0; margin-bottom: 18px;">04 · Museu da Pessoa</div>
+                <h2 style="font-size: clamp(34px, 5vw, 66px); line-height: 1.03; font-weight: 500; color: #FBFDFF; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Cada vida é uma <em style="font-style: italic; color: #7FD3F0;">história</em>.</h2>
+              </div>
+              <div class="mp-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FD3F0; margin-bottom: 18px;">Acervo vivo</div>
+                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(28px, 3.8vw, 52px); line-height: 1.1; color: #FBFDFF; margin: 0; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Memórias, ofícios e travessias <em style="font-style: italic; color: #7FD3F0;">narrados por quem os viveu</em>.</p>
+              </div>
+              <div class="mp-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FD3F0; margin-bottom: 18px;">Como explorar</div>
+                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(28px, 3.8vw, 52px); line-height: 1.1; color: #FBFDFF; margin: 0; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Passe o cursor para <em style="font-style: italic; color: #7FD3F0;">prever</em> a história — clique para assistir.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 14px; max-width: 1440px; margin: 0 auto; padding: 0 clamp(12px,2vw,22px);">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #7C8A6A;">Acervo em vídeo</span>
+      </div>
+
+      <div class="mp-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: calc((100vw - 12px) / 4); grid-auto-flow: dense; gap: 4px; background: #FCFAF4; margin-top: clamp(18px, 3vh, 30px);">
+        <article class="mp-card" data-yt="aqz-KE-bpKQ" style="grid-column: span 2; grid-row: span 2;">
+          <img class="mp-thumb" src="https://i.ytimg.com/vi/aqz-KE-bpKQ/maxresdefault.jpg" alt="" loading="lazy" decoding="async">
+          <div class="mp-play" aria-hidden="true"><svg width="66" height="66" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
+          <div class="mp-meta">
+            <div style="font-family: 'Fraunces', serif; font-size: clamp(20px,1.9vw,30px); font-weight: 500; color: #fff; line-height: 1.12;">Dona Marlene, 82 anos</div>
+            <div class="mp-sum" style="font-size: 14px; line-height: 1.6; color: #CFE6EF; max-width: 42ch;">Fiandeira desde os nove anos, ela conta como o tear atravessou quatro gerações da família e virou sustento da vila inteira.</div>
+          </div>
+        </article>
+        <article class="mp-card" data-yt="ScMzIvxBSi4" style="grid-column: span 2; grid-row: span 1;">
+          <img class="mp-thumb" src="https://i.ytimg.com/vi/ScMzIvxBSi4/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <div class="mp-play" aria-hidden="true"><svg width="52" height="52" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
+          <div class="mp-meta">
+            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">O mestre luthier</div>
+            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Seu Antônio esculpe violas de cocho com madeira caída da mata.</div>
+          </div>
+        </article>
+        <article class="mp-card" data-yt="eRsGyueVLvQ" style="grid-column: span 2; grid-row: span 2;">
+          <img class="mp-thumb" src="https://i.ytimg.com/vi/eRsGyueVLvQ/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <div class="mp-play" aria-hidden="true"><svg width="52" height="52" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
+          <div class="mp-meta">
+            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">Vozes da maré</div>
+            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Pescadores relembram as cheias que mudaram o ritmo do rio.</div>
+          </div>
+        </article>
+        <article class="mp-card" data-yt="hFZFjoX2cGg" style="grid-column: span 2; grid-row: span 1;">
+          <img class="mp-thumb" src="https://i.ytimg.com/vi/hFZFjoX2cGg/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <div class="mp-play" aria-hidden="true"><svg width="52" height="52" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
+          <div class="mp-meta">
+            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">As mãos que tecem</div>
+            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">O grupo de artesãs mostra o segredo da fibra de buriti.</div>
+          </div>
+        </article>
+        <article class="mp-card" data-yt="YE7VzlLtp-4" style="grid-column: span 1; grid-row: span 2;">
+          <img class="mp-thumb" src="https://i.ytimg.com/vi/YE7VzlLtp-4/maxresdefault.jpg" alt="" loading="lazy" decoding="async">
+          <div class="mp-play" aria-hidden="true"><svg width="60" height="60" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
+          <div class="mp-meta">
+            <div style="font-family: 'Fraunces', serif; font-size: clamp(18px,1.5vw,26px); font-weight: 500; color: #fff; line-height: 1.12;">Travessia do sertão</div>
+            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF; max-width: 46ch;">A caravana que levou a primeira escola itinerante até as comunidades mais distantes da serra.</div>
+          </div>
+        </article>
+        <article class="mp-card" data-yt="kJQP7kiw5Fk" style="grid-column: span 1; grid-row: span 2;">
+          <img class="mp-thumb" src="https://i.ytimg.com/vi/kJQP7kiw5Fk/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <div class="mp-play" aria-hidden="true"><svg width="52" height="52" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
+          <div class="mp-meta">
+            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">Memória viva</div>
+            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Jovens registram os causos dos avós antes que se percam.</div>
+          </div>
+        </article>
+        <article class="mp-card" data-yt="1La4QzGeaaQ" style="grid-column: span 2; grid-row: span 2;">
+          <img class="mp-thumb" src="https://i.ytimg.com/vi/1La4QzGeaaQ/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <div class="mp-play" aria-hidden="true"><svg width="52" height="52" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
+          <div class="mp-meta">
+            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">O barro e o forno</div>
+            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">A ceramista narra a queima que dá cor às peças da região.</div>
+          </div>
+        </article>
+      </div>
+      <div aria-hidden="true" style="height: clamp(80px, 12vh, 160px); background: #FCFAF4;"></div>
+    </section>
+
+    <!-- ==================== INTERLÚDIO — olhar full-bleed antes da Prestação ==================== -->
+    <section id="prestacao-intro" style="position: relative; height: 100vh; min-height: 560px; overflow: hidden; background: #6E3B24;">
+      <img src="assets/prestacao-olhar.png" alt="Close nos olhos de uma pessoa da comunidade" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center;">
+      <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,10,6,0.55) 0%, rgba(20,10,6,0) 34%, rgba(20,10,6,0) 60%, rgba(20,10,6,0.78) 100%);"></div>
+      <div style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: clamp(40px,8vh,90px) clamp(24px,6vw,96px);">
+        <div style="max-width: 1440px; margin: 0 auto;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #F0B489; margin-bottom: clamp(14px,2vh,24px);">A seguir · Prestação de Contas</div>
+          <h2 style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(34px, 5.2vw, 82px); line-height: 1.02; color: #FBF3EA; margin: 0; max-width: 22ch; text-shadow: 0 3px 30px rgba(0,0,0,0.5);">Por trás de cada real, <em style="font-style: italic; color: #F0B489;">um olhar</em> que a gente transforma.</h2>
+        </div>
+      </div>
+      <div style="position: absolute; top: clamp(88px,14vh,130px); left: 50%; transform: translateX(-50%); z-index: 2; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(251,243,234,0.72);">↓ role para ver os números</div>
+    </section>
+
+    <!-- ==================== PRESTAÇÃO DE CONTAS — contador gigante no scroll ==================== -->
+    <section id="prestacao" style="position: relative; height: 360vh; background: #FCFAF4;">
+      <div class="pc-sticky" style="position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding: clamp(70px,10vh,120px) clamp(24px,6vw,96px) clamp(40px,7vh,80px);">
+        <canvas id="pc-reveal-canvas" aria-hidden="true" style="position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
+
+        <div style="position: relative; z-index: 2; max-width: 1440px; margin: 0 auto; width: 100%;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #2C6E49; margin-bottom: clamp(14px,2vh,26px);">05 · Prestação de contas</div>
+
+          <div class="pc-grid" style="display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); gap: clamp(24px,4vw,72px); align-items: center;">
+
+            <!-- número gigante -->
+            <div style="min-width: 0;">
+              <div style="display: flex; align-items: baseline; gap: 0.15em; line-height: 0.9;">
+                <span style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px,4vw,58px); color: #2C6E49;">R$</span>
+                <span id="pc-num" style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(72px,15vw,220px); color: #2C6E49; letter-spacing: -0.01em; font-variant-numeric: tabular-nums;">0</span>
+              </div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: clamp(12px,1.1vw,15px); letter-spacing: 0.14em; text-transform: uppercase; color: #7C8A6A; margin-top: clamp(10px,2vh,22px);">investidos na comunidade até aqui</div>
+              <div style="display: inline-flex; align-items: baseline; gap: 8px; margin-top: clamp(14px,2vh,22px); padding: 9px 16px; border-radius: 999px; background: rgba(44,110,73,0.1); border: 1px solid rgba(44,110,73,0.28);">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #2C6E49;">Total investido</span>
+                <span style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(16px,1.4vw,20px); color: #0C82BA;">R$ 184.320,00</span>
+              </div>
+
+              <!-- barra de progresso -->
+              <div style="margin-top: clamp(20px,3vh,34px); height: 6px; border-radius: 3px; background: rgba(44,110,73,0.14); overflow: hidden; max-width: 620px;">
+                <div id="pc-bar" style="height: 100%; width: 0%; background: #2C6E49; border-radius: 3px;"></div>
+              </div>
+            </div>
+
+            <!-- frases (cross-fade no scroll) -->
+            <div class="pc-msgwrap" style="position: relative; height: clamp(200px,32vh,300px); min-width: 0;">
+              <div class="pc-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">42% · Formação</div>
+                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">Oficinas e bolsas capacitaram <em style="font-style: italic; color: #2C6E49;">68 artesãos</em> da comunidade.</p>
+              </div>
+              <div class="pc-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">31% · Matéria-prima</div>
+                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">Fibra e palha colhidas de forma <em style="font-style: italic; color: #2C6E49;">sustentável</em> no cerrado.</p>
+              </div>
+              <div class="pc-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">18% · Feiras e logística</div>
+                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">As peças chegaram a <em style="font-style: italic; color: #2C6E49;">9 cidades</em> e a novos mercados.</p>
+              </div>
+              <div class="pc-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">9% · Novas gerações</div>
+                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">Bolsas para <em style="font-style: italic; color: #2C6E49;">jovens aprendizes</em> manterem o ofício vivo.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div style="margin-top: clamp(26px,4vh,48px); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">Cada real que entra e cada real que sai — aberto para qualquer pessoa consultar.</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- lightbox de vídeo em tela cheia -->
+  <div id="mp-fs" aria-hidden="true"
+       style="position: fixed; inset: 0; z-index: 96; background: rgba(3,12,16,0.96); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .35s ease, visibility .35s ease; display: flex; align-items: center; justify-content: center; padding: clamp(16px,4vw,64px);">
+    <button id="mp-fs-close" aria-label="Fechar vídeo" style="position: absolute; top: clamp(16px,3vw,30px); right: clamp(16px,3vw,30px); width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.1); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .25s ease, transform .25s ease; z-index: 2;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <div style="width: min(100%, 1400px); aspect-ratio: 16 / 9; max-height: 100%; box-shadow: 0 40px 120px rgba(0,0,0,0.6); border-radius: 4px; overflow: hidden; background: #000;">
+      <iframe id="mp-fs-iframe" title="Museu da Pessoa — vídeo" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+    </div>
+  </div>
+
+  <!-- ==================== GALERIA ESTENDIDA (overlay tipo mosaico) ==================== -->
+  <div id="mec-lb" aria-hidden="true"
+       style="position: fixed; inset: 0; z-index: 90; background: #FCFAF4; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .5s ease, visibility .5s ease; overflow-y: scroll; overscroll-behavior: contain; scrollbar-gutter: stable;">
+    <div id="mec-lb-head" style="position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: clamp(20px,2.6vw,30px) clamp(20px,4vw,52px); background: #E96C15; border-bottom: 1px solid rgba(120,52,4,0.35); box-shadow: 0 6px 24px rgba(120,52,4,0.18);">
+      <div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFE3C4; margin-bottom: 9px;">Galeria estendida</div>
+        <h3 id="mec-lb-title" style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(24px, 3vw, 40px); line-height: 1; color: #FBF8EE; margin: 0;"></h3>
+      </div>
+      <button id="mec-lb-close" aria-label="Fechar galeria" style="flex: 0 0 auto; width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(251,248,238,0.4); background: rgba(251,248,238,0.12); color: #FBF8EE; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .25s ease, transform .25s ease;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div id="mec-lb-grid" style="position: relative; z-index: 1; display: flex; flex-direction: column; gap: 6px; padding: 0 clamp(10px,2vw,22px) clamp(40px,7vh,80px);"></div>
+    <canvas id="mec-lb-reveal" aria-hidden="true" style="position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; display: none;"></canvas>
+  </div>
+
+  <!-- lightbox de imagem única -->
+  <footer style="position: relative; z-index: 2; background: #14110A; color: #EDE6D6; padding: clamp(28px,4vh,40px) clamp(24px,6vw,96px);">
+    <div style="max-width: 1440px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+      <span style="font-family: 'Fraunces', serif; font-size: 15px; color: rgba(237,230,214,0.55);">Marambaia Eco Criativa · Bonito · MS</span>
+      <a href="#" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(237,230,214,0.6); text-decoration: none; transition: color .25s ease;" onmouseover="this.style.color='#EDE6D6'" onmouseout="this.style.color='rgba(237,230,214,0.6)'">Feito por Beyond Bits</a>
+    </div>
+  </footer>
+
+  <div id="mec-zoom" aria-hidden="true"
+       style="position: fixed; inset: 0; z-index: 95; background: rgba(35,38,30,0.92); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .35s ease, visibility .35s ease; display: flex; align-items: center; justify-content: center; padding: clamp(16px,4vw,60px); cursor: zoom-out;">
+    <img id="mec-zoom-img" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 40px 120px rgba(0,0,0,0.6); border-radius: 2px;">
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#0C82BA&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#0C82BA&quot;,&quot;#1F9CB8&quot;,&quot;#5C7A3A&quot;,&quot;#C29A3B&quot;]},&quot;revealRadius&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:160,&quot;min&quot;:90,&quot;max&quot;:360,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Trança de palha&quot;},&quot;textureOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.85,&quot;min&quot;:0.2,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Trança de palha&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    const root = document.documentElement;
+    const P = this.props || {};
+    root.style.setProperty('--accent', P.accent ?? '#0C82BA');
+    this.baseR = P.revealRadius ?? 160;
+    this.texOpacity = P.textureOpacity ?? 0.85;
+
+    this.reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---------- WOVEN PALHA TEXTURE (canvas) ----------
+    this.canvas = document.getElementById('straw-canvas');
+    this.canvas.style.opacity = String(this.texOpacity);
+    this.ctx = this.canvas.getContext('2d');
+    this.angle = -0.5;      // weave tilt
+    this.s = 22;            // strand cell size (px)
+    this.warp = 'rgba(176,148,84,0.95)';   // over strands (palha, darker)
+    this.weft = 'rgba(206,182,120,0.72)';  // under strands (palha, lighter)
+    this.tx = -900; this.ty = -900; this.cx = -900; this.cy = -900; this.seen = false;
+
+    this._resize = () => this.setupCanvas();
+    window.addEventListener('resize', this._resize);
+    this.setupCanvas();
+
+    window.addEventListener('pointermove', (e) => { this.tx = e.clientX; this.ty = e.clientY; this.seen = true; }, { passive: true });
+
+    const tick = (t) => {
+      this.drawWeave(t * 0.001);
+      this._raf = requestAnimationFrame(tick);
+    };
+    this._raf = requestAnimationFrame(tick);
+
+    this._setupCarousel();
+    this._setupLightbox();
+    this._setupAviReveal();
+    this._setupMuseu();
+    this._setupMobileNav();
+
+    // ---------- wait for libs, then wire scroll reveal ----------
+    this._dead = false;
+    const waitLibs = (elapsed) => {
+      if (this._dead) return;
+      if (window.gsap && window.ScrollTrigger) return this._initScroll();
+      if (elapsed > 8000) return this._fallback();
+      setTimeout(() => waitLibs(elapsed + 80), 80);
+    };
+    waitLibs(0);
+  }
+
+  setupCanvas() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.W = window.innerWidth; this.H = window.innerHeight;
+    this.canvas.width = Math.round(this.W * dpr);
+    this.canvas.height = Math.round(this.H * dpr);
+    this.dpr = dpr;
+    this.R = 0.5 * Math.sqrt(this.W * this.W + this.H * this.H) + this.s * 2;
+    this.n = Math.ceil((2 * this.R) / this.s) + 2;
+  }
+
+  drawWeave(t) {
+    const ctx = this.ctx; if (!ctx) return;
+    // ease cursor
+    this.cx += (this.tx - this.cx) * 0.16;
+    this.cy += (this.ty - this.cy) * 0.16;
+
+    ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    ctx.clearRect(0, 0, this.W, this.H);
+    if (!this.seen) return;
+
+    // ---- organic, living blob clip in screen space ----
+    const R = this.baseR;
+    const pts = 16;
+    const rad = (a) => R * (1 + 0.18 * Math.sin(a * 3 + t * 1.1) + 0.11 * Math.cos(a * 2 - t * 0.8) + 0.06 * Math.sin(a * 5 + t * 1.7));
+    const Pt = [];
+    for (let k = 0; k < pts; k++) { const a = (k / pts) * Math.PI * 2; const r = rad(a); Pt.push([this.cx + Math.cos(a) * r, this.cy + Math.sin(a) * r]); }
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo((Pt[pts - 1][0] + Pt[0][0]) / 2, (Pt[pts - 1][1] + Pt[0][1]) / 2);
+    for (let k = 0; k < pts; k++) { const c = Pt[k], nx = Pt[(k + 1) % pts]; ctx.quadraticCurveTo(c[0], c[1], (c[0] + nx[0]) / 2, (c[1] + nx[1]) / 2); }
+    ctx.closePath();
+    ctx.clip();
+
+    // ---- draw woven strands inside clip ----
+    ctx.translate(this.W / 2, this.H / 2);
+    ctx.rotate(this.angle);
+    ctx.lineCap = 'round';
+    // cursor in local (rotated) space, for culling
+    const ca = Math.cos(-this.angle), sa = Math.sin(-this.angle);
+    const dx = this.cx - this.W / 2, dy = this.cy - this.H / 2;
+    const lx = ca * dx - sa * dy, ly = sa * dx + ca * dy;
+    const maxR = R * 1.4, s = this.s, over = s * 0.16;
+
+    for (let j = 0; j < this.n; j++) {
+      const y = j * s - this.R;
+      if (y + s / 2 < ly - maxR || y + s / 2 > ly + maxR) continue;
+      for (let i = 0; i < this.n; i++) {
+        const x = i * s - this.R;
+        const mcx = x + s / 2, mcy = y + s / 2;
+        const ddx = mcx - lx, ddy = mcy - ly;
+        if (ddx * ddx + ddy * ddy > maxR * maxR) continue;
+        const vertical = ((i + j) % 4) < 2;   // 2/2 twill
+        ctx.strokeStyle = vertical ? this.warp : this.weft;
+        ctx.lineWidth = vertical ? 2.2 : 1.6;
+        ctx.beginPath();
+        if (vertical) { ctx.moveTo(mcx, y - over); ctx.lineTo(mcx, y + s + over); }
+        else { ctx.moveTo(x - over, mcy); ctx.lineTo(x + s + over, mcy); }
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  _setupCarousel() {
+    const viewport = document.getElementById('car-viewport');
+    const track = document.getElementById('car-track');
+    const slides = Array.prototype.slice.call(document.querySelectorAll('.car-slide'));
+    const prev = document.getElementById('car-prev');
+    const next = document.getElementById('car-next');
+    const capTitle = document.getElementById('car-title');
+    const capDesc = document.getElementById('car-desc');
+    const counter = document.getElementById('car-counter');
+    if (!track || !slides.length) return;
+
+    this._idx = 0;
+    this._targetX = 0;
+    this._curX = 0;
+    this._carInView = false;
+    this._gap = 30;
+
+    const layout = () => {
+      const vw = viewport.clientWidth || window.innerWidth;
+      this._gap = vw < 700 ? 14 : 30;
+      const frac = vw < 700 ? 0.86 : 0.72;
+      const slideW = Math.min(1080, Math.round(vw * frac));
+      const slideH = Math.round(slideW * (vw < 700 ? 0.62 : 0.52));
+      slides.forEach((s) => { s.style.width = slideW + 'px'; s.style.height = slideH + 'px'; s.style.marginRight = this._gap + 'px'; });
+      this._slideW = slideW;
+      this._vw = vw;
+      this._apply(false);
+    };
+
+    this._apply = (snap) => {
+      const step = this._slideW + this._gap;
+      this._targetX = this._vw / 2 - (this._idx * step + this._slideW / 2);
+      if (snap) this._curX = this._targetX;
+      slides.forEach((s, i) => {
+        const active = i === this._idx;
+        s.style.opacity = '1';
+        s.style.transform = active ? 'scale(1)' : 'scale(0.9)';
+        s.style.filter = active ? 'none' : 'saturate(0.6) brightness(0.5)';
+      });
+      const a = slides[this._idx];
+      if (capTitle) capTitle.textContent = a.getAttribute('data-title') || '';
+      if (capDesc) capDesc.textContent = a.getAttribute('data-desc') || '';
+      if (counter) counter.textContent = String(this._idx + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+      if (prev) prev.style.opacity = this._idx === 0 ? '0.35' : '1';
+      if (next) next.style.opacity = this._idx === slides.length - 1 ? '0.35' : '1';
+    };
+
+    const go = (d) => { this._idx = Math.max(0, Math.min(slides.length - 1, this._idx + d)); this._apply(false); };
+    if (prev) prev.addEventListener('click', () => go(-1));
+    if (next) next.addEventListener('click', () => go(1));
+    this._slides = slides;
+
+    // button hover
+    [prev, next].forEach((b) => { if (!b) return;
+      b.addEventListener('mouseenter', () => { b.style.background = 'var(--accent, #0C82BA)'; b.style.borderColor = 'transparent'; b.style.color = '#FBF8EE'; });
+      b.addEventListener('mouseleave', () => { b.style.background = 'rgba(255,255,255,0.7)'; b.style.borderColor = 'rgba(35,38,30,0.22)'; b.style.color = '#23261E'; });
+    });
+
+    // keyboard (only when carousel is on screen)
+    this._onKey = (e) => { if (!this._carInView) return; if (e.key === 'ArrowLeft') go(-1); else if (e.key === 'ArrowRight') go(1); };
+    window.addEventListener('keydown', this._onKey);
+    if (window.IntersectionObserver) {
+      this._carIO = new IntersectionObserver((ents) => { ents.forEach(en => { this._carInView = en.isIntersecting; }); }, { threshold: 0.3 });
+      this._carIO.observe(document.getElementById('galeria'));
+    } else { this._carInView = true; }
+
+    // pointer swipe + tap
+    let dragging = false, startX = 0, startIdx = 0, downSlide = -1;
+    viewport.addEventListener('pointerdown', (e) => {
+      dragging = true; startX = e.clientX; startIdx = this._idx;
+      const fig = e.target.closest ? e.target.closest('.car-slide') : null;
+      downSlide = fig ? slides.indexOf(fig) : -1;
+      viewport.setPointerCapture(e.pointerId);
+    });
+    viewport.addEventListener('pointermove', (e) => { if (!dragging) return; this._curX = this._targetX + (e.clientX - startX) * 0.6; });
+    const endDrag = (e) => {
+      if (!dragging) return; dragging = false;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 60) {
+        const ni = Math.max(0, Math.min(slides.length - 1, startIdx - Math.sign(dx)));
+        if (ni !== this._idx && this._spawnWave) this._spawnWave(-Math.sign(dx));
+        this._idx = ni;
+        this._apply(false);
+      } else if (Math.abs(dx) < 8 && downSlide >= 0) {
+        // toque/clique: slide não-ativo seleciona, slide ativo abre a galeria
+        if (downSlide !== this._idx) { this._idx = downSlide; this._apply(false); }
+        else { this._openGallery(downSlide); }
+      } else {
+        this._apply(false);
+      }
+    };
+    viewport.addEventListener('pointerup', endDrag);
+    viewport.addEventListener('pointercancel', endDrag);
+
+    this._carResize = layout;
+    window.addEventListener('resize', layout);
+    layout();
+    this._apply(true);
+
+    const anim = () => {
+      this._curX += (this._targetX - this._curX) * 0.11;
+      track.style.transform = 'translate3d(' + this._curX + 'px,0,0)';
+      this._galRaf = requestAnimationFrame(anim);
+    };
+    this._galRaf = requestAnimationFrame(anim);
+  }
+
+  _setupRipple() {
+    if (this.reduce) return;
+    const viewport = document.getElementById('car-viewport');
+    const canvas = document.getElementById('ripple-canvas');
+    if (!viewport || !canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    // ---- pré-renderiza um ladrilho de palha trançada ----
+    const tile = document.createElement('canvas');
+    const TS = 46; tile.width = TS; tile.height = TS;
+    const tctx = tile.getContext('2d');
+    const s = 11.5, warp = 'rgba(176,148,84,0.95)', weft = 'rgba(210,186,126,0.82)';
+    tctx.lineCap = 'round';
+    for (let j = 0; j < 4; j++) for (let i = 0; i < 4; i++) {
+      const x = i * s, y = j * s, vertical = ((i + j) % 4) < 2;
+      tctx.strokeStyle = vertical ? warp : weft;
+      tctx.lineWidth = vertical ? 4 : 3;
+      tctx.beginPath();
+      if (vertical) { tctx.moveTo(x + s / 2, y - 2); tctx.lineTo(x + s / 2, y + s + 2); }
+      else { tctx.moveTo(x - 2, y + s / 2); tctx.lineTo(x + s + 2, y + s / 2); }
+      tctx.stroke();
+    }
+    const pattern = ctx.createPattern(tile, 'repeat');
+
+    let dpr = 1, W = 0, H = 0;
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = viewport.clientWidth; H = viewport.clientHeight;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    };
+    resize(); this._ripResize = resize; window.addEventListener('resize', resize);
+
+    this._ripples = [];
+    const intensity = (this.texOpacity != null ? this.texOpacity : 0.85);
+    // disparado na troca de slide: pedra caindo na água — anéis concêntricos revelam a palha
+    this._spawnWave = () => {
+      this._ripples.push({ x: W * 0.5, y: H * 0.5, t0: performance.now() });
+      if (this._ripples.length > 3) this._ripples.shift();
+    };
+
+    const LIFE = 1600, RINGS = 4, SPACING = 52, BAND = 15;
+    const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+    const draw = () => {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      const now = performance.now();
+      const MAXR = Math.hypot(W, H) * 0.6;
+      for (let n = this._ripples.length - 1; n >= 0; n--) {
+        const rp = this._ripples[n], a = (now - rp.t0) / LIFE;
+        if (a >= 1) { this._ripples.splice(n, 1); continue; }
+        const front = easeOut(a) * MAXR;
+        for (let k = 0; k < RINGS; k++) {
+          const rr = front - k * SPACING;
+          if (rr <= 4) continue;
+          // cada anel some conforme cresce e conforme o tempo passa — suave e elegante
+          const fade = Math.max(0, 1 - rr / MAXR);
+          const alpha = (1 - a) * fade * (1 - k * 0.16) * intensity;
+          if (alpha <= 0.015) continue;
+          const wob = (rad, sign) => {
+            const pts = 46;
+            for (let p = 0; p <= pts; p++) {
+              const ang = (p / pts) * Math.PI * 2;
+              const w = rad + sign * 1.8 * Math.sin(ang * 5 + a * 4 + k);
+              const px = rp.x + Math.cos(ang) * w, py = rp.y + Math.sin(ang) * w;
+              if (p === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+            }
+          };
+          ctx.save();
+          ctx.beginPath();
+          wob(rr, 1); ctx.closePath();
+          wob(Math.max(0, rr - BAND), -1); ctx.closePath();
+          ctx.clip('evenodd');
+          ctx.globalAlpha = alpha;
+          ctx.fillStyle = pattern;
+          ctx.fillRect(0, 0, W, H);
+          ctx.restore();
+        }
+      }
+      this._ripRaf = requestAnimationFrame(draw);
+    };
+    this._ripRaf = requestAnimationFrame(draw);
+  }
+
+  _setupLightbox() {
+    // fotos-placeholder compartilhadas por todas as categorias (proporção real)
+    this._photos = [
+      { src: 'assets/galeria/foto-6.jpg', ar: 1400/933, caption: 'Mãos que herdaram o ofício de gerações.' },
+      { src: 'assets/galeria/foto-2.jpg', ar: 1400/933, caption: 'No balcão, cada peça conta a sua origem.' },
+      { src: 'assets/galeria/foto-4.jpg', ar: 1400/786, caption: 'O barro ganha forma diante do público.' },
+      { src: 'assets/galeria/foto-8.jpg', ar: 1400/933, caption: 'Sementes e fibras viram adorno.' },
+      { src: 'assets/galeria/foto-1.jpg', ar: 1400/933, caption: 'Cestaria de palha colhida no cerrado.' },
+      { src: 'assets/galeria/foto-5.jpg', ar: 1400/933, caption: 'A feira reúne mestres de toda a região.' },
+      { src: 'assets/galeria/foto-10.jpg', ar: 1400/785, caption: 'A câmera registra o saber que se transmite.' },
+      { src: 'assets/galeria/foto-3.jpg', ar: 1400/933, caption: 'Rodas de conversa mantêm viva a memória.' },
+      { src: 'assets/galeria/foto-9.jpg', ar: 1400/933, caption: 'Bonito Eco Criativa: vitrine do artesanato local.' },
+      { src: 'assets/galeria/foto-7.jpg', ar: 1400/933, caption: 'Sorrisos que celebram o trabalho coletivo.' }
+    ];
+    this._lb = document.getElementById('mec-lb');
+    this._avesPhotos = [
+      { src: 'assets/avi/ave-1.jpg', caption: 'A observação começa antes do sol nascer.' },
+      { src: 'assets/avi/ave-2.jpg', caption: 'Identifica-se pelo canto antes de ver.' },
+      { src: 'assets/avi/ave-3.jpg', caption: 'Binóculo em punho, paciência no olhar.' },
+      { src: 'assets/avi/ave-4.jpg', caption: 'Guias locais conduzem aos melhores pontos.' },
+      { src: 'assets/avi/ave-5.jpg', caption: 'Cada avistamento vira registro de campo.' },
+      { src: 'assets/avi/ave-6.jpg', caption: 'A mata em pé é o maior atrativo.' },
+      { src: 'assets/avi/ave-7.jpg', caption: 'Silêncio e distância respeitam as aves.' },
+      { src: 'assets/avi/ave-8.jpg', caption: 'Observar é também um jeito de conservar.' }
+    ];
+    this._activePhotos = this._photos;
+    this._aviBlog = [
+      { src: 'assets/avi/ave-1.jpg', kicker: '01 · Trilhas ao amanhecer', sub: 'quando a mata acorda primeiro', title: 'Caminhadas guiadas na primeira luz', body: 'As saídas mais procuradas partem antes do sol, quando a serra desperta e os cantos se sobrepõem. Em grupos pequenos, os visitantes caminham devagar por trilhas abertas na mata, parando a cada movimento entre as folhas. É a atividade de entrada do aviturismo — acessível, contemplativa e guiada do começo ao fim.' },
+      { src: 'assets/avi/ave-6.jpg', kicker: '02 · Pontos de observação', sub: 'esperar em silêncio, ver mais', title: 'Mirantes e beiras de rio da Bodoquena', body: 'A região oferece pontos fixos onde as aves se concentram: bebedouros, clareiras e beiras de rio. Instalados em silêncio, os observadores esperam o movimento chegar até eles. São roteiros ideais para quem quer densidade de espécies sem longas caminhadas.' },
+      { src: 'assets/avi/ave-2.jpg', kicker: '03 · Fotografia de natureza', sub: 'o instante que não se repete', title: 'Lentes atentas ao voo', body: 'A fotografia de aves é uma das práticas que mais cresce em Bonito. Com teleobjetivas e muita paciência, fotógrafos registram plumagens e comportamentos raros. As saídas fotográficas têm ritmo próprio: menos distância percorrida, mais tempo parado no mesmo ponto.' },
+      { src: 'assets/avi/ave-3.jpg', kicker: '04 · Condutores locais', sub: 'o saber que vira sustento', title: 'Roteiros com quem conhece a mata', body: 'Moradores formados como condutores ambientais são o coração do aviturismo local. Conhecem os horários, os cantos e os melhores pontos de cada estação — e transformam esse saber em renda para a comunidade. Contratar um guia local é parte da experiência.' },
+      { src: 'assets/avi/ave-5.jpg', kicker: '05 · Ciência cidadã', sub: 'observar também é registrar', title: 'Cada registro ajuda a mapear a fauna', body: 'Muitos passeios incluem o registro das espécies avistadas em cadernetas e aplicativos. Esses dados alimentam inventários da fauna e ajudam pesquisadores a acompanhar a saúde da serra. Observar, aqui, também é contribuir.' },
+      { src: 'assets/avi/ave-4.jpg', kicker: '06 · Conservação', sub: 'a floresta em pé vale mais', title: 'Turismo de baixo impacto', body: 'Todas as atividades seguem o mesmo princípio: respeitar a distância, o silêncio e o ritmo das aves. O aviturismo prova que a floresta em pé vale mais — e que a economia da observação é aliada da conservação da Bodoquena.' }
+    ];
+    const motmot = document.getElementById('avi-motmot');
+    if (motmot) {
+      motmot.style.cursor = 'zoom-in';
+      motmot.addEventListener('click', () => this._openGallery(null, { title: 'Aviturismo — atividades na região', photos: this._aviBlog, theme: 'green', mode: 'blog' }));
+    }
+    this._lbHead = document.getElementById('mec-lb-head');
+    this._lbTitle = document.getElementById('mec-lb-title');
+    this._lbGrid = document.getElementById('mec-lb-grid');
+    this._zoom = document.getElementById('mec-zoom');
+    this._zoomImg = document.getElementById('mec-zoom-img');
+    const closeBtn = document.getElementById('mec-lb-close');
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => this._closeGallery());
+      closeBtn.addEventListener('mouseenter', () => { closeBtn.style.background = 'rgba(251,248,238,0.26)'; closeBtn.style.transform = 'rotate(90deg)'; });
+      closeBtn.addEventListener('mouseleave', () => { closeBtn.style.background = 'rgba(251,248,238,0.12)'; closeBtn.style.transform = 'none'; });
+    }
+    if (this._zoom) this._zoom.addEventListener('click', () => this._closeZoom());
+    this._lbKey = (e) => {
+      if (e.key !== 'Escape') return;
+      if (this._zoom && this._zoom.getAttribute('aria-hidden') === 'false') this._closeZoom();
+      else if (this._lb && this._lb.getAttribute('aria-hidden') === 'false') this._closeGallery();
+    };
+    window.addEventListener('keydown', this._lbKey);
+    // impede que o Lenis capture o scroll — deixa a overlay rolar nativamente
+    if (this._lb) {
+      this._lb.addEventListener('wheel', (e) => { e.stopPropagation(); }, { passive: true, capture: true });
+      this._lb.addEventListener('touchmove', (e) => { e.stopPropagation(); }, { passive: true, capture: true });
+    }
+    this._lbRelayout = () => { if (this._lb && this._lb.getAttribute('aria-hidden') === 'false') this._buildJustified(); };
+    window.addEventListener('resize', this._lbRelayout);
+    this._makeReveal('mec-lb', 'mec-lb-reveal', 'assets/avi/aves-pattern.jpg', '_lbRev', '_lbRevRAF', '_lbRevResize');
+  }
+
+  // mosaico denso: células quadradas, tiles grandes (2x2), largos (2x1) e altos (1x2)
+  // encaixam num padrão que tesela — grid-auto-flow:dense elimina espaços vazios
+  _buildJustified() {
+    const grid = this._lbGrid; if (!grid) return;
+    const gap = 6;
+    const cs = getComputedStyle(grid);
+    const cw = grid.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+    if (!cw || cw < 1) return;
+
+    // modo "blog": artigos verticais (imagem + texto) sobre as atividades
+    if (this._galleryMode === 'blog') { this._buildBlog(); return; }
+
+    grid.style.padding = '0 clamp(10px,2vw,22px) clamp(40px,7vh,80px)';
+    // modo "inteiro": masonry por colunas — cada foto aparece completa (sem corte)
+    if (this._galleryMode === 'whole') {
+      const cols = cw < 560 ? 2 : cw < 1000 ? 3 : 4;
+      grid.style.display = 'block';
+      grid.style.columnCount = cols;
+      grid.style.columnGap = gap + 'px';
+      grid.style.gridTemplateColumns = '';
+      grid.style.gridAutoRows = '';
+      grid.style.gap = '';
+      grid.innerHTML = '';
+      this._activePhotos.forEach((p) => {
+        const fig = document.createElement('figure');
+        fig.style.cssText = 'margin:0 0 ' + gap + 'px;break-inside:avoid;overflow:hidden;position:relative;cursor:zoom-in;background:#EDE9DD;';
+        const img = document.createElement('img');
+        img.src = p.src; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+        img.style.cssText = 'width:100%;height:auto;display:block;transition:transform .6s cubic-bezier(.2,.7,.2,1);transform:scale(1.001);';
+        fig.appendChild(img);
+        this._addCaption(fig, p.caption);
+        fig.addEventListener('mouseenter', () => { img.style.transform = 'scale(1.05)'; this._hoverCap(fig, true); });
+        fig.addEventListener('mouseleave', () => { img.style.transform = 'scale(1.001)'; this._hoverCap(fig, false); });
+        fig.addEventListener('click', () => this._openZoom(p.src));
+        grid.appendChild(fig);
+      });
+      return;
+    }
+
+    grid.style.columnCount = '';
+    const cols = cw < 560 ? 2 : cw < 1000 ? 3 : cw < 1500 ? 4 : 5;
+    const base = (cw - (cols - 1) * gap) / cols;
+    grid.style.display = 'grid';
+    grid.style.gridTemplateColumns = 'repeat(' + cols + ', 1fr)';
+    grid.style.gridAutoRows = base + 'px';
+    grid.style.gridAutoFlow = 'row dense';
+    grid.style.gap = gap + 'px';
+    grid.innerHTML = '';
+    const photos = this._activePhotos.concat(this._activePhotos);
+    const spans = this._spanPattern(cols);
+    photos.forEach((p, i) => {
+      const sp = spans[i % spans.length];
+      grid.appendChild(this._tile(p, sp[0], sp[1]));
+    });
+  }
+
+  // padrões que teselam perfeitamente para cada nº de colunas
+  _spanPattern(cols) {
+    if (cols >= 5) return [[2,2],[1,1],[1,1],[1,2],[2,1],[1,1],[1,1],[1,1],[2,2],[1,1],[1,1],[1,1],[1,1]];
+    if (cols === 4) return [[2,2],[1,1],[1,1],[1,2],[1,1],[2,1],[1,1],[1,1],[1,1],[1,1]];
+    if (cols === 3) return [[2,2],[1,1],[1,1],[1,2],[1,1],[2,1]];
+    return [[2,2],[1,1],[1,1],[1,1],[1,1]];
+  }
+
+  _tile(item, cspan, rspan) {
+    const fig = document.createElement('figure');
+    fig.style.cssText = 'margin:0;overflow:hidden;position:relative;cursor:zoom-in;background:#EDE9DD;grid-column:span ' + cspan + ';grid-row:span ' + rspan + ';min-width:0;';
+    const img = document.createElement('img');
+    img.src = item.src; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.7,.2,1);transform:scale(1.001);';
+    fig.appendChild(img);
+    this._addCaption(fig, item.caption);
+    fig.addEventListener('mouseenter', () => { img.style.transform = 'scale(1.07)'; this._hoverCap(fig, true); });
+    fig.addEventListener('mouseleave', () => { img.style.transform = 'scale(1.001)'; this._hoverCap(fig, false); });
+    fig.addEventListener('click', () => this._openZoom(item.src));
+    return fig;
+  }
+
+  _addCaption(fig, caption) {
+    if (!caption) return;
+    const vig = document.createElement('div');
+    vig.style.cssText = 'position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .5s ease;background:linear-gradient(to top, rgba(11,8,4,0.88) 0%, rgba(11,8,4,0.5) 30%, rgba(11,8,4,0) 60%), radial-gradient(130% 130% at 50% 42%, rgba(0,0,0,0) 42%, rgba(0,0,0,0.55) 100%);';
+    const cap = document.createElement('figcaption');
+    cap.textContent = caption;
+    cap.style.cssText = 'position:absolute;left:0;right:0;bottom:0;z-index:2;padding:clamp(14px,1.5vw,22px);color:#FBF3E6;font-family:Fraunces,serif;font-weight:500;font-size:clamp(14px,1.15vw,19px);line-height:1.25;letter-spacing:0.005em;opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .55s cubic-bezier(.2,.7,.2,1);text-shadow:0 2px 14px rgba(0,0,0,0.5);pointer-events:none;';
+    fig.appendChild(vig); fig.appendChild(cap);
+    fig._vig = vig; fig._cap = cap;
+  }
+
+  _hoverCap(fig, on) {
+    if (!fig._vig) return;
+    fig._vig.style.opacity = on ? '1' : '0';
+    fig._cap.style.opacity = on ? '1' : '0';
+    fig._cap.style.transform = on ? 'translateY(0)' : 'translateY(14px)';
+  }
+
+  _buildBlog() {
+    const grid = this._lbGrid; if (!grid) return;
+    grid.style.columnCount = '';
+    grid.style.display = 'block';
+    grid.style.gridTemplateColumns = '';
+    grid.style.gridAutoRows = '';
+    grid.style.gap = '';
+    grid.style.padding = '0';
+    grid.innerHTML = '';
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'max-width:1120px;margin:0 auto;padding:clamp(40px,7vh,88px) clamp(22px,5vw,44px) clamp(60px,10vh,120px);';
+    const intro = document.createElement('p');
+    intro.textContent = 'Na serra da Bodoquena, o aviturismo se traduz em atividades para todos os ritmos — do passeio contemplativo à fotografia especializada. Conheça o que se pratica na região.';
+    intro.style.cssText = 'font-family:Fraunces,serif;font-style:italic;font-size:clamp(19px,2.1vw,28px);line-height:1.5;color:#2E3A22;margin:0 0 clamp(44px,7vh,80px);max-width:32ch;';
+    wrap.appendChild(intro);
+    const twoCol = grid.clientWidth >= 720;
+    this._activePhotos.forEach((post) => {
+      const art = document.createElement('article');
+      art.style.cssText = twoCol
+        ? 'display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,4vw,64px);align-items:center;margin-bottom:clamp(52px,9vh,104px);'
+        : 'margin-bottom:clamp(48px,8vh,96px);';
+      const fig = document.createElement('figure');
+      fig.style.cssText = 'margin:0' + (twoCol ? '' : ' 0 clamp(20px,3vh,30px)') + ';overflow:hidden;border-radius:3px;position:relative;cursor:zoom-in;background:#EDE9DD;box-shadow:0 24px 50px -22px rgba(20,28,14,0.4);';
+      const img = document.createElement('img');
+      img.src = post.src; img.alt = post.title || ''; img.loading = 'lazy'; img.decoding = 'async';
+      img.style.cssText = 'width:100%;height:auto;display:block;transition:transform .7s cubic-bezier(.2,.7,.2,1);transform:scale(1.001);';
+      fig.appendChild(img);
+      fig.addEventListener('mouseenter', () => { img.style.transform = 'scale(1.05)'; });
+      fig.addEventListener('mouseleave', () => { img.style.transform = 'scale(1.001)'; });
+      fig.addEventListener('click', () => this._openZoom(post.src));
+      art.appendChild(fig);
+      const txt = document.createElement('div');
+      const kicker = document.createElement('div');
+      kicker.textContent = post.kicker || '';
+      kicker.style.cssText = 'font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#5C7A3A;margin-bottom:14px;';
+      const h = document.createElement('h4');
+      h.textContent = post.title || '';
+      h.style.cssText = 'font-family:Fraunces,serif;font-weight:500;font-size:clamp(24px,3vw,38px);line-height:1.12;color:#23261E;margin:0 0 10px;';
+      const sub = document.createElement('div');
+      sub.textContent = post.sub || '';
+      sub.style.cssText = 'font-family:Fraunces,serif;font-style:italic;font-size:clamp(17px,1.7vw,23px);line-height:1.25;color:#2C6E49;margin:0 0 18px;';
+      const body = document.createElement('p');
+      body.textContent = post.body || '';
+      body.style.cssText = 'font-size:clamp(15px,1.25vw,17.5px);line-height:1.78;color:#4B4A3E;margin:0;max-width:52ch;';
+      txt.appendChild(kicker); txt.appendChild(h); if (post.sub) txt.appendChild(sub); txt.appendChild(body);
+      art.appendChild(txt);
+      wrap.appendChild(art);
+    });
+    grid.appendChild(wrap);
+  }
+
+  _openGallery(idx, opts) {
+    if (!this._lb) return;
+    let title;
+    if (opts) {
+      title = opts.title || '';
+      this._activePhotos = opts.photos || this._photos;
+      this._galleryMode = opts.mode || 'mosaic';
+    } else {
+      const s = (this._slides && this._slides[idx]) || null;
+      title = s ? (s.getAttribute('data-title') || '') : '';
+      this._activePhotos = this._photos;
+      this._galleryMode = 'mosaic';
+    }
+    if (this._lbTitle) this._lbTitle.textContent = title;
+    // header: laranja padrão; azul-água p/ Bonito; verde p/ aviturismo
+    if (this._lbHead) {
+      const theme = opts && opts.theme ? opts.theme : (/bonito/i.test(title) ? 'water' : 'orange');
+      const map = {
+        orange: ['#E96C15', 'rgba(120,52,4,0.35)', 'rgba(120,52,4,0.18)'],
+        water:  ['#0E7FB0', 'rgba(6,54,78,0.4)', 'rgba(6,54,78,0.22)'],
+        green:  ['#356B34', 'rgba(20,48,18,0.4)', 'rgba(20,48,18,0.22)']
+      };
+      const c = map[theme] || map.orange;
+      this._lbHead.style.background = c[0];
+      this._lbHead.style.borderBottom = '1px solid ' + c[1];
+      this._lbHead.style.boxShadow = '0 6px 24px ' + c[2];
+    }
+    this._lb.setAttribute('aria-hidden', 'false');
+    const rev = document.getElementById('mec-lb-reveal');
+    if (rev) {
+      if (this._galleryMode === 'blog') { rev.style.display = 'block'; if (this._lbRevResize) requestAnimationFrame(() => this._lbRevResize()); }
+      else { rev.style.display = 'none'; }
+    }
+    this._lb.style.visibility = 'visible';
+    this._lb.style.pointerEvents = 'auto';
+    this._lb.scrollTop = 0;
+    requestAnimationFrame(() => { this._lb.style.opacity = '1'; });
+    document.body.style.overflow = 'hidden';
+    if (this._lenis) { try { this._lenis.stop(); } catch (e) {} }
+    this._buildJustified();
+    requestAnimationFrame(() => this._buildJustified());
+  }
+
+  _closeGallery() {
+    if (!this._lb) return;
+    this._lb.style.opacity = '0';
+    this._lb.style.pointerEvents = 'none';
+    this._lb.setAttribute('aria-hidden', 'true');
+    setTimeout(() => { if (this._lb.getAttribute('aria-hidden') === 'true') this._lb.style.visibility = 'hidden'; }, 500);
+    document.body.style.overflow = '';
+    if (this._lenis) { try { this._lenis.start(); } catch (e) {} }
+  }
+
+  _openZoom(src) {
+    if (!this._zoom) return;
+    this._zoomImg.src = src;
+    this._zoom.setAttribute('aria-hidden', 'false');
+    this._zoom.style.visibility = 'visible';
+    this._zoom.style.pointerEvents = 'auto';
+    requestAnimationFrame(() => { this._zoom.style.opacity = '1'; });
+  }
+
+  _closeZoom() {
+    if (!this._zoom) return;
+    this._zoom.style.opacity = '0';
+    this._zoom.style.pointerEvents = 'none';
+    this._zoom.setAttribute('aria-hidden', 'true');
+    setTimeout(() => { if (this._zoom.getAttribute('aria-hidden') === 'true') { this._zoom.style.visibility = 'hidden'; this._zoomImg.src = ''; } }, 350);
+  }
+
+  _setupAviReveal() {
+    this._makeReveal('avi-sobre', 'avi-reveal-canvas', 'assets/avi/aves-pattern.jpg', '_aviReveal', '_aviRAF', '_aviResize');
+    this._makeReveal('prestacao', 'pc-reveal-canvas', 'assets/avi/artesanato-pattern.jpg', '_pcReveal', '_pcRAF', '_pcResize');
+  }
+
+  _makeReveal(secId, canvasId, imgSrc, refKey, rafKey, resizeKey) {
+    const sec = document.getElementById(secId);
+    const cv = document.getElementById(canvasId);
+    if (!sec || !cv || this.reduce) return;
+    const ctx = cv.getContext('2d');
+    const img = new Image();
+    img.src = imgSrc;
+    // no #prestacao o canvas vive no container sticky (100vh), não na seção (360vh)
+    const box = cv.parentElement || sec;
+
+    let W = 0, H = 0, dpr = 1;
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = box.clientWidth; H = box.clientHeight;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    };
+    resize();
+    this[resizeKey] = resize;
+    window.addEventListener('resize', resize);
+
+    let tx = -600, ty = -600, cx = -600, cy = -600, seen = false;
+    const move = (e) => { const r = box.getBoundingClientRect(); tx = e.clientX - r.left; ty = e.clientY - r.top; seen = true; };
+    const leave = () => { seen = false; };
+    box.addEventListener('pointermove', move, { passive: true });
+    box.addEventListener('pointerleave', leave);
+
+    const R = this.baseR;
+    const pts = 16;
+    const draw = () => {
+      if (this._dead) return;
+      cx += (tx - cx) * 0.16; cy += (ty - cy) * 0.16;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      if (seen && img.complete && img.naturalWidth) {
+        const t = performance.now() / 1000;
+        const rad = (a) => R * (1 + 0.18 * Math.sin(a * 3 + t * 1.1) + 0.11 * Math.cos(a * 2 - t * 0.8) + 0.06 * Math.sin(a * 5 + t * 1.7));
+        const Pt = [];
+        for (let k = 0; k < pts; k++) { const a = (k / pts) * Math.PI * 2; const r = rad(a); Pt.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]); }
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo((Pt[pts - 1][0] + Pt[0][0]) / 2, (Pt[pts - 1][1] + Pt[0][1]) / 2);
+        for (let k = 0; k < pts; k++) { const c = Pt[k], nx = Pt[(k + 1) % pts]; ctx.quadraticCurveTo(c[0], c[1], (c[0] + nx[0]) / 2, (c[1] + nx[1]) / 2); }
+        ctx.closePath();
+        ctx.clip();
+        const ir = img.naturalWidth / img.naturalHeight, sr = W / H;
+        let dw, dh; if (sr > ir) { dw = W; dh = W / ir; } else { dh = H; dw = H * ir; }
+        ctx.globalAlpha = 0.95;
+        ctx.drawImage(img, (W - dw) / 2, (H - dh) / 2, dw, dh);
+        ctx.restore();
+      }
+      this[rafKey] = requestAnimationFrame(draw);
+    };
+    this[rafKey] = requestAnimationFrame(draw);
+    this[refKey] = { sec: box, move, leave };
+  }
+
+  _setupAviReveal_OLD() {
+    const sec = document.getElementById('avi-sobre');
+    const cv = document.getElementById('avi-reveal-canvas');
+    if (!sec || !cv || this.reduce) return;
+    const ctx = cv.getContext('2d');
+    const img = new Image();
+    img.src = 'assets/avi/aves-pattern.jpg';
+
+    let W = 0, H = 0, dpr = 1;
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = sec.clientWidth; H = sec.clientHeight;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    };
+    resize();
+    this._aviResize = resize;
+    window.addEventListener('resize', resize);
+
+    let tx = -600, ty = -600, cx = -600, cy = -600, seen = false;
+    const move = (e) => { const r = sec.getBoundingClientRect(); tx = e.clientX - r.left; ty = e.clientY - r.top; seen = true; };
+    const leave = () => { seen = false; };
+    sec.addEventListener('pointermove', move, { passive: true });
+    sec.addEventListener('pointerleave', leave);
+
+    const R = this.baseR;              // MESMA área da palha
+    const pts = 16;
+    const draw = () => {
+      if (this._dead) return;
+      cx += (tx - cx) * 0.16; cy += (ty - cy) * 0.16;   // MESMA animação/easing da palha
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      if (seen && img.complete && img.naturalWidth) {
+        const t = performance.now() / 1000;
+        const rad = (a) => R * (1 + 0.18 * Math.sin(a * 3 + t * 1.1) + 0.11 * Math.cos(a * 2 - t * 0.8) + 0.06 * Math.sin(a * 5 + t * 1.7));
+        const Pt = [];
+        for (let k = 0; k < pts; k++) { const a = (k / pts) * Math.PI * 2; const r = rad(a); Pt.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]); }
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo((Pt[pts - 1][0] + Pt[0][0]) / 2, (Pt[pts - 1][1] + Pt[0][1]) / 2);
+        for (let k = 0; k < pts; k++) { const c = Pt[k], nx = Pt[(k + 1) % pts]; ctx.quadraticCurveTo(c[0], c[1], (c[0] + nx[0]) / 2, (c[1] + nx[1]) / 2); }
+        ctx.closePath();
+        ctx.clip();
+        // pattern em "cover" sobre a seção
+        const ir = img.naturalWidth / img.naturalHeight, sr = W / H;
+        let dw, dh; if (sr > ir) { dw = W; dh = W / ir; } else { dh = H; dw = H * ir; }
+        ctx.globalAlpha = 0.95;
+        ctx.drawImage(img, (W - dw) / 2, (H - dh) / 2, dw, dh);
+        ctx.restore();
+      }
+      this._aviRAF = requestAnimationFrame(draw);
+    };
+    this._aviRAF = requestAnimationFrame(draw);
+    this._aviReveal = { sec, move, leave };
+  }
+
+  _setupMuseu() {
+    const cards = Array.from(document.querySelectorAll('.mp-card'));
+    const fs = document.getElementById('mp-fs');
+    const fsFrame = document.getElementById('mp-fs-iframe');
+    const fsClose = document.getElementById('mp-fs-close');
+    if (!cards.length || !fs) return;
+
+    cards.forEach((card) => {
+      const id = card.getAttribute('data-yt');
+      let frame = null, timer = null;
+      const play = () => {
+        if (this.reduce || frame) return;
+        timer = setTimeout(() => {
+          frame = document.createElement('iframe');
+          frame.className = 'mp-hover';
+          frame.setAttribute('allow', 'autoplay; encrypted-media');
+          frame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&mute=1&controls=0&loop=1&playlist=' + id + '&modestbranding=1&playsinline=1&rel=0';
+          card.insertBefore(frame, card.querySelector('.mp-meta'));
+        }, 180);
+      };
+      const stop = () => { clearTimeout(timer); if (frame) { frame.remove(); frame = null; } };
+      card.addEventListener('mouseenter', play);
+      card.addEventListener('mouseleave', stop);
+      card.addEventListener('click', () => { stop(); this._openVideo(id); });
+    });
+
+    const close = () => {
+      fs.style.opacity = '0';
+      fs.style.pointerEvents = 'none';
+      fs.setAttribute('aria-hidden', 'true');
+      setTimeout(() => { if (fs.getAttribute('aria-hidden') === 'true') { fs.style.visibility = 'hidden'; fsFrame.src = ''; } }, 350);
+      document.body.style.overflow = '';
+      if (this._lenis) { try { this._lenis.start(); } catch (e) {} }
+    };
+    if (fsClose) {
+      fsClose.addEventListener('click', close);
+      fsClose.addEventListener('mouseenter', () => { fsClose.style.background = 'rgba(255,255,255,0.24)'; fsClose.style.transform = 'rotate(90deg)'; });
+      fsClose.addEventListener('mouseleave', () => { fsClose.style.background = 'rgba(255,255,255,0.1)'; fsClose.style.transform = 'none'; });
+    }
+    fs.addEventListener('click', (e) => { if (e.target === fs) close(); });
+    this._mpKey = (e) => { if (e.key === 'Escape' && fs.getAttribute('aria-hidden') === 'false') close(); };
+    window.addEventListener('keydown', this._mpKey);
+    this._mpClose = close;
+  }
+
+  _openVideo(id) {
+    const fs = document.getElementById('mp-fs');
+    const fsFrame = document.getElementById('mp-fs-iframe');
+    if (!fs || !fsFrame) return;
+    fsFrame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+    fs.setAttribute('aria-hidden', 'false');
+    fs.style.visibility = 'visible';
+    fs.style.pointerEvents = 'auto';
+    requestAnimationFrame(() => { fs.style.opacity = '1'; });
+    document.body.style.overflow = 'hidden';
+    if (this._lenis) { try { this._lenis.stop(); } catch (e) {} }
+  }
+
+  _setupMobileNav() {
+    const burger = document.getElementById('mec-burger');
+    const nav = document.querySelector('.mec-nav');
+    if (!burger || !nav) return;
+    const close = () => { nav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); };
+    burger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = nav.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+    document.addEventListener('click', (e) => { if (!nav.contains(e.target) && !burger.contains(e.target)) close(); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 900) close(); });
+    this._navClose = close;
+  }
+
+  _fallback() {
+    document.querySelectorAll('.hero-line').forEach(el => { el.style.transform = 'none'; });
+    document.querySelectorAll('.avi-msg').forEach((el, i) => { el.style.opacity = i === 0 ? '1' : '0'; });
+    document.querySelectorAll('.mp-msg').forEach((el, i) => { el.style.opacity = i === 0 ? '1' : '0'; });
+    document.querySelectorAll('.pc-msg').forEach((el, i) => { el.style.opacity = i === 0 ? '1' : '0'; });
+    const pcNumEl = document.getElementById('pc-num');
+    if (pcNumEl) { pcNumEl.textContent = (184320).toLocaleString('pt-BR'); const b = document.getElementById('pc-bar'); if (b) b.style.width = '100%'; }
+  }
+
+  _initScroll() {
+    if (this._inited) return;
+    this._inited = true;
+    this._sts = [];
+    const gsap = window.gsap;
+    gsap.registerPlugin(window.ScrollTrigger);
+
+    if (!this.reduce && window.Lenis) {
+      const lenis = new window.Lenis({ lerp: 0.09, wheelMultiplier: 0.9 });
+      lenis.on('scroll', window.ScrollTrigger.update);
+      this._ticker = (t) => lenis.raf(t * 1000);
+      gsap.ticker.add(this._ticker);
+      gsap.ticker.lagSmoothing(0);
+      this._lenis = lenis;
+      window.__lenis = lenis;
+    }
+
+    gsap.set('.hero-line', { yPercent: 118 });
+    gsap.set(['#hero-eyebrow', '#hero-sub'], { autoAlpha: 0, y: 24 });
+    try {
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: '#hero-scroll', start: 'top top', end: 'bottom bottom', scrub: 0.7 }
+    });
+    tl.to('#hero-eyebrow', { autoAlpha: 1, y: 0, duration: 0.6 }, 0.02)
+      .to('.hero-line', { yPercent: 0, duration: 1, stagger: 0.28, ease: 'power3.out' }, 0.05)
+      .to('#hero-sub', { autoAlpha: 1, y: 0, duration: 0.7 }, 0.7)
+      .to('#hero-video', { scale: 1.14, duration: 2, ease: 'none' }, 0)
+      .to('#hero-shade', { opacity: 1.15, duration: 2, ease: 'none' }, 0)
+      .to('#hero-cue', { autoAlpha: 0, duration: 0.4 }, 0.05);
+    if (tl.scrollTrigger) this._sts.push(tl.scrollTrigger);
+
+    // ---- ARTESÃ full-bleed: cross-fade messages + slow image push on scroll ----
+    const msgs = gsap.utils.toArray('.artesa-msg');
+    if (msgs.length) {
+      gsap.set(msgs, { autoAlpha: 0, y: 34 });
+      gsap.set(msgs[0], { autoAlpha: 1, y: 0 });
+      const at = gsap.timeline({
+        scrollTrigger: { trigger: '#artesa-scroll', start: 'top top', end: 'bottom bottom', scrub: 0.8 }
+      });
+      at.fromTo('#artesa-img', { scale: 1.18 }, { scale: 1, ease: 'none', duration: 3 }, 0);
+      at.to(msgs[0], { autoAlpha: 0, y: -34, duration: 0.5 }, 0.75)
+        .fromTo(msgs[1], { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.5 }, 0.95)
+        .to(msgs[1], { autoAlpha: 0, y: -34, duration: 0.5 }, 1.75)
+        .fromTo(msgs[2], { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.5 }, 1.95);
+      if (at.scrollTrigger) this._sts.push(at.scrollTrigger);
+    }
+
+    // ---- AVITURISMO: parallax 3D do pássaro + BG + frases ----
+    const aviMsgs = gsap.utils.toArray('.avi-msg');
+    const aviBird = document.getElementById('avi-bird');
+    const aviBg = document.getElementById('avi-bg');
+    const aviWrap = document.getElementById('avi-bg-wrap');
+    if (aviBird) {
+      gsap.set(aviMsgs, { autoAlpha: 0, y: 34 });
+      gsap.set(aviMsgs[0], { autoAlpha: 1, y: 0 });
+      const vt = gsap.timeline({
+        scrollTrigger: { trigger: '#avi-scroll', start: 'top top', end: 'bottom bottom', scrub: 0.8 }
+      });
+      // BG permanece em altura cheia — só a cauda do pássaro ultrapassa a borda inferior
+      vt.fromTo(aviBg, { scale: 1.2 }, { scale: 1.06, ease: 'none', duration: 3 }, 0);
+      vt.fromTo(aviBird, { yPercent: 0, scale: 1.03 }, { yPercent: 9, scale: 1, ease: 'none', duration: 3 }, 0);
+      vt.to(aviMsgs[0], { autoAlpha: 0, y: -34, duration: 0.5 }, 0.75)
+        .fromTo(aviMsgs[1], { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.5 }, 0.95)
+        .to(aviMsgs[1], { autoAlpha: 0, y: -34, duration: 0.5 }, 1.75)
+        .fromTo(aviMsgs[2], { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.5 }, 1.95);
+      if (vt.scrollTrigger) this._sts.push(vt.scrollTrigger);
+    }
+
+    // ---- HEADER muda de cor por seção (verde no Aviturismo, azul no Museu) ----
+    const header = document.getElementById('site-header');
+    if (header) {
+      const THEMES = {
+        orange: { bg: '#E96C15', bd: 'rgba(120,52,4,0.35)', sh: '0 6px 24px rgba(120,52,4,0.18)' },
+        green:  { bg: '#356B34', bd: 'rgba(20,48,18,0.4)',   sh: '0 6px 24px rgba(20,48,18,0.22)' },
+        blue:   { bg: '#0C6C93', bd: 'rgba(4,42,58,0.42)',   sh: '0 6px 24px rgba(4,42,58,0.28)' }
+      };
+      const apply = (name) => {
+        const t = THEMES[name] || THEMES.orange;
+        header.style.background = t.bg;
+        header.style.borderBottomColor = t.bd;
+        header.style.boxShadow = t.sh;
+      };
+      // estados exclusivos: azul tem prioridade sobre verde
+      this._hdr = { green: false, blue: false };
+      const refresh = () => apply(this._hdr.blue ? 'blue' : this._hdr.green ? 'green' : 'orange');
+      const stG = ScrollTrigger.create({
+        trigger: '#avi-scroll', start: 'top 72px', endTrigger: '#avi-sobre', end: 'bottom 72px',
+        onToggle: (self) => { this._hdr.green = self.isActive; refresh(); }
+      });
+      const stB = ScrollTrigger.create({
+        trigger: '#museu', start: 'top 72px', end: 'bottom 72px',
+        onToggle: (self) => { this._hdr.blue = self.isActive; refresh(); }
+      });
+      this._sts.push(stG, stB);
+    }
+
+    // ---- MUSEU: imagem em parallax + textos em cross-fade no scroll ----
+    const mpMsgs = gsap.utils.toArray('.mp-msg');
+    const mpImg = document.getElementById('mp-hero-photo');
+    if (mpMsgs.length) {
+      gsap.set(mpMsgs, { autoAlpha: 0, y: 34 });
+      gsap.set(mpMsgs[0], { autoAlpha: 1, y: 0 });
+      const mt = gsap.timeline({
+        scrollTrigger: { trigger: '#museu-scroll', start: 'top top', end: 'bottom bottom', scrub: 0.8 }
+      });
+      if (mpImg) mt.fromTo(mpImg, { scale: 1.16 }, { scale: 1, ease: 'none', duration: 3 }, 0);
+      mt.to(mpMsgs[0], { autoAlpha: 0, y: -34, duration: 0.5 }, 0.8)
+        .fromTo(mpMsgs[1], { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.5 }, 1.0)
+        .to(mpMsgs[1], { autoAlpha: 0, y: -34, duration: 0.5 }, 1.8)
+        .fromTo(mpMsgs[2], { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.5 }, 2.0);
+      if (mt.scrollTrigger) this._sts.push(mt.scrollTrigger);
+    }
+
+    // ---- PRESTAÇÃO DE CONTAS: contador gigante + barra + frases no scroll ----
+    const pcNum = document.getElementById('pc-num');
+    const pcBar = document.getElementById('pc-bar');
+    const pcMsgs = gsap.utils.toArray('.pc-msg');
+    if (pcNum) {
+      const TOTAL = 184320;
+      const fmt = (n) => Math.round(n).toLocaleString('pt-BR');
+      const counter = { v: 0 };
+      gsap.set(pcMsgs, { autoAlpha: 0, y: 28 });
+      if (pcMsgs[0]) gsap.set(pcMsgs[0], { autoAlpha: 1, y: 0 });
+      const pt = gsap.timeline({
+        scrollTrigger: { trigger: '#prestacao', start: 'top top', end: 'bottom bottom', scrub: 0.6 }
+      });
+      pt.to(counter, {
+        v: TOTAL, ease: 'none', duration: 4,
+        onUpdate: () => {
+          pcNum.textContent = fmt(counter.v);
+          if (pcBar) pcBar.style.width = (counter.v / TOTAL * 100) + '%';
+        }
+      }, 0);
+      // frases trocam em quatro fases
+      for (let i = 1; i < pcMsgs.length; i++) {
+        const t = i * (4 / pcMsgs.length);
+        pt.to(pcMsgs[i - 1], { autoAlpha: 0, y: -28, duration: 0.35 }, t)
+          .fromTo(pcMsgs[i], { autoAlpha: 0, y: 28 }, { autoAlpha: 1, y: 0, duration: 0.35 }, t + 0.12);
+      }
+      if (pt.scrollTrigger) this._sts.push(pt.scrollTrigger);
+    }
+
+    } catch (err) { console.error('initScroll error', err); }
+
+    const v = document.getElementById('hero-video');
+    if (v) {
+      v.muted = true; v.loop = true;
+      v.addEventListener('ended', () => { v.currentTime = 0; const r = v.play(); if (r && r.catch) r.catch(() => {}); });
+      const p = v.play(); if (p && p.catch) p.catch(() => {});
+    }
+    const ST = window.ScrollTrigger;
+    const refresh = () => { if (!this._dead && ST) ST.refresh(); };
+    requestAnimationFrame(() => requestAnimationFrame(refresh));
+    window.addEventListener('load', refresh);
+    setTimeout(refresh, 600);
+  }
+
+  componentWillUnmount() {
+    this._dead = true;
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._galRaf) cancelAnimationFrame(this._galRaf);
+    if (this._onKey) window.removeEventListener('keydown', this._onKey);
+    if (this._lbKey) window.removeEventListener('keydown', this._lbKey);
+    if (this._lbRelayout) window.removeEventListener('resize', this._lbRelayout);
+    document.body.style.overflow = '';
+    if (this._blobUrl) { try { URL.revokeObjectURL(this._blobUrl); } catch (e) {} }
+    if (this._resize) window.removeEventListener('resize', this._resize);
+    if (this._carResize) window.removeEventListener('resize', this._carResize);
+    if (this._carIO) { try { this._carIO.disconnect(); } catch (e) {} }
+    if (this._ripRaf) cancelAnimationFrame(this._ripRaf);
+    if (this._ripResize) window.removeEventListener('resize', this._ripResize);
+    if (this._ticker && window.gsap) window.gsap.ticker.remove(this._ticker);
+    if (this._lenis) { this._lenis.destroy(); this._lenis = null; }
+    if (this._sts) this._sts.forEach(s => { try { s.kill(); } catch (e) {} });
+  }
+}
+</script>
+</body>
+</html>
