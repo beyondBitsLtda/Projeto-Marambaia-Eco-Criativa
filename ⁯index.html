@@ -3,6 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+/* Garante que o mobile aplique os breakpoints mesmo se o deploy/embed
+   remover ou sobrescrever o viewport. Sem efeito no desktop. */
+(function(){
+  try{
+    var want='width=device-width, initial-scale=1, viewport-fit=cover';
+    var metas=document.querySelectorAll('meta[name="viewport"]');
+    if(!metas.length){
+      var m=document.createElement('meta');
+      m.name='viewport'; m.content=want;
+      (document.head||document.documentElement).appendChild(m);
+    }else{
+      metas.forEach(function(m,i){ if(i===0){ m.setAttribute('content',want);} else { m.remove(); } });
+    }
+  }catch(e){}
+})();
+</script>
 <script src="./support.js"></script>
 </head>
 <body>
