@@ -1125,7 +1125,9 @@ class Component extends DCLogic {
 
   _setupAviReveal() {
     this._makeReveal('avi-sobre', 'avi-reveal-canvas', 'assets/avi/aves-pattern.jpg', '_aviReveal', '_aviRAF', '_aviResize');
-    this._makeReveal('prestacao', 'pc-reveal-canvas', 'assets/avi/artesanato-pattern.jpg', '_pcReveal', '_pcRAF', '_pcResize');
+    // efeito de revelar textura/imagem do ultimo hero (Prestacao de Contas) desativado tambem no desktop
+    var _pcCv = document.getElementById('pc-reveal-canvas');
+    if (_pcCv) _pcCv.style.display = 'none';
   }
 
   _makeReveal(secId, canvasId, imgSrc, refKey, rafKey, resizeKey) {
