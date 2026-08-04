@@ -185,7 +185,7 @@
         <div style="padding-top: clamp(8px, 3vh, 40px);">
           <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; margin-bottom: 22px;">O Marambaia Eco Criativa forma artesãos locais em Bonito, Mato Grosso do Sul, e integra a comunidade ao ecoturismo da serra da Bodoquena.</p>
           <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E;">Da matéria-prima colhida no cerrado ao produto final na feira — quatro etapas que sustentam o ofício como fonte de renda estável.</p>
-          <div style="margin-top: 36px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar a trança de palha</div>
+          <div class="mec-cursor-hint" style="margin-top: 36px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar a trança de palha</div>
         </div>
       </div>
     </section>
@@ -311,7 +311,7 @@
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 22px;">03 · Aviturismo</div>
             <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 500; color: #23261E; margin-bottom: 26px;">Onde o cerrado <em style="font-style: italic; color: var(--accent, #0C82BA);">ganha asas</em>.</h2>
             <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; max-width: 46ch;">Bonito e a serra da Bodoquena estão entre os melhores destinos de observação de aves do Brasil. O aviturismo une renda e conservação — cada avistamento é um novo motivo para manter a floresta de pé.</p>
-            <div style="margin-top: 36px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar as aves</div>
+            <div class="mec-cursor-hint" style="margin-top: 36px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar as aves</div>
           </div>
         </div>
       </div>
@@ -538,28 +538,35 @@ class Component extends DCLogic {
     this.texOpacity = P.textureOpacity ?? 0.85;
 
     this.reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // no mobile / telas sem cursor: sem textura revelada e sem loop de canvas (performance)
+    this.isMobile = !!(window.matchMedia && (window.matchMedia('(max-width: 760px)').matches || window.matchMedia('(hover: none) and (pointer: coarse)').matches));
 
     // ---------- WOVEN PALHA TEXTURE (canvas) ----------
     this.canvas = document.getElementById('straw-canvas');
-    this.canvas.style.opacity = String(this.texOpacity);
-    this.ctx = this.canvas.getContext('2d');
-    this.angle = -0.5;      // weave tilt
-    this.s = 22;            // strand cell size (px)
-    this.warp = 'rgba(176,148,84,0.95)';   // over strands (palha, darker)
-    this.weft = 'rgba(206,182,120,0.72)';  // under strands (palha, lighter)
-    this.tx = -900; this.ty = -900; this.cx = -900; this.cy = -900; this.seen = false;
+    if (this.isMobile) {
+      // desliga a textura revelada no mobile: esconde o canvas e nao inicia o loop de animacao
+      if (this.canvas) this.canvas.style.display = 'none';
+    } else {
+      this.canvas.style.opacity = String(this.texOpacity);
+      this.ctx = this.canvas.getContext('2d');
+      this.angle = -0.5;      // weave tilt
+      this.s = 22;            // strand cell size (px)
+      this.warp = 'rgba(176,148,84,0.95)';   // over strands (palha, darker)
+      this.weft = 'rgba(206,182,120,0.72)';  // under strands (palha, lighter)
+      this.tx = -900; this.ty = -900; this.cx = -900; this.cy = -900; this.seen = false;
 
-    this._resize = () => this.setupCanvas();
-    window.addEventListener('resize', this._resize);
-    this.setupCanvas();
+      this._resize = () => this.setupCanvas();
+      window.addEventListener('resize', this._resize);
+      this.setupCanvas();
 
-    window.addEventListener('pointermove', (e) => { this.tx = e.clientX; this.ty = e.clientY; this.seen = true; }, { passive: true });
+      window.addEventListener('pointermove', (e) => { this.tx = e.clientX; this.ty = e.clientY; this.seen = true; }, { passive: true });
 
-    const tick = (t) => {
-      this.drawWeave(t * 0.001);
+      const tick = (t) => {
+        this.drawWeave(t * 0.001);
+        this._raf = requestAnimationFrame(tick);
+      };
       this._raf = requestAnimationFrame(tick);
-    };
-    this._raf = requestAnimationFrame(tick);
+    }
 
     this._setupCarousel();
     this._setupLightbox();
@@ -1124,7 +1131,7 @@ class Component extends DCLogic {
   _makeReveal(secId, canvasId, imgSrc, refKey, rafKey, resizeKey) {
     const sec = document.getElementById(secId);
     const cv = document.getElementById(canvasId);
-    if (!sec || !cv || this.reduce) return;
+    if (!sec || !cv || this.reduce || this.isMobile) { if (cv) cv.style.display = 'none'; return; }
     const ctx = cv.getContext('2d');
     const img = new Image();
     img.src = imgSrc;
@@ -1502,6 +1509,11 @@ class Component extends DCLogic {
 (function () {
   var STYLE_ID = 'mec-mobile-fix';
   var CSS = [
+    /* mobile/touch: mata a textura revelada, os canvases de reveal e as dicas de cursor */
+    '@media (hover: none), (max-width: 760px){',
+    '  #straw-canvas,#avi-reveal-canvas,#pc-reveal-canvas,#mec-lb-reveal{display:none!important;}',
+    '  .mec-cursor-hint{display:none!important;}',
+    '}',
     /* garante que nada estoure pras laterais no mobile */
     '@media (max-width: 900px){',
     '  body{overflow-x:hidden;}',
