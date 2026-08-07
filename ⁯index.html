@@ -87,6 +87,7 @@
     #pc-num { font-size: clamp(64px, 22vw, 96px) !important; }
     .pc-msgwrap { height: 200px !important; }
     .pc-msgwrap .pc-msg p { font-size: clamp(20px, 5.4vw, 28px) !important; }
+    .mec-foot-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
   }
   .mp-card { position: relative; overflow: hidden; background: #0A1A22; cursor: pointer; min-width: 0; }
   .mp-card img.mp-thumb { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s ease; }
@@ -118,14 +119,14 @@
             <path d="M20 12 C26 14 30 18 30 24" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
             <path d="M20 20 C14 22 10 26 10 32" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
           </svg>
-          <span>Marambaia <em class="mec-brand-accent" style="font-style: italic; color: #FFE3C4;">Eco Criativa</em></span>
+          <span>Movimento Marambaia <em class="mec-brand-accent" style="font-style: italic; color: #FFE3C4;">Eco Criativa</em></span>
         </a>
         <nav class="mec-nav" style="display: flex; align-items: center; gap: clamp(18px, 2.4vw, 40px); flex-wrap: wrap; justify-content: flex-end;">
-          <a href="#intro" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Sobre</a>
+          <a href="#intro" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Quem Somos</a>
           <a href="#galeria" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Galeria</a>
           <a href="#avi-scroll" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Aviturismo</a>
           <a href="#museu" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Museu da Pessoa</a>
-          <a href="#prestacao" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Prestação de Contas</a>
+          <a href="#prestacao" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Governança e Transparência</a>
         </nav>
         <button id="mec-burger" aria-label="Abrir menu" aria-expanded="false" style="width:44px;height:44px;border:0;background:transparent;color:#FBF8EE;cursor:pointer;align-items:center;justify-content:center;flex:0 0 auto;padding:0;margin-left:auto;">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
@@ -154,15 +155,14 @@
           </div>
 
           <h1 style="line-height: 0.92; font-weight: 500; color: #FBF8EE; margin: 0;">
-            <span style="display: block; overflow: hidden;"><span class="hero-line" style="display: block; font-size: clamp(30px, 4.6vw, 78px); font-weight: 400; letter-spacing: 0.01em;">Projeto</span></span>
             <span style="display: block; overflow: hidden;"><span class="hero-line" style="display: block; font-size: clamp(56px, 12vw, 190px); font-weight: 500; letter-spacing: -0.03em;">Marambaia</span></span>
-            <span style="display: block; overflow: hidden;"><span class="hero-line" style="display: block; font-size: clamp(40px, 8.4vw, 132px); font-weight: 400; font-style: italic; letter-spacing: -0.01em; color: var(--accent, #0C82BA);">Eco Criativa</span></span>
+            <span style="display: block; overflow: hidden;"><span class="hero-line" style="display: block; font-size: clamp(44px, 9vw, 138px); font-weight: 400; font-style: italic; letter-spacing: -0.01em; color: var(--accent, #0C82BA);">Eco Criativa</span></span>
           </h1>
 
           <div id="hero-sub" style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 24px; margin-top: clamp(24px, 4vh, 44px);">
-            <p style="max-width: 480px; font-size: clamp(14px, 1.3vw, 18px); line-height: 1.6; color: #E4E0D2;">Da terra às mãos, das mãos para o mundo — o ofício do artesão de Bonito e o avistamento de aves do cerrado, lado a lado.</p>
+            <p style="max-width: 480px; font-size: clamp(14px, 1.3vw, 18px); line-height: 1.6; color: #E4E0D2;">Uma associação que fortalece a economia criativa e circular, o turismo sustentável e o desenvolvimento comunitário em Bonito, MS.</p>
             <a href="#intro" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #FBF8EE; padding-bottom: 6px; border-bottom: 1px solid rgba(251,248,238,0.4);">
-              Conheça o projeto
+              Conheça a Marambaia
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </div>
@@ -179,13 +179,13 @@
     <section id="intro" style="max-width: 1180px; margin: 0 auto; padding: clamp(90px, 16vh, 170px) clamp(24px, 6vw, 64px);">
       <div class="intro-grid" style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(32px, 6vw, 80px); align-items: start;">
         <div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 22px;">01 · O projeto</div>
-          <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 500; color: #23261E;">O ofício <em style="font-style: italic; color: var(--accent, #0C82BA);">tem raiz</em> — e a raiz precisa de cuidado.</h2>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 22px;">01 · Quem somos</div>
+          <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 500; color: #23261E;">Conectando pessoas, cultura e <em style="font-style: italic; color: var(--accent, #0C82BA);">natureza</em>.</h2>
         </div>
         <div style="padding-top: clamp(8px, 3vh, 40px);">
-          <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; margin-bottom: 22px;">O Marambaia Eco Criativa forma artesãos locais em Bonito, Mato Grosso do Sul, e integra a comunidade ao ecoturismo da serra da Bodoquena.</p>
-          <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E;">Da matéria-prima colhida no cerrado ao produto final na feira — quatro etapas que sustentam o ofício como fonte de renda estável.</p>
-          <div style="margin-top: 36px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar a trança de palha</div>
+          <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; margin-bottom: 22px;">A Marambaia Eco Criativa reúne pessoas, ideias e iniciativas que transformam talentos locais em oportunidades de desenvolvimento — fortalecendo a cultura, o turismo sustentável e a economia criativa e circular de Bonito, MS.</p>
+          <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E;">Com projetos, capacitações, eventos e parcerias, incentivamos o empreendedorismo, fortalecemos redes de colaboração e valorizamos os saberes locais — gerando impacto social, cultural, ambiental e econômico para a comunidade.</p>
+          <div class="mec-cursor-hint" style="margin-top: 36px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar a trança de palha</div>
         </div>
       </div>
     </section>
@@ -200,16 +200,16 @@
         <div style="position: absolute; inset: 0; display: flex; align-items: center; padding: 0 clamp(24px, 7vw, 130px);">
           <div class="artesa-msgbox" style="position: relative; width: min(640px, 78vw); height: 340px;">
             <div class="artesa-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">O saber</div>
-              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #FBF5E9; margin: 0;">Cada peça guarda um gesto que <em style="font-style: italic; color: #FFD9A6;">atravessa gerações</em>.</p>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">Comunidade</div>
+              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #FBF5E9; margin: 0;">Quando a comunidade cresce junto, a cultura, a natureza e as oportunidades <em style="font-style: italic; color: #FFD9A6;">se fortalecem</em>.</p>
             </div>
             <div class="artesa-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">A mão</div>
-              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #FBF5E9; margin: 0;">Da palha colhida no cerrado ao cesto que <em style="font-style: italic; color: #FFD9A6;">sustenta uma família</em>.</p>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">Transformação</div>
+              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #FBF5E9; margin: 0;">Cada talento encontra espaço para <em style="font-style: italic; color: #FFD9A6;">crescer</em>, gerar renda e fortalecer a comunidade.</p>
             </div>
             <div class="artesa-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">O futuro</div>
-              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #FBF5E9; margin: 0;">Formar, valorizar e abrir mercado para <em style="font-style: italic; color: #FFD9A6;">quem faz com as mãos</em>.</p>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">Futuro</div>
+              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #FBF5E9; margin: 0;">Investir nas pessoas é preservar a cultura, cuidar do território e criar oportunidades para as <em style="font-style: italic; color: #FFD9A6;">próximas gerações</em>.</p>
             </div>
           </div>
         </div>
@@ -221,28 +221,28 @@
       <div style="max-width: 1240px; margin: 0 auto clamp(36px, 6vh, 56px); padding: 0 clamp(24px, 6vw, 64px); display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
         <div>
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 16px;">02 · Galeria</div>
-          <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.06; font-weight: 500; color: #23261E; max-width: 640px;">O que sai <em style="font-style: italic; color: var(--accent, #0C82BA);">das bancadas</em>.</h2>
+          <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.06; font-weight: 500; color: #23261E; max-width: 640px;">O que <em style="font-style: italic; color: var(--accent, #0C82BA);">movimenta</em> a Marambaia.</h2>
         </div>
-        <p style="max-width: 300px; font-size: 15px; line-height: 1.6; color: #6b6656;">Cinco linguagens do ofício e da paisagem em Bonito. Navegue pelas peças.</p>
+        <p style="max-width: 300px; font-size: 15px; line-height: 1.6; color: #6b6656;">As iniciativas que fortalecem a cultura, o turismo sustentável, a economia criativa e circular e o desenvolvimento comunitário. Navegue ao lado.</p>
       </div>
 
       <div id="carousel" style="position: relative;">
         <div id="car-viewport" style="position: relative; overflow: visible; touch-action: pan-y;">
           <div id="car-track" style="position: relative; z-index: 1; display: flex; align-items: center; will-change: transform;">
-            <figure class="car-slide" data-title="Cerâmica — barro" data-desc="O barro colhido às margens dos rios de Bonito, moldado e queimado à mão. Cada peça nasce da terra e volta à mesa como utensílio e memória." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
-              <img src="assets/ceramica.avif" alt="Tigelas de cerâmica" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <figure class="car-slide" data-title="Economia Criativa e Circular" data-desc="Artesanato, biojoias, moda sustentável e reaproveitamento de materiais — iniciativas que transformam criatividade e cultura em oportunidades para a comunidade." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
+              <img src="assets/ceramica.avif" alt="Economia criativa e circular" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
             </figure>
-            <figure class="car-slide" data-title="Fibras — palha" data-desc="Palha de buriti e capim trançadas em cestos, esteiras e chapéus. Um saber de mãos pacientes que atravessa gerações no cerrado." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
-              <img src="assets/fibras.avif" alt="Mãos trançando palha" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <figure class="car-slide" data-title="Aviturismo" data-desc="A observação de aves aproxima visitantes da natureza e abre novas oportunidades para o turismo sustentável em Bonito, pela Trilha Urbana de Aviturismo da Grande Marambaia." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
+              <img src="assets/fibras.avif" alt="Aviturismo na Grande Marambaia" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
             </figure>
-            <figure class="car-slide" data-title="Madeira — entalhe" data-desc="Troncos caídos ganham vida no entalhe. Do utilitário ao ornamento, a madeira guarda o gesto de quem talha." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
-              <img src="assets/madeira.avif" alt="Entalhe em madeira" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <figure class="car-slide" data-title="Audiovisual" data-desc="Documentários, oficinas e produções que registram histórias, preservam memórias e dão voz à comunidade." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
+              <img src="assets/madeira.avif" alt="Produção audiovisual da comunidade" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
             </figure>
-            <figure class="car-slide" data-title="Bijuterias — sementes" data-desc="Sementes do cerrado — jatobá, olho-de-cabra, capim-dourado — furadas e polidas à mão, viram colares que carregam a floresta inteira." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
-              <img src="assets/bijuterias.avif" alt="Colar de sementes e pedras" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <figure class="car-slide" data-title="Gastronomia" data-desc="Sabores, ingredientes e tradições que valorizam a identidade local, fortalecem pequenos empreendedores e criam experiências autênticas para os visitantes." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
+              <img src="assets/bijuterias.avif" alt="Gastronomia regional de Bonito" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
             </figure>
-            <figure class="car-slide" data-title="Cidade de Bonito — MS" data-desc="Águas cristalinas, mata e serra. Bonito é o cenário onde o ofício e o ecoturismo se encontram — a paisagem que sustenta o projeto." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
-              <img src="assets/bonito.avif" alt="Rio de águas cristalinas em Bonito" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <figure class="car-slide" data-title="Formação e Capacitação" data-desc="Capacitações que desenvolvem talentos, fortalecem empreendedores e ampliam oportunidades para quem vive e transforma a Grande Marambaia." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
+              <img src="assets/bonito.avif" alt="Formação e capacitação na comunidade" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
             </figure>
           </div>
         </div>
@@ -281,17 +281,17 @@
         <div class="avi-msgs" style="position: absolute; top: 0; bottom: 0; left: 0; z-index: 4; display: flex; align-items: center; padding: 0 clamp(24px, 6vw, 110px); width: min(720px, 58vw);">
           <div class="avi-msgbox" style="position: relative; width: 100%; height: 320px;">
             <div class="avi-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 14px;">03 · A serra que canta</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 14px;">03 · Onde a natureza encontra o olhar</div>
               <h2 style="font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(64px, 11vw, 168px); line-height: 0.92; letter-spacing: -0.02em; color: #F3F7EC; margin: 0 0 18px; text-shadow: 0 4px 40px rgba(0,0,0,0.55);">Avi<em style="font-style: italic; color: #7FE0CE;">turismo</em></h2>
-              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(20px, 2.4vw, 34px); line-height: 1.12; color: #F3F7EC; margin: 0; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">A serra da Bodoquena desperta em <em style="font-style: italic; color: #7FE0CE;">centenas de vozes</em>.</p>
+              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(20px, 2.4vw, 34px); line-height: 1.12; color: #F3F7EC; margin: 0; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">A diversidade de aves da Grande Marambaia, unindo natureza, conservação e <em style="font-style: italic; color: #7FE0CE;">turismo sustentável</em>.</p>
             </div>
             <div class="avi-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 18px;">O olhar</div>
-              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #F3F7EC; margin: 0; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">A espera vira <em style="font-style: italic; color: #7FE0CE;">encontro</em> — cada ave, uma descoberta.</p>
+              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #F3F7EC; margin: 0; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">Em cada caminhada, um novo canto, um novo voo e uma nova <em style="font-style: italic; color: #7FE0CE;">conexão com a natureza</em>.</p>
             </div>
             <div class="avi-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 18px;">O destino</div>
-              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #F3F7EC; margin: 0; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">Observar para <em style="font-style: italic; color: #7FE0CE;">preservar</em> a mata que abriga o voo.</p>
+              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #F3F7EC; margin: 0; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">A conservação começa pelo olhar — quem conhece a biodiversidade ajuda a <em style="font-style: italic; color: #7FE0CE;">proteger</em> o que torna Bonito único.</p>
             </div>
           </div>
         </div>
@@ -309,9 +309,9 @@
           </div>
           <div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 22px;">03 · Aviturismo</div>
-            <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 500; color: #23261E; margin-bottom: 26px;">Onde o cerrado <em style="font-style: italic; color: var(--accent, #0C82BA);">ganha asas</em>.</h2>
-            <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; max-width: 46ch;">Bonito e a serra da Bodoquena estão entre os melhores destinos de observação de aves do Brasil. O aviturismo une renda e conservação — cada avistamento é um novo motivo para manter a floresta de pé.</p>
-            <div style="margin-top: 36px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar as aves</div>
+            <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 500; color: #23261E; margin-bottom: 26px;">Descubra Bonito por um <em style="font-style: italic; color: var(--accent, #0C82BA);">outro olhar</em>.</h2>
+            <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; max-width: 46ch;">A Trilha Urbana de Aviturismo da Grande Marambaia convida moradores e visitantes a redescobrir Bonito pela diversidade de suas aves. Mais do que observar espécies, é uma experiência que conecta natureza, educação ambiental, turismo sustentável e comunidade.</p>
+            <div class="mec-cursor-hint" style="margin-top: 36px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar as aves</div>
           </div>
         </div>
       </div>
@@ -336,15 +336,15 @@
             <div class="mp-msgbox" style="position: relative; width: 100%; height: 360px;">
               <div class="mp-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
                 <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FD3F0; margin-bottom: 18px;">04 · Museu da Pessoa</div>
-                <h2 style="font-size: clamp(34px, 5vw, 66px); line-height: 1.03; font-weight: 500; color: #FBFDFF; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Cada vida é uma <em style="font-style: italic; color: #7FD3F0;">história</em>.</h2>
+                <h2 style="font-size: clamp(34px, 5vw, 66px); line-height: 1.03; font-weight: 500; color: #FBFDFF; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Toda história merece ser <em style="font-style: italic; color: #7FD3F0;">contada</em>.</h2>
               </div>
               <div class="mp-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
                 <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FD3F0; margin-bottom: 18px;">Acervo vivo</div>
-                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(28px, 3.8vw, 52px); line-height: 1.1; color: #FBFDFF; margin: 0; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Memórias, ofícios e travessias <em style="font-style: italic; color: #7FD3F0;">narrados por quem os viveu</em>.</p>
+                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(28px, 3.8vw, 52px); line-height: 1.1; color: #FBFDFF; margin: 0; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Histórias de vida que preservam a memória, fortalecem a identidade e <em style="font-style: italic; color: #7FD3F0;">inspiram novas gerações</em>.</p>
               </div>
               <div class="mp-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
                 <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FD3F0; margin-bottom: 18px;">Como explorar</div>
-                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(28px, 3.8vw, 52px); line-height: 1.1; color: #FBFDFF; margin: 0; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Passe o cursor para <em style="font-style: italic; color: #7FD3F0;">prever</em> a história — clique para assistir.</p>
+                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(28px, 3.8vw, 52px); line-height: 1.1; color: #FBFDFF; margin: 0; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Descubra histórias que revelam a diversidade e a identidade do nosso território. <em style="font-style: italic; color: #7FD3F0;">Passe o cursor e clique para assistir</em>.</p>
               </div>
             </div>
           </div>
@@ -360,56 +360,56 @@
           <img class="mp-thumb" src="https://i.ytimg.com/vi/aqz-KE-bpKQ/maxresdefault.jpg" alt="" loading="lazy" decoding="async">
           <div class="mp-play" aria-hidden="true"><svg width="66" height="66" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
           <div class="mp-meta">
-            <div style="font-family: 'Fraunces', serif; font-size: clamp(20px,1.9vw,30px); font-weight: 500; color: #fff; line-height: 1.12;">Dona Marlene, 82 anos</div>
-            <div class="mp-sum" style="font-size: 14px; line-height: 1.6; color: #CFE6EF; max-width: 42ch;">Fiandeira desde os nove anos, ela conta como o tear atravessou quatro gerações da família e virou sustento da vila inteira.</div>
+            <div style="font-family: 'Fraunces', serif; font-size: clamp(20px,1.9vw,30px); font-weight: 500; color: #fff; line-height: 1.12;">Leonida Jaques</div>
+            <div class="mp-sum" style="font-size: 14px; line-height: 1.6; color: #CFE6EF; max-width: 42ch;">Artesã do crochê, compartilha memórias e histórias que ajudam a contar a trajetória da Grande Marambaia.</div>
           </div>
         </article>
         <article class="mp-card" data-yt="ScMzIvxBSi4" style="grid-column: span 2; grid-row: span 1;">
           <img class="mp-thumb" src="https://i.ytimg.com/vi/ScMzIvxBSi4/hqdefault.jpg" alt="" loading="lazy" decoding="async">
           <div class="mp-play" aria-hidden="true"><svg width="52" height="52" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
           <div class="mp-meta">
-            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">O mestre luthier</div>
-            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Seu Antônio esculpe violas de cocho com madeira caída da mata.</div>
+            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">Maria Aparecida</div>
+            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Transforma sacolinhas plásticas em peças artesanais — criatividade e sustentabilidade lado a lado.</div>
           </div>
         </article>
         <article class="mp-card" data-yt="eRsGyueVLvQ" style="grid-column: span 2; grid-row: span 2;">
           <img class="mp-thumb" src="https://i.ytimg.com/vi/eRsGyueVLvQ/hqdefault.jpg" alt="" loading="lazy" decoding="async">
           <div class="mp-play" aria-hidden="true"><svg width="52" height="52" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
           <div class="mp-meta">
-            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">Vozes da maré</div>
-            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Pescadores relembram as cheias que mudaram o ritmo do rio.</div>
+            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">Maria de Jesus</div>
+            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Produz biojoias com sementes da região e revela a relação entre natureza, cultura e geração de renda.</div>
           </div>
         </article>
         <article class="mp-card" data-yt="hFZFjoX2cGg" style="grid-column: span 2; grid-row: span 1;">
           <img class="mp-thumb" src="https://i.ytimg.com/vi/hFZFjoX2cGg/hqdefault.jpg" alt="" loading="lazy" decoding="async">
           <div class="mp-play" aria-hidden="true"><svg width="52" height="52" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
           <div class="mp-meta">
-            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">As mãos que tecem</div>
-            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">O grupo de artesãs mostra o segredo da fibra de buriti.</div>
+            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">Regiane Simão</div>
+            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Chef da cozinha pantaneira, compartilha saberes e sabores que valorizam a identidade regional.</div>
           </div>
         </article>
         <article class="mp-card" data-yt="YE7VzlLtp-4" style="grid-column: span 1; grid-row: span 2;">
           <img class="mp-thumb" src="https://i.ytimg.com/vi/YE7VzlLtp-4/maxresdefault.jpg" alt="" loading="lazy" decoding="async">
           <div class="mp-play" aria-hidden="true"><svg width="60" height="60" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
           <div class="mp-meta">
-            <div style="font-family: 'Fraunces', serif; font-size: clamp(18px,1.5vw,26px); font-weight: 500; color: #fff; line-height: 1.12;">Travessia do sertão</div>
-            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF; max-width: 46ch;">A caravana que levou a primeira escola itinerante até as comunidades mais distantes da serra.</div>
+            <div style="font-family: 'Fraunces', serif; font-size: clamp(18px,1.5vw,26px); font-weight: 500; color: #fff; line-height: 1.12;">Genivaldo Luz</div>
+            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF; max-width: 46ch;">Administrador e roteirista, usa o audiovisual para registrar histórias e fortalecer a memória da comunidade.</div>
           </div>
         </article>
         <article class="mp-card" data-yt="kJQP7kiw5Fk" style="grid-column: span 1; grid-row: span 2;">
           <img class="mp-thumb" src="https://i.ytimg.com/vi/kJQP7kiw5Fk/hqdefault.jpg" alt="" loading="lazy" decoding="async">
           <div class="mp-play" aria-hidden="true"><svg width="52" height="52" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
           <div class="mp-meta">
-            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">Memória viva</div>
-            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Jovens registram os causos dos avós antes que se percam.</div>
+            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">Lucas Yanai</div>
+            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Biólogo e responsável técnico pela Trilha Urbana de Aviturismo, fala sobre educação ambiental e conservação.</div>
           </div>
         </article>
         <article class="mp-card" data-yt="1La4QzGeaaQ" style="grid-column: span 2; grid-row: span 2;">
           <img class="mp-thumb" src="https://i.ytimg.com/vi/1La4QzGeaaQ/hqdefault.jpg" alt="" loading="lazy" decoding="async">
           <div class="mp-play" aria-hidden="true"><svg width="52" height="52" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
           <div class="mp-meta">
-            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">O barro e o forno</div>
-            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">A ceramista narra a queima que dá cor às peças da região.</div>
+            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">Janaína Quintana e Antonio (Puka)</div>
+            <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Observadores de aves e monitores da Trilha Urbana de Aviturismo, aproximam visitantes da natureza e incentivam a conservação.</div>
           </div>
         </article>
       </div>
@@ -422,8 +422,8 @@
       <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,10,6,0.55) 0%, rgba(20,10,6,0) 34%, rgba(20,10,6,0) 60%, rgba(20,10,6,0.78) 100%);"></div>
       <div style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: clamp(40px,8vh,90px) clamp(24px,6vw,96px);">
         <div style="max-width: 1440px; margin: 0 auto;">
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #F0B489; margin-bottom: clamp(14px,2vh,24px);">A seguir · Prestação de Contas</div>
-          <h2 style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(34px, 5.2vw, 82px); line-height: 1.02; color: #FBF3EA; margin: 0; max-width: 22ch; text-shadow: 0 3px 30px rgba(0,0,0,0.5);">Por trás de cada real, <em style="font-style: italic; color: #F0B489;">um olhar</em> que a gente transforma.</h2>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #F0B489; margin-bottom: clamp(14px,2vh,24px);">A seguir · Governança e Transparência</div>
+          <h2 style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(34px, 5.2vw, 82px); line-height: 1.02; color: #FBF3EA; margin: 0; max-width: 22ch; text-shadow: 0 3px 30px rgba(0,0,0,0.5);">Transparência é o compromisso que fortalece a <em style="font-style: italic; color: #F0B489;">confiança</em> em cada ação que realizamos.</h2>
         </div>
       </div>
       <div style="position: absolute; top: clamp(88px,14vh,130px); left: 50%; transform: translateX(-50%); z-index: 2; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(251,243,234,0.72);">↓ role para ver os números</div>
@@ -435,7 +435,7 @@
         <canvas id="pc-reveal-canvas" aria-hidden="true" style="position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
 
         <div style="position: relative; z-index: 2; max-width: 1440px; margin: 0 auto; width: 100%;">
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #2C6E49; margin-bottom: clamp(14px,2vh,26px);">05 · Prestação de contas</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #2C6E49; margin-bottom: clamp(14px,2vh,26px);">05 · Governança e transparência</div>
 
           <div class="pc-grid" style="display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); gap: clamp(24px,4vw,72px); align-items: center;">
 
@@ -514,10 +514,36 @@
   </div>
 
   <!-- lightbox de imagem única -->
-  <footer style="position: relative; z-index: 2; background: #14110A; color: #EDE6D6; padding: clamp(28px,4vh,40px) clamp(24px,6vw,96px);">
-    <div style="max-width: 1440px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
-      <span style="font-family: 'Fraunces', serif; font-size: 15px; color: rgba(237,230,214,0.55);">Marambaia Eco Criativa · Bonito · MS</span>
-      <a href="#" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(237,230,214,0.6); text-decoration: none; transition: color .25s ease;" onmouseover="this.style.color='#EDE6D6'" onmouseout="this.style.color='rgba(237,230,214,0.6)'">Feito por Beyond Bits</a>
+  <footer style="position: relative; z-index: 2; background: #14110A; color: #EDE6D6; padding: clamp(48px,7vh,80px) clamp(24px,6vw,96px) clamp(28px,4vh,40px);">
+    <div style="max-width: 1440px; margin: 0 auto;">
+      <div class="mec-foot-grid" style="display: grid; grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); gap: clamp(32px,6vw,80px); align-items: start;">
+
+        <div>
+          <div style="font-family: 'Fraunces', serif; font-size: clamp(22px,2.4vw,32px); font-weight: 500; color: #FBF8EE; margin-bottom: 6px;">Marambaia <em style="font-style: italic; color: #FFE3C4;">Eco Criativa</em></div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(237,230,214,0.5); margin-bottom: 26px;">Bonito · Mato Grosso do Sul</div>
+
+          <div style="font-size: 14px; line-height: 1.7; color: rgba(237,230,214,0.72);">
+            <div style="color: #EDE6D6;">Associação Eco Criativos Grande Marambaia</div>
+            <div>CNPJ 63.403.726/0001-95</div>
+            <div>Rua Águas Marinhas, 486 — Vila Marambaia — Bonito, MS</div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(237,230,214,0.5); margin-bottom: 18px;">Fale com a gente</div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="mailto:ecocriativos.marambaia@gmail.com" style="font-size: 15px; color: #EDE6D6; text-decoration: none; transition: color .25s ease;" onmouseover="this.style.color='#FFE3C4'" onmouseout="this.style.color='#EDE6D6'">ecocriativos.marambaia@gmail.com</a>
+            <a href="https://wa.me/5567992001469" target="_blank" rel="noopener" style="font-size: 15px; color: #EDE6D6; text-decoration: none; transition: color .25s ease;" onmouseover="this.style.color='#FFE3C4'" onmouseout="this.style.color='#EDE6D6'">WhatsApp · (67) 99200-1469</a>
+            <a href="https://instagram.com/marambaiaecocriativa" target="_blank" rel="noopener" style="font-size: 15px; color: #EDE6D6; text-decoration: none; transition: color .25s ease;" onmouseover="this.style.color='#FFE3C4'" onmouseout="this.style.color='#EDE6D6'">@marambaiaecocriativa</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top: clamp(36px,5vh,56px); padding-top: 22px; border-top: 1px solid rgba(237,230,214,0.12); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(237,230,214,0.4);">© 2026 Marambaia Eco Criativa</span>
+        <a href="https://beyond.dev.br" target="_blank" rel="noopener" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(237,230,214,0.6); text-decoration: none; transition: color .25s ease;" onmouseover="this.style.color='#EDE6D6'" onmouseout="this.style.color='rgba(237,230,214,0.6)'">Feito por Beyond Bits</a>
+      </div>
     </div>
   </footer>
 
@@ -538,28 +564,35 @@ class Component extends DCLogic {
     this.texOpacity = P.textureOpacity ?? 0.85;
 
     this.reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // no mobile / telas sem cursor: sem textura revelada e sem loop de canvas (performance)
+    this.isMobile = !!(window.matchMedia && (window.matchMedia('(max-width: 760px)').matches || window.matchMedia('(hover: none) and (pointer: coarse)').matches));
 
     // ---------- WOVEN PALHA TEXTURE (canvas) ----------
     this.canvas = document.getElementById('straw-canvas');
-    this.canvas.style.opacity = String(this.texOpacity);
-    this.ctx = this.canvas.getContext('2d');
-    this.angle = -0.5;      // weave tilt
-    this.s = 22;            // strand cell size (px)
-    this.warp = 'rgba(176,148,84,0.95)';   // over strands (palha, darker)
-    this.weft = 'rgba(206,182,120,0.72)';  // under strands (palha, lighter)
-    this.tx = -900; this.ty = -900; this.cx = -900; this.cy = -900; this.seen = false;
+    if (this.isMobile) {
+      // desliga a textura revelada no mobile: esconde o canvas e nao inicia o loop de animacao
+      if (this.canvas) this.canvas.style.display = 'none';
+    } else {
+      this.canvas.style.opacity = String(this.texOpacity);
+      this.ctx = this.canvas.getContext('2d');
+      this.angle = -0.5;      // weave tilt
+      this.s = 22;            // strand cell size (px)
+      this.warp = 'rgba(176,148,84,0.95)';   // over strands (palha, darker)
+      this.weft = 'rgba(206,182,120,0.72)';  // under strands (palha, lighter)
+      this.tx = -900; this.ty = -900; this.cx = -900; this.cy = -900; this.seen = false;
 
-    this._resize = () => this.setupCanvas();
-    window.addEventListener('resize', this._resize);
-    this.setupCanvas();
+      this._resize = () => this.setupCanvas();
+      window.addEventListener('resize', this._resize);
+      this.setupCanvas();
 
-    window.addEventListener('pointermove', (e) => { this.tx = e.clientX; this.ty = e.clientY; this.seen = true; }, { passive: true });
+      window.addEventListener('pointermove', (e) => { this.tx = e.clientX; this.ty = e.clientY; this.seen = true; }, { passive: true });
 
-    const tick = (t) => {
-      this.drawWeave(t * 0.001);
+      const tick = (t) => {
+        this.drawWeave(t * 0.001);
+        this._raf = requestAnimationFrame(tick);
+      };
       this._raf = requestAnimationFrame(tick);
-    };
-    this._raf = requestAnimationFrame(tick);
+    }
 
     this._setupCarousel();
     this._setupLightbox();
@@ -1118,13 +1151,15 @@ class Component extends DCLogic {
 
   _setupAviReveal() {
     this._makeReveal('avi-sobre', 'avi-reveal-canvas', 'assets/avi/aves-pattern.jpg', '_aviReveal', '_aviRAF', '_aviResize');
-    this._makeReveal('prestacao', 'pc-reveal-canvas', 'assets/avi/artesanato-pattern.jpg', '_pcReveal', '_pcRAF', '_pcResize');
+    // efeito de revelar textura/imagem do ultimo hero (Prestacao de Contas) desativado tambem no desktop
+    var _pcCv = document.getElementById('pc-reveal-canvas');
+    if (_pcCv) _pcCv.style.display = 'none';
   }
 
   _makeReveal(secId, canvasId, imgSrc, refKey, rafKey, resizeKey) {
     const sec = document.getElementById(secId);
     const cv = document.getElementById(canvasId);
-    if (!sec || !cv || this.reduce) return;
+    if (!sec || !cv || this.reduce || this.isMobile) { if (cv) cv.style.display = 'none'; return; }
     const ctx = cv.getContext('2d');
     const img = new Image();
     img.src = imgSrc;
@@ -1491,6 +1526,139 @@ class Component extends DCLogic {
     if (this._sts) this._sts.forEach(s => { try { s.kill(); } catch (e) {} });
   }
 }
+</script>
+
+<!-- ============================================================= -->
+<!-- CORREÇÃO MOBILE — injeta o CSS responsivo direto no <head> por  -->
+<!-- JS puro, aplicado pelo navegador independente do framework.     -->
+<!-- Não altera o desktop (tudo dentro de @media max-width).         -->
+<!-- ============================================================= -->
+<script>
+(function () {
+  var STYLE_ID = 'mec-mobile-fix';
+  var CSS = [
+    /* mobile/touch: mata a textura revelada, os canvases de reveal e as dicas de cursor */
+    '@media (hover: none), (max-width: 760px){',
+    '  #straw-canvas,#avi-reveal-canvas,#pc-reveal-canvas,#mec-lb-reveal{display:none!important;}',
+    '  .mec-cursor-hint{display:none!important;}',
+    '}',
+    /* garante que nada estoure pras laterais no mobile */
+    '@media (max-width: 900px){',
+    '  body{overflow-x:hidden;}',
+    '  #site-header .mec-headbar{padding:13px clamp(16px,5vw,24px)!important;gap:12px!important;}',
+    '  #mec-burger{display:inline-flex!important;align-items:center;justify-content:center;}',
+    '  .mec-nav{position:absolute!important;top:100%!important;left:0!important;right:0!important;',
+    '    flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;',
+    '    gap:0!important;flex-wrap:nowrap!important;background:#201d14;padding:4px clamp(16px,5vw,24px) 14px;',
+    '    box-shadow:0 22px 40px rgba(0,0,0,0.28);max-height:0;overflow:hidden;opacity:0;pointer-events:none;',
+    '    transition:max-height .42s cubic-bezier(.4,0,.2,1),opacity .3s ease;}',
+    '  .mec-nav.open{max-height:80vh!important;opacity:1!important;pointer-events:auto!important;}',
+    '  .mec-nav .mec-navlink{padding:15px 2px!important;font-size:16px!important;border-bottom:1px solid rgba(255,255,255,0.1);}',
+    '  .mec-nav .mec-navlink:last-child{border-bottom:0;}',
+    '}',
+    '@media (max-width: 760px){',
+    '  #hero-scroll{height:175vh!important;}',
+    '  .intro-grid{grid-template-columns:1fr!important;gap:26px!important;}',
+    '  .artesa-msgbox{width:86vw!important;height:300px!important;}',
+    '  #car-prev,#car-next{width:44px!important;height:44px!important;}',
+    '  .avi-msgs{width:86vw!important;padding:0 7vw!important;}',
+    '  .avi-msgs h2{font-size:clamp(44px,15vw,70px)!important;}',
+    '  .avi-msgs p{font-size:clamp(19px,5.4vw,30px)!important;}',
+    '  .avi-msgbox{height:300px!important;}',
+    '  .avi-sobre-grid{grid-template-columns:1fr!important;gap:30px!important;}',
+    '  .avi-motmot-wrap{margin-left:0!important;}',
+    '  #avi-motmot{height:54vh!important;}',
+    '  #avi-bird{left:0!important;right:0!important;width:100%!important;}',
+    '  .mp-logo{width:150px!important;top:78px!important;}',
+    '  .mp-msgs{width:86vw!important;}',
+    '  .mp-msgbox{height:320px!important;}',
+    '  .mp-grid{grid-template-columns:repeat(2,1fr)!important;grid-auto-rows:calc((100vw - 4px) / 2)!important;}',
+    '  .mp-card{grid-column:span 1!important;grid-row:span 1!important;}',
+    '  .mp-card .mp-sum{display:none!important;}',
+    '  .pc-sticky{padding:84px 22px 40px!important;}',
+    '  .pc-grid{grid-template-columns:1fr!important;gap:24px!important;}',
+    '  #pc-num{font-size:clamp(64px,22vw,96px)!important;}',
+    '  .pc-msgwrap{height:200px!important;}',
+    '  .pc-msgwrap .pc-msg p{font-size:clamp(20px,5.4vw,28px)!important;}',
+    '  .mec-foot-grid{grid-template-columns:1fr!important;gap:32px!important;}',
+    '}'
+  ].join('\n');
+
+  function injectStyle() {
+    var head = document.head || document.getElementsByTagName('head')[0];
+    if (!head) return;
+    var el = document.getElementById(STYLE_ID);
+    if (!el) {
+      el = document.createElement('style');
+      el.id = STYLE_ID;
+      el.type = 'text/css';
+    }
+    if (el.textContent !== CSS) el.textContent = CSS;
+    // sempre por último, pra ganhar de estilos que o framework injeta depois
+    head.appendChild(el);
+  }
+
+  function ensureViewport() {
+    try {
+      var want = 'width=device-width, initial-scale=1, viewport-fit=cover';
+      var metas = document.querySelectorAll('meta[name="viewport"]');
+      if (!metas.length) {
+        var m = document.createElement('meta');
+        m.name = 'viewport'; m.content = want;
+        (document.head || document.documentElement).appendChild(m);
+      } else {
+        metas.forEach(function (m, i) { i === 0 ? m.setAttribute('content', want) : m.remove(); });
+      }
+    } catch (e) {}
+  }
+
+  // menu hamburguer via delegação — sobrevive a re-render do framework
+  var navWired = false;
+  function wireBurger() {
+    if (navWired) return;
+    navWired = true;
+    document.addEventListener('click', function (e) {
+      var burger = e.target.closest && e.target.closest('#mec-burger');
+      var nav = document.querySelector('.mec-nav');
+      if (burger && nav) {
+        e.preventDefault();
+        var open = nav.classList.toggle('open');
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        return;
+      }
+      // clicou fora ou num link -> fecha
+      if (nav && nav.classList.contains('open')) {
+        if (!e.target.closest('.mec-nav') || e.target.closest('.mec-navlink')) {
+          nav.classList.remove('open');
+          var b = document.getElementById('mec-burger');
+          if (b) b.setAttribute('aria-expanded', 'false');
+        }
+      }
+    }, true);
+  }
+
+  function boot() { ensureViewport(); injectStyle(); wireBurger(); }
+
+  boot();
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', boot);
+  window.addEventListener('load', boot);
+  window.addEventListener('resize', injectStyle);
+  window.addEventListener('orientationchange', function(){ setTimeout(boot, 60); });
+
+  // reaplica por alguns segundos, caso o framework monte/limpe depois
+  var tries = 0;
+  var iv = setInterval(function () { injectStyle(); if (++tries > 40) clearInterval(iv); }, 250);
+
+  // observa remoção do nosso <style> e reinjeta
+  try {
+    var mo = new MutationObserver(function () {
+      if (!document.getElementById(STYLE_ID)) injectStyle();
+    });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+    setTimeout(function () { mo.disconnect(); }, 15000);
+  } catch (e) {}
+})();
 </script>
 </body>
 </html>
