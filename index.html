@@ -27,18 +27,24 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="./image-slot.js"></script>
 <style>
+  @font-face {
+    font-family: 'Space Grotesk';
+    src: url('assets/fonts/SpaceGrotesk-var.woff2') format('woff2');
+    font-weight: 300 700; font-style: normal; font-display: swap;
+  }
   *, *::before, *::after { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: #FCFAF4; color: #23261E; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  html, body { margin: 0; padding: 0; background: #FCFAF4; color: #23261E; font-family: 'Space Grotesk', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
   body { overflow-x: hidden; }
-  a { color: var(--accent, #0C82BA); text-decoration: none; }
+  a { color: var(--accent, #1E8B8A); text-decoration: none; }
   a:hover { opacity: 0.7; }
-  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; margin: 0; letter-spacing: -0.02em; }
+  /* titulos = versao estilizada da Space Grotesk (stylistic sets); texto corrido = versao normal */
+  html, body { font-weight: 300; }
+  h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; margin: 0; letter-spacing: -0.02em; }
   p { margin: 0; }
   @keyframes cueBob { 0%,100% { transform: translateY(0); opacity: .55; } 50% { transform: translateY(7px); opacity: 1; } }
   #mec-burger { display: none; }
@@ -113,7 +119,7 @@
     <header id="site-header"
             style="position: fixed; top: 0; left: 0; right: 0; z-index: 40; background: #E96C15; border-bottom: 1px solid rgba(120,52,4,0.35); box-shadow: 0 6px 24px rgba(120,52,4,0.18); transition: background .6s ease, border-color .6s ease, box-shadow .6s ease;">
       <div class="mec-headbar" style="max-width: 1320px; margin: 0 auto; padding: 20px clamp(24px, 5vw, 56px); display: flex; align-items: center; justify-content: space-between; gap: 24px;">
-        <a href="#top" class="mec-brand" style="display: inline-flex; align-items: center; gap: 11px; font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(17px, 1.6vw, 21px); letter-spacing: -0.01em; color: #FBF8EE;">
+        <a href="#top" class="mec-brand" style="display: inline-flex; align-items: center; gap: 11px; font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(17px, 1.6vw, 21px); letter-spacing: -0.01em; color: #FBF8EE;">
           <svg width="26" height="26" viewBox="0 0 40 40" fill="none" aria-hidden="true">
             <path d="M20 4 C20 12 14 16 14 22 C14 28 20 32 20 38" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
             <path d="M20 12 C26 14 30 18 30 24" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
@@ -122,11 +128,11 @@
           <span>Movimento Marambaia <em class="mec-brand-accent" style="font-style: italic; color: #FFE3C4;">Eco Criativa</em></span>
         </a>
         <nav class="mec-nav" style="display: flex; align-items: center; gap: clamp(18px, 2.4vw, 40px); flex-wrap: wrap; justify-content: flex-end;">
-          <a href="#intro" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Quem Somos</a>
-          <a href="#galeria" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Galeria</a>
-          <a href="#avi-scroll" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Aviturismo</a>
-          <a href="#museu" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Museu da Pessoa</a>
-          <a href="#prestacao" class="mec-navlink" style="font-size: 14px; font-weight: 500; color: #FBF8EE;">Governança e Transparência</a>
+          <a href="#intro" class="mec-navlink" style="font-size: 14px; font-weight: 300; color: #FBF8EE;">Quem Somos</a>
+          <a href="#galeria" class="mec-navlink" style="font-size: 14px; font-weight: 300; color: #FBF8EE;">Galeria</a>
+          <a href="#avi-scroll" class="mec-navlink" style="font-size: 14px; font-weight: 300; color: #FBF8EE;">Aviturismo</a>
+          <a href="#museu" class="mec-navlink" style="font-size: 14px; font-weight: 300; color: #FBF8EE;">Museu da Pessoa</a>
+          <a href="#prestacao" class="mec-navlink" style="font-size: 14px; font-weight: 300; color: #FBF8EE;">Governança e Transparência</a>
         </nav>
         <button id="mec-burger" aria-label="Abrir menu" aria-expanded="false" style="width:44px;height:44px;border:0;background:transparent;color:#FBF8EE;cursor:pointer;align-items:center;justify-content:center;flex:0 0 auto;padding:0;margin-left:auto;">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
@@ -149,19 +155,19 @@
                     background: linear-gradient(to top, rgba(12,14,9,0.92) 0%, rgba(12,14,9,0.55) 26%, rgba(12,14,9,0.12) 52%, rgba(12,14,9,0.30) 100%);"></div>
 
         <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 clamp(24px, 6vw, 96px) clamp(64px, 9vh, 120px);">
-          <div id="hero-eyebrow" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: clamp(11px, 1vw, 13px); letter-spacing: 0.22em; text-transform: uppercase; color: #EDE7D6; margin-bottom: clamp(16px, 2.5vh, 28px);">
-            <span style="display: inline-block; width: 40px; height: 1px; background: var(--accent, #0C82BA);"></span>
+          <div id="hero-eyebrow" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'Space Grotesk', sans-serif; font-size: clamp(11px, 1vw, 13px); letter-spacing: 0.22em; text-transform: uppercase; color: #EDE7D6; margin-bottom: clamp(16px, 2.5vh, 28px);">
+            <span style="display: inline-block; width: 40px; height: 1px; background: var(--accent, #1E8B8A);"></span>
             <span>Bonito · Mato Grosso do Sul</span>
           </div>
 
-          <h1 style="line-height: 0.92; font-weight: 500; color: #FBF8EE; margin: 0;">
-            <span style="display: block; overflow: hidden;"><span class="hero-line" style="display: block; font-size: clamp(56px, 12vw, 190px); font-weight: 500; letter-spacing: -0.03em;">Marambaia</span></span>
-            <span style="display: block; overflow: hidden;"><span class="hero-line" style="display: block; font-size: clamp(44px, 9vw, 138px); font-weight: 400; font-style: italic; letter-spacing: -0.01em; color: var(--accent, #0C82BA);">Eco Criativa</span></span>
+          <h1 style="line-height: 0.92; font-weight: 700; color: #FBF8EE; margin: 0;">
+            <span style="display: block; overflow: hidden;"><span class="hero-line" style="display: block; font-size: clamp(56px, 12vw, 190px); font-weight: 700; letter-spacing: -0.03em;">Marambaia</span></span>
+            <span style="display: block; overflow: hidden;"><span class="hero-line" style="display: block; font-size: clamp(44px, 9vw, 138px); font-weight: 400; font-style: italic; letter-spacing: -0.01em; color: #E96C15;">Eco Criativa</span></span>
           </h1>
 
           <div id="hero-sub" style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 24px; margin-top: clamp(24px, 4vh, 44px);">
             <p style="max-width: 480px; font-size: clamp(14px, 1.3vw, 18px); line-height: 1.6; color: #E4E0D2;">Uma associação que fortalece a economia criativa e circular, o turismo sustentável e o desenvolvimento comunitário em Bonito, MS.</p>
-            <a href="#intro" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #FBF8EE; padding-bottom: 6px; border-bottom: 1px solid rgba(251,248,238,0.4);">
+            <a href="#intro" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #FBF8EE; padding-bottom: 6px; border-bottom: 1px solid rgba(251,248,238,0.4);">
               Conheça a Marambaia
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
@@ -169,7 +175,7 @@
         </div>
 
         <div id="hero-cue" style="position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: #FBF8EE;">
-          <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; opacity: .7;">Role</span>
+          <span style="font-family: 'Space Grotesk', sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; opacity: .7;">Role</span>
           <svg width="16" height="22" viewBox="0 0 16 22" fill="none" style="animation: cueBob 2s ease-in-out infinite;"><path d="M8 2v16M2 12l6 6 6-6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
       </div>
@@ -179,13 +185,13 @@
     <section id="intro" style="max-width: 1180px; margin: 0 auto; padding: clamp(90px, 16vh, 170px) clamp(24px, 6vw, 64px);">
       <div class="intro-grid" style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(32px, 6vw, 80px); align-items: start;">
         <div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 22px;">01 · Quem somos</div>
-          <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 500; color: #23261E;">Conectando pessoas, cultura e <em style="font-style: italic; color: var(--accent, #0C82BA);">natureza</em>.</h2>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 22px;">01 · Quem somos</div>
+          <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 300; color: #23261E;">Conectando pessoas, cultura e <em style="font-weight: 700; font-style: italic; color: var(--accent, #1E8B8A);">natureza</em>.</h2>
         </div>
         <div style="padding-top: clamp(8px, 3vh, 40px);">
           <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; margin-bottom: 22px;">A Marambaia Eco Criativa reúne pessoas, ideias e iniciativas que transformam talentos locais em oportunidades de desenvolvimento — fortalecendo a cultura, o turismo sustentável e a economia criativa e circular de Bonito, MS.</p>
           <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E;">Com projetos, capacitações, eventos e parcerias, incentivamos o empreendedorismo, fortalecemos redes de colaboração e valorizamos os saberes locais — gerando impacto social, cultural, ambiental e econômico para a comunidade.</p>
-          <div class="mec-cursor-hint" style="margin-top: 36px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar a trança de palha</div>
+          <div class="mec-cursor-hint" style="margin-top: 36px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar a trança de palha</div>
         </div>
       </div>
     </section>
@@ -200,16 +206,16 @@
         <div style="position: absolute; inset: 0; display: flex; align-items: center; padding: 0 clamp(24px, 7vw, 130px);">
           <div class="artesa-msgbox" style="position: relative; width: min(640px, 78vw); height: 340px;">
             <div class="artesa-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">Comunidade</div>
-              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #FBF5E9; margin: 0;">Quando a comunidade cresce junto, a cultura, a natureza e as oportunidades <em style="font-style: italic; color: #FFD9A6;">se fortalecem</em>.</p>
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">Comunidade</div>
+              <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(24px, 3.2vw, 44px); line-height: 1.14; color: #FBF5E9; margin: 0; max-width: 18ch;">Comunidade que cresce <em style="font-weight: 700; font-style: italic; color: #FFD9A6;">junto</em> fortalece cultura e futuro.</p>
             </div>
             <div class="artesa-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">Transformação</div>
-              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #FBF5E9; margin: 0;">Cada talento encontra espaço para <em style="font-style: italic; color: #FFD9A6;">crescer</em>, gerar renda e fortalecer a comunidade.</p>
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">Transformação</div>
+              <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(24px, 3.2vw, 44px); line-height: 1.14; color: #FBF5E9; margin: 0; max-width: 18ch;">Cada talento vira <em style="font-weight: 700; font-style: italic; color: #FFD9A6;">renda</em> e força para a comunidade.</p>
             </div>
             <div class="artesa-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">Futuro</div>
-              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #FBF5E9; margin: 0;">Investir nas pessoas é preservar a cultura, cuidar do território e criar oportunidades para as <em style="font-style: italic; color: #FFD9A6;">próximas gerações</em>.</p>
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">Futuro</div>
+              <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(24px, 3.2vw, 44px); line-height: 1.14; color: #FBF5E9; margin: 0; max-width: 18ch;">Investir nas pessoas é cuidar das <em style="font-weight: 700; font-style: italic; color: #FFD9A6;">próximas gerações</em>.</p>
             </div>
           </div>
         </div>
@@ -220,8 +226,8 @@
     <section id="galeria" style="position: relative; z-index: 2; background: transparent; padding: clamp(78px, 12vh, 128px) 0; overflow: hidden;">
       <div style="max-width: 1240px; margin: 0 auto clamp(36px, 6vh, 56px); padding: 0 clamp(24px, 6vw, 64px); display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
         <div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 16px;">02 · Galeria</div>
-          <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.06; font-weight: 500; color: #23261E; max-width: 640px;">O que <em style="font-style: italic; color: var(--accent, #0C82BA);">movimenta</em> a Marambaia.</h2>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 16px;">02 · Galeria</div>
+          <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.06; font-weight: 300; color: #23261E; max-width: 640px;">O que <em style="font-weight: 700; font-style: italic; color: var(--accent, #1E8B8A);">movimenta</em> a Marambaia.</h2>
         </div>
         <p style="max-width: 300px; font-size: 15px; line-height: 1.6; color: #6b6656;">As iniciativas que fortalecem a cultura, o turismo sustentável, a economia criativa e circular e o desenvolvimento comunitário. Navegue ao lado.</p>
       </div>
@@ -255,9 +261,9 @@
         </button>
 
         <div style="max-width: 760px; margin: clamp(30px, 4.5vh, 46px) auto 0; padding: 0 clamp(24px, 6vw, 40px); text-align: center;">
-          <h3 id="car-title" style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(22px, 2.6vw, 34px); line-height: 1.1; color: #23261E; margin: 0 0 13px;"></h3>
+          <h3 id="car-title" style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(22px, 2.6vw, 34px); line-height: 1.1; color: #23261E; margin: 0 0 13px;"></h3>
           <p id="car-desc" style="font-size: clamp(14px, 1.2vw, 17px); line-height: 1.7; color: #4B4A3E; margin: 0 auto; max-width: 640px;"></p>
-          <div id="car-counter" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #A89A76; margin-top: clamp(20px, 3vh, 28px);"></div>
+          <div id="car-counter" style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.18em; color: #A89A76; margin-top: clamp(20px, 3vh, 28px);"></div>
         </div>
       </div>
     </section>
@@ -281,17 +287,17 @@
         <div class="avi-msgs" style="position: absolute; top: 0; bottom: 0; left: 0; z-index: 4; display: flex; align-items: center; padding: 0 clamp(24px, 6vw, 110px); width: min(720px, 58vw);">
           <div class="avi-msgbox" style="position: relative; width: 100%; height: 320px;">
             <div class="avi-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 14px;">03 · Onde a natureza encontra o olhar</div>
-              <h2 style="font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(64px, 11vw, 168px); line-height: 0.92; letter-spacing: -0.02em; color: #F3F7EC; margin: 0 0 18px; text-shadow: 0 4px 40px rgba(0,0,0,0.55);">Avi<em style="font-style: italic; color: #7FE0CE;">turismo</em></h2>
-              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(20px, 2.4vw, 34px); line-height: 1.12; color: #F3F7EC; margin: 0; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">A diversidade de aves da Grande Marambaia, unindo natureza, conservação e <em style="font-style: italic; color: #7FE0CE;">turismo sustentável</em>.</p>
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 14px;">03 · Onde a natureza encontra o olhar</div>
+              <h2 style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(52px, 8vw, 120px); line-height: 0.94; letter-spacing: -0.02em; color: #F3F7EC; margin: 0 0 16px; text-shadow: 0 4px 40px rgba(0,0,0,0.55);">Avi<em style="font-weight: 700; font-style: italic; color: #7FE0CE;">turismo</em></h2>
+              <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(17px, 1.9vw, 26px); line-height: 1.2; color: #F3F7EC; margin: 0; max-width: 26ch; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">Aves da Grande Marambaia unindo natureza e <em style="font-weight: 700; font-style: italic; color: #7FE0CE;">turismo sustentável</em>.</p>
             </div>
             <div class="avi-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 18px;">O olhar</div>
-              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #F3F7EC; margin: 0; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">Em cada caminhada, um novo canto, um novo voo e uma nova <em style="font-style: italic; color: #7FE0CE;">conexão com a natureza</em>.</p>
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 18px;">O olhar</div>
+              <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(24px, 3.2vw, 44px); line-height: 1.14; color: #F3F7EC; margin: 0; max-width: 18ch; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">Cada caminhada é uma nova <em style="font-weight: 700; font-style: italic; color: #7FE0CE;">conexão com a natureza</em>.</p>
             </div>
             <div class="avi-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 18px;">O destino</div>
-              <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.08; color: #F3F7EC; margin: 0; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">A conservação começa pelo olhar — quem conhece a biodiversidade ajuda a <em style="font-style: italic; color: #7FE0CE;">proteger</em> o que torna Bonito único.</p>
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 18px;">O destino</div>
+              <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(24px, 3.2vw, 44px); line-height: 1.14; color: #F3F7EC; margin: 0; max-width: 18ch; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">A conservação começa pelo olhar de quem <em style="font-weight: 700; font-style: italic; color: #7FE0CE;">protege</em> Bonito.</p>
             </div>
           </div>
         </div>
@@ -304,14 +310,90 @@
       <canvas id="avi-reveal-canvas" aria-hidden="true" style="position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
       <div style="position: relative; z-index: 2; max-width: 1180px; margin: 0 auto; padding: clamp(70px, 13vh, 150px) clamp(24px, 6vw, 64px);">
         <div class="avi-sobre-grid" style="display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(32px, 5vw, 72px); align-items: center;">
-          <div class="avi-motmot-wrap" style="position: relative; margin-left: clamp(-280px, -16vw, -80px);">
-            <img id="avi-motmot" src="assets/avi/motmot2.jpg" alt="Casal de udus-de-coroa-azul (motmots) em galho na mata" decoding="async" style="display: block; width: 100%; height: clamp(440px, 66vh, 720px); object-fit: cover; object-position: 30% center; border-radius: 3px; box-shadow: 0 40px 80px -20px rgba(20,28,14,0.45), 0 16px 32px -12px rgba(20,28,14,0.32);">
+          <div class="avi-motmot-wrap" id="avi-motmot-wrap" style="position: relative; margin-left: 0; overflow: visible;">
+            <!-- CARD: fundo desfocado, clipado — alinhado à ESQUERDA p/ o pássaro sair pela direita -->
+            <div id="avi-motmot" style="position: relative; display: block; width: clamp(300px, 76%, 500px); margin-left: 0; margin-right: auto; height: clamp(440px, 66vh, 720px); border-radius: 3px; overflow: hidden; box-shadow: 0 40px 80px -20px rgba(20,28,14,0.45), 0 16px 32px -12px rgba(20,28,14,0.32);">
+              <img id="avi-motmot-back" src="assets/avi/motmot-back.png" alt="" aria-hidden="true" decoding="async"
+                   style="position: absolute; inset: -6%; width: 112%; height: 112%; object-fit: cover; object-position: 38% center; will-change: transform;">
+            </div>
+            <!-- AVES recortadas: FORA do card (não clipadas) → corpo sobre o card, bicos/cabeças saindo pela borda DIREITA -->
+            <img id="avi-motmot-front" src="assets/avi/motmot-front.png" alt="Casal de udus-de-coroa-azul (motmots) em galho na mata" decoding="async"
+                 style="position: absolute; bottom: 0; left: auto; right: -8%; height: 116%; width: auto; z-index: 3; pointer-events: none; will-change: transform; filter: drop-shadow(0 26px 30px rgba(0,0,0,0.38)) drop-shadow(0 8px 12px rgba(0,0,0,0.22));">
           </div>
+          <script>
+          (function(){
+            function init(){
+              var wrap  = document.getElementById('avi-motmot');       // o card (área do fundo)
+              var back  = document.getElementById('avi-motmot-back');
+              var front = document.getElementById('avi-motmot-front');
+              if(!wrap || !back || !front) return;
+
+              var rect = null, raf = null;
+              var tx = 0, ty = 0, cx = 0, cy = 0, hovering = false;
+              var scrollBackY = 0;
+
+              function measure(){ rect = wrap.getBoundingClientRect(); }
+              measure();
+              window.addEventListener('resize', measure);
+
+              function apply(){
+                var bx = cx * 6,  by = cy * 6  + scrollBackY;
+                // aves: movimento horizontal no mouse + leve vertical; sem deslocar no scroll (base fica colada)
+                var fx = cx * 20, fy = cy * 8;
+                back.style.transform  = 'translate3d(' + bx.toFixed(2) + 'px,' + by.toFixed(2) + 'px,0) scale(1.02)';
+                front.style.transform = 'translate3d(' + fx.toFixed(2) + 'px,' + fy.toFixed(2) + 'px,0)';
+              }
+
+              function loop(){
+                cx += (tx - cx) * 0.09;
+                cy += (ty - cy) * 0.09;
+                apply();
+                if (Math.abs(tx - cx) > 0.001 || Math.abs(ty - cy) > 0.001 || hovering) raf = requestAnimationFrame(loop);
+                else raf = null;
+              }
+              function kick(){ if (!raf) raf = requestAnimationFrame(loop); }
+
+              // parallax de MOUSE
+              wrap.addEventListener('mouseenter', function(){ hovering = true; measure(); kick(); });
+              wrap.addEventListener('mousemove', function(e){
+                if(!rect) measure();
+                var nx = ((e.clientX - rect.left) / rect.width  - 0.5) * 2;
+                var ny = ((e.clientY - rect.top)  / rect.height - 0.5) * 2;
+                tx = Math.max(-1, Math.min(1, nx));
+                ty = Math.max(-1, Math.min(1, ny));
+                kick();
+              });
+              wrap.addEventListener('mouseleave', function(){ hovering = false; tx = 0; ty = 0; kick(); });
+
+              // parallax de SCROLL
+              if (window.gsap && window.ScrollTrigger) {
+                window.gsap.registerPlugin(window.ScrollTrigger);
+                window.ScrollTrigger.create({
+                  trigger: wrap, start: 'top bottom', end: 'bottom top', scrub: true,
+                  onUpdate: function(self){
+                    var t = (self.progress - 0.5) * 2;
+                    scrollBackY  = t * -28;
+                    apply();
+                  }
+                });
+              } else {
+                var vh = window.innerHeight;
+                window.addEventListener('scroll', function(){
+                  var r = wrap.getBoundingClientRect();
+                  var t = (Math.max(0, Math.min(1, 1 - ((r.top + r.height/2) / vh))) - 0.5) * 2;
+                  scrollBackY = t * -28; apply();
+                }, { passive: true });
+              }
+            }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+          })();
+          </script>
           <div>
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 22px;">03 · Aviturismo</div>
-            <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 500; color: #23261E; margin-bottom: 26px;">Descubra Bonito por um <em style="font-style: italic; color: var(--accent, #0C82BA);">outro olhar</em>.</h2>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 22px;">03 · Aviturismo</div>
+            <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 300; color: #23261E; margin-bottom: 26px;">Descubra Bonito por um <em style="font-weight: 700; font-style: italic; color: var(--accent, #1E8B8A);">outro olhar</em>.</h2>
             <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; max-width: 46ch;">A Trilha Urbana de Aviturismo da Grande Marambaia convida moradores e visitantes a redescobrir Bonito pela diversidade de suas aves. Mais do que observar espécies, é uma experiência que conecta natureza, educação ambiental, turismo sustentável e comunidade.</p>
-            <div class="mec-cursor-hint" style="margin-top: 36px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar as aves</div>
+            <div class="mec-cursor-hint" style="margin-top: 36px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar as aves</div>
           </div>
         </div>
       </div>
@@ -327,24 +409,24 @@
           <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(4,26,36,0.82) 0%, rgba(4,26,36,0.55) 38%, rgba(4,26,36,0.15) 66%, rgba(4,26,36,0.05) 100%);"></div>
 
           <!-- logo em destaque -->
-          <div style="position: absolute; top: clamp(88px, 14vh, 130px); left: clamp(24px, 6vw, 96px); z-index: 3;">
-            <img src="assets/museu-logo.svg" alt="Museu da Pessoa" class="mp-logo" decoding="async" style="display: block; width: clamp(220px, 26vw, 340px); height: auto; filter: drop-shadow(0 6px 22px rgba(0,0,0,0.45));">
+          <div style="position: absolute; top: clamp(84px, 13vh, 120px); right: clamp(24px, 5vw, 72px); left: auto; z-index: 3;">
+            <img src="assets/museu-logo.png" alt="Museu da Pessoa" class="mp-logo" decoding="async" style="display: block; width: clamp(140px, 16vw, 220px); height: auto; filter: drop-shadow(0 6px 22px rgba(0,0,0,0.45));">
           </div>
 
           <!-- textos (cross-fade no scroll) sobre a imagem -->
           <div class="mp-msgs" style="position: absolute; left: clamp(24px, 6vw, 96px); top: 0; bottom: 0; z-index: 3; display: flex; align-items: center; width: min(620px, 52vw);">
             <div class="mp-msgbox" style="position: relative; width: 100%; height: 360px;">
               <div class="mp-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FD3F0; margin-bottom: 18px;">04 · Museu da Pessoa</div>
-                <h2 style="font-size: clamp(34px, 5vw, 66px); line-height: 1.03; font-weight: 500; color: #FBFDFF; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Toda história merece ser <em style="font-style: italic; color: #7FD3F0;">contada</em>.</h2>
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FD9D3; margin-bottom: 18px;">04 · Museu da Pessoa</div>
+                <h2 style="font-size: clamp(34px, 5vw, 66px); line-height: 1.06; font-weight: 300; color: #FBFDFF; max-width: 16ch; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Toda história merece ser <em style="font-weight: 700; font-style: italic; color: #7FD9D3;">contada</em>.</h2>
               </div>
               <div class="mp-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FD3F0; margin-bottom: 18px;">Acervo vivo</div>
-                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(28px, 3.8vw, 52px); line-height: 1.1; color: #FBFDFF; margin: 0; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Histórias de vida que preservam a memória, fortalecem a identidade e <em style="font-style: italic; color: #7FD3F0;">inspiram novas gerações</em>.</p>
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FD9D3; margin-bottom: 18px;">Acervo vivo</div>
+                <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(23px, 3vw, 40px); line-height: 1.16; color: #FBFDFF; margin: 0; max-width: 18ch; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Histórias de vida que preservam a memória e <em style="font-weight: 700; font-style: italic; color: #7FD9D3;">inspiram gerações</em>.</p>
               </div>
               <div class="mp-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FD3F0; margin-bottom: 18px;">Como explorar</div>
-                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(28px, 3.8vw, 52px); line-height: 1.1; color: #FBFDFF; margin: 0; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Descubra histórias que revelam a diversidade e a identidade do nosso território. <em style="font-style: italic; color: #7FD3F0;">Passe o cursor e clique para assistir</em>.</p>
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FD9D3; margin-bottom: 18px;">Como explorar</div>
+                <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(23px, 3vw, 40px); line-height: 1.16; color: #FBFDFF; margin: 0; max-width: 20ch; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Histórias que revelam nosso território. <em style="font-weight: 700; font-style: italic; color: #7FD9D3;">Passe o cursor e clique para assistir</em>.</p>
               </div>
             </div>
           </div>
@@ -352,7 +434,7 @@
       </div>
 
       <div style="display: flex; align-items: center; gap: 14px; max-width: 1440px; margin: 0 auto; padding: 0 clamp(12px,2vw,22px);">
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #7C8A6A;">Acervo em vídeo</span>
+        <span style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #7C8A6A;">Acervo em vídeo</span>
       </div>
 
       <div class="mp-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: calc((100vw - 12px) / 4); grid-auto-flow: dense; gap: 4px; background: #FCFAF4; margin-top: clamp(18px, 3vh, 30px);">
@@ -360,7 +442,7 @@
           <img class="mp-thumb" src="https://i.ytimg.com/vi/aqz-KE-bpKQ/maxresdefault.jpg" alt="" loading="lazy" decoding="async">
           <div class="mp-play" aria-hidden="true"><svg width="66" height="66" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
           <div class="mp-meta">
-            <div style="font-family: 'Fraunces', serif; font-size: clamp(20px,1.9vw,30px); font-weight: 500; color: #fff; line-height: 1.12;">Leonida Jaques</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-size: clamp(20px,1.9vw,30px); font-weight: 700; color: #fff; line-height: 1.12;">Leonida Jaques</div>
             <div class="mp-sum" style="font-size: 14px; line-height: 1.6; color: #CFE6EF; max-width: 42ch;">Artesã do crochê, compartilha memórias e histórias que ajudam a contar a trajetória da Grande Marambaia.</div>
           </div>
         </article>
@@ -368,7 +450,7 @@
           <img class="mp-thumb" src="https://i.ytimg.com/vi/ScMzIvxBSi4/hqdefault.jpg" alt="" loading="lazy" decoding="async">
           <div class="mp-play" aria-hidden="true"><svg width="52" height="52" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
           <div class="mp-meta">
-            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">Maria Aparecida</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-size: clamp(17px,1.3vw,22px); font-weight: 700; color: #fff; line-height: 1.12;">Maria Aparecida</div>
             <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Transforma sacolinhas plásticas em peças artesanais — criatividade e sustentabilidade lado a lado.</div>
           </div>
         </article>
@@ -376,7 +458,7 @@
           <img class="mp-thumb" src="https://i.ytimg.com/vi/eRsGyueVLvQ/hqdefault.jpg" alt="" loading="lazy" decoding="async">
           <div class="mp-play" aria-hidden="true"><svg width="52" height="52" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
           <div class="mp-meta">
-            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">Maria de Jesus</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-size: clamp(17px,1.3vw,22px); font-weight: 700; color: #fff; line-height: 1.12;">Maria de Jesus</div>
             <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Produz biojoias com sementes da região e revela a relação entre natureza, cultura e geração de renda.</div>
           </div>
         </article>
@@ -384,7 +466,7 @@
           <img class="mp-thumb" src="https://i.ytimg.com/vi/hFZFjoX2cGg/hqdefault.jpg" alt="" loading="lazy" decoding="async">
           <div class="mp-play" aria-hidden="true"><svg width="52" height="52" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
           <div class="mp-meta">
-            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">Regiane Simão</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-size: clamp(17px,1.3vw,22px); font-weight: 700; color: #fff; line-height: 1.12;">Regiane Simão</div>
             <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Chef da cozinha pantaneira, compartilha saberes e sabores que valorizam a identidade regional.</div>
           </div>
         </article>
@@ -392,7 +474,7 @@
           <img class="mp-thumb" src="https://i.ytimg.com/vi/YE7VzlLtp-4/maxresdefault.jpg" alt="" loading="lazy" decoding="async">
           <div class="mp-play" aria-hidden="true"><svg width="60" height="60" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
           <div class="mp-meta">
-            <div style="font-family: 'Fraunces', serif; font-size: clamp(18px,1.5vw,26px); font-weight: 500; color: #fff; line-height: 1.12;">Genivaldo Luz</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-size: clamp(18px,1.5vw,26px); font-weight: 700; color: #fff; line-height: 1.12;">Genivaldo Luz</div>
             <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF; max-width: 46ch;">Administrador e roteirista, usa o audiovisual para registrar histórias e fortalecer a memória da comunidade.</div>
           </div>
         </article>
@@ -400,7 +482,7 @@
           <img class="mp-thumb" src="https://i.ytimg.com/vi/kJQP7kiw5Fk/hqdefault.jpg" alt="" loading="lazy" decoding="async">
           <div class="mp-play" aria-hidden="true"><svg width="52" height="52" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
           <div class="mp-meta">
-            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">Lucas Yanai</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-size: clamp(17px,1.3vw,22px); font-weight: 700; color: #fff; line-height: 1.12;">Lucas Yanai</div>
             <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Biólogo e responsável técnico pela Trilha Urbana de Aviturismo, fala sobre educação ambiental e conservação.</div>
           </div>
         </article>
@@ -408,7 +490,7 @@
           <img class="mp-thumb" src="https://i.ytimg.com/vi/1La4QzGeaaQ/hqdefault.jpg" alt="" loading="lazy" decoding="async">
           <div class="mp-play" aria-hidden="true"><svg width="52" height="52" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
           <div class="mp-meta">
-            <div style="font-family: 'Fraunces', serif; font-size: clamp(17px,1.3vw,22px); font-weight: 500; color: #fff; line-height: 1.12;">Janaína Quintana e Antonio (Puka)</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-size: clamp(17px,1.3vw,22px); font-weight: 700; color: #fff; line-height: 1.12;">Janaína Quintana e Antonio (Puka)</div>
             <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF;">Observadores de aves e monitores da Trilha Urbana de Aviturismo, aproximam visitantes da natureza e incentivam a conservação.</div>
           </div>
         </article>
@@ -422,11 +504,11 @@
       <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,10,6,0.55) 0%, rgba(20,10,6,0) 34%, rgba(20,10,6,0) 60%, rgba(20,10,6,0.78) 100%);"></div>
       <div style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: clamp(40px,8vh,90px) clamp(24px,6vw,96px);">
         <div style="max-width: 1440px; margin: 0 auto;">
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #F0B489; margin-bottom: clamp(14px,2vh,24px);">A seguir · Governança e Transparência</div>
-          <h2 style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(34px, 5.2vw, 82px); line-height: 1.02; color: #FBF3EA; margin: 0; max-width: 22ch; text-shadow: 0 3px 30px rgba(0,0,0,0.5);">Transparência é o compromisso que fortalece a <em style="font-style: italic; color: #F0B489;">confiança</em> em cada ação que realizamos.</h2>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #F0B489; margin-bottom: clamp(14px,2vh,24px);">A seguir · Governança e Transparência</div>
+          <h2 style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(34px, 5.2vw, 82px); line-height: 1.02; color: #FBF3EA; margin: 0; max-width: 22ch; text-shadow: 0 3px 30px rgba(0,0,0,0.5);">Transparência é o compromisso que fortalece a <em style="font-weight: 700; font-style: italic; color: #F0B489;">confiança</em> em cada ação que realizamos.</h2>
         </div>
       </div>
-      <div style="position: absolute; top: clamp(88px,14vh,130px); left: 50%; transform: translateX(-50%); z-index: 2; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(251,243,234,0.72);">↓ role para ver os números</div>
+      <div style="position: absolute; top: clamp(88px,14vh,130px); left: 50%; transform: translateX(-50%); z-index: 2; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(251,243,234,0.72);">↓ role para ver os números</div>
     </section>
 
     <!-- ==================== PRESTAÇÃO DE CONTAS — contador gigante no scroll ==================== -->
@@ -435,20 +517,20 @@
         <canvas id="pc-reveal-canvas" aria-hidden="true" style="position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
 
         <div style="position: relative; z-index: 2; max-width: 1440px; margin: 0 auto; width: 100%;">
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #2C6E49; margin-bottom: clamp(14px,2vh,26px);">05 · Governança e transparência</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #2C6E49; margin-bottom: clamp(14px,2vh,26px);">05 · Governança e transparência</div>
 
-          <div class="pc-grid" style="display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); gap: clamp(24px,4vw,72px); align-items: center;">
+          <div class="pc-grid" style="display: grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); gap: clamp(40px,5vw,110px); align-items: center;">
 
             <!-- número gigante -->
             <div style="min-width: 0;">
-              <div style="display: flex; align-items: baseline; gap: 0.15em; line-height: 0.9;">
-                <span style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px,4vw,58px); color: #2C6E49;">R$</span>
-                <span id="pc-num" style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(72px,15vw,220px); color: #2C6E49; letter-spacing: -0.01em; font-variant-numeric: tabular-nums;">0</span>
+              <div style="display: flex; align-items: baseline; gap: 0.15em; line-height: 0.9; white-space: nowrap;">
+                <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(22px,3vw,44px); color: #2C6E49;">R$</span>
+                <span id="pc-num" style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(52px,8.5vw,148px); color: #2C6E49; letter-spacing: -0.01em; font-variant-numeric: tabular-nums;">0</span>
               </div>
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: clamp(12px,1.1vw,15px); letter-spacing: 0.14em; text-transform: uppercase; color: #7C8A6A; margin-top: clamp(10px,2vh,22px);">investidos na comunidade até aqui</div>
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(12px,1.1vw,15px); letter-spacing: 0.14em; text-transform: uppercase; color: #7C8A6A; margin-top: clamp(10px,2vh,22px);">investidos na comunidade até aqui</div>
               <div style="display: inline-flex; align-items: baseline; gap: 8px; margin-top: clamp(14px,2vh,22px); padding: 9px 16px; border-radius: 999px; background: rgba(44,110,73,0.1); border: 1px solid rgba(44,110,73,0.28);">
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #2C6E49;">Total investido</span>
-                <span style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(16px,1.4vw,20px); color: #0C82BA;">R$ 184.320,00</span>
+                <span style="font-family: 'Space Grotesk', sans-serif; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #2C6E49;">Total investido</span>
+                <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(16px,1.4vw,20px); color: #1E8B8A;">R$ 184.320,00</span>
               </div>
 
               <!-- barra de progresso -->
@@ -460,26 +542,26 @@
             <!-- frases (cross-fade no scroll) -->
             <div class="pc-msgwrap" style="position: relative; height: clamp(200px,32vh,300px); min-width: 0;">
               <div class="pc-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">42% · Formação</div>
-                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">Oficinas e bolsas capacitaram <em style="font-style: italic; color: #2C6E49;">68 artesãos</em> da comunidade.</p>
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">42% · Formação</div>
+                <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">Oficinas e bolsas capacitaram <em style="font-weight: 700; font-style: italic; color: #2C6E49;">68 artesãos</em> da comunidade.</p>
               </div>
               <div class="pc-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">31% · Matéria-prima</div>
-                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">Fibra e palha colhidas de forma <em style="font-style: italic; color: #2C6E49;">sustentável</em> no cerrado.</p>
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">31% · Matéria-prima</div>
+                <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">Fibra e palha colhidas de forma <em style="font-weight: 700; font-style: italic; color: #2C6E49;">sustentável</em> no cerrado.</p>
               </div>
               <div class="pc-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">18% · Feiras e logística</div>
-                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">As peças chegaram a <em style="font-style: italic; color: #2C6E49;">9 cidades</em> e a novos mercados.</p>
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">18% · Feiras e logística</div>
+                <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">As peças chegaram a <em style="font-weight: 700; font-style: italic; color: #2C6E49;">9 cidades</em> e a novos mercados.</p>
               </div>
               <div class="pc-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">9% · Novas gerações</div>
-                <p style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">Bolsas para <em style="font-style: italic; color: #2C6E49;">jovens aprendizes</em> manterem o ofício vivo.</p>
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">9% · Novas gerações</div>
+                <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">Bolsas para <em style="font-weight: 700; font-style: italic; color: #2C6E49;">jovens aprendizes</em> manterem o ofício vivo.</p>
               </div>
             </div>
 
           </div>
 
-          <div style="margin-top: clamp(26px,4vh,48px); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">Cada real que entra e cada real que sai — aberto para qualquer pessoa consultar.</div>
+          <div style="margin-top: clamp(26px,4vh,48px); font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">Cada real que entra e cada real que sai — aberto para qualquer pessoa consultar.</div>
         </div>
       </div>
     </section>
@@ -502,8 +584,8 @@
        style="position: fixed; inset: 0; z-index: 90; background: #FCFAF4; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .5s ease, visibility .5s ease; overflow-y: scroll; overscroll-behavior: contain; scrollbar-gutter: stable;">
     <div id="mec-lb-head" style="position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: clamp(20px,2.6vw,30px) clamp(20px,4vw,52px); background: #E96C15; border-bottom: 1px solid rgba(120,52,4,0.35); box-shadow: 0 6px 24px rgba(120,52,4,0.18);">
       <div>
-        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFE3C4; margin-bottom: 9px;">Galeria estendida</div>
-        <h3 id="mec-lb-title" style="font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(24px, 3vw, 40px); line-height: 1; color: #FBF8EE; margin: 0;"></h3>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFE3C4; margin-bottom: 9px;">Galeria estendida</div>
+        <h3 id="mec-lb-title" style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(24px, 3vw, 40px); line-height: 1; color: #FBF8EE; margin: 0;"></h3>
       </div>
       <button id="mec-lb-close" aria-label="Fechar galeria" style="flex: 0 0 auto; width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(251,248,238,0.4); background: rgba(251,248,238,0.12); color: #FBF8EE; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .25s ease, transform .25s ease;">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -519,8 +601,8 @@
       <div class="mec-foot-grid" style="display: grid; grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); gap: clamp(32px,6vw,80px); align-items: start;">
 
         <div>
-          <div style="font-family: 'Fraunces', serif; font-size: clamp(22px,2.4vw,32px); font-weight: 500; color: #FBF8EE; margin-bottom: 6px;">Marambaia <em style="font-style: italic; color: #FFE3C4;">Eco Criativa</em></div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(237,230,214,0.5); margin-bottom: 26px;">Bonito · Mato Grosso do Sul</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-size: clamp(22px,2.4vw,32px); font-weight: 700; color: #FBF8EE; margin-bottom: 6px;">Marambaia <em style="font-weight: 700; font-style: italic; color: #FFE3C4;">Eco Criativa</em></div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(237,230,214,0.5); margin-bottom: 26px;">Bonito · Mato Grosso do Sul</div>
 
           <div style="font-size: 14px; line-height: 1.7; color: rgba(237,230,214,0.72);">
             <div style="color: #EDE6D6;">Associação Eco Criativos Grande Marambaia</div>
@@ -530,7 +612,7 @@
         </div>
 
         <div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(237,230,214,0.5); margin-bottom: 18px;">Fale com a gente</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(237,230,214,0.5); margin-bottom: 18px;">Fale com a gente</div>
           <div style="display: flex; flex-direction: column; gap: 12px;">
             <a href="mailto:ecocriativos.marambaia@gmail.com" style="font-size: 15px; color: #EDE6D6; text-decoration: none; transition: color .25s ease;" onmouseover="this.style.color='#FFE3C4'" onmouseout="this.style.color='#EDE6D6'">ecocriativos.marambaia@gmail.com</a>
             <a href="https://wa.me/5567992001469" target="_blank" rel="noopener" style="font-size: 15px; color: #EDE6D6; text-decoration: none; transition: color .25s ease;" onmouseover="this.style.color='#FFE3C4'" onmouseout="this.style.color='#EDE6D6'">WhatsApp · (67) 99200-1469</a>
@@ -541,8 +623,8 @@
       </div>
 
       <div style="margin-top: clamp(36px,5vh,56px); padding-top: 22px; border-top: 1px solid rgba(237,230,214,0.12); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(237,230,214,0.4);">© 2026 Marambaia Eco Criativa</span>
-        <a href="https://beyond.dev.br" target="_blank" rel="noopener" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(237,230,214,0.6); text-decoration: none; transition: color .25s ease;" onmouseover="this.style.color='#EDE6D6'" onmouseout="this.style.color='rgba(237,230,214,0.6)'">Feito por Beyond Bits</a>
+        <span style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(237,230,214,0.4);">© 2026 Marambaia Eco Criativa</span>
+        <a href="https://beyond.dev.br" target="_blank" rel="noopener" style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(237,230,214,0.6); text-decoration: none; transition: color .25s ease;" onmouseover="this.style.color='#EDE6D6'" onmouseout="this.style.color='rgba(237,230,214,0.6)'">Feito por Beyond Bits</a>
       </div>
     </div>
   </footer>
@@ -554,18 +636,25 @@
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#0C82BA&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#0C82BA&quot;,&quot;#1F9CB8&quot;,&quot;#5C7A3A&quot;,&quot;#C29A3B&quot;]},&quot;revealRadius&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:160,&quot;min&quot;:90,&quot;max&quot;:360,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Trança de palha&quot;},&quot;textureOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.85,&quot;min&quot;:0.2,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Trança de palha&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#1E8B8A&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#1E8B8A&quot;,&quot;#1F9CB8&quot;,&quot;#5C7A3A&quot;,&quot;#C29A3B&quot;]},&quot;revealRadius&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:160,&quot;min&quot;:90,&quot;max&quot;:360,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Trança de palha&quot;},&quot;textureOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.85,&quot;min&quot;:0.2,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Trança de palha&quot;}}">
 class Component extends DCLogic {
   componentDidMount() {
     const root = document.documentElement;
     const P = this.props || {};
-    root.style.setProperty('--accent', P.accent ?? '#0C82BA');
+    root.style.setProperty('--accent', P.accent ?? '#1E8B8A');
     this.baseR = P.revealRadius ?? 160;
     this.texOpacity = P.textureOpacity ?? 0.85;
 
     this.reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     // no mobile / telas sem cursor: sem textura revelada e sem loop de canvas (performance)
     this.isMobile = !!(window.matchMedia && (window.matchMedia('(max-width: 760px)').matches || window.matchMedia('(hover: none) and (pointer: coarse)').matches));
+
+    // ---------- PEBBLE REVEAL MASK (formas do padrao anexo) ----------
+    this._pebbleMask = new Image();
+    this._pebbleMask.src = 'assets/avi/pebbles-mask.png';
+    // formas individuais que o revelador percorre (menor, animado)
+    this._pebbleShapes = [];
+    for (let i = 0; i < 6; i++) { const im = new Image(); im.src = 'assets/avi/pebble-' + i + '.png'; this._pebbleShapes.push(im); }
 
     // ---------- WOVEN PALHA TEXTURE (canvas) ----------
     this.canvas = document.getElementById('straw-canvas');
@@ -631,20 +720,9 @@ class Component extends DCLogic {
     ctx.clearRect(0, 0, this.W, this.H);
     if (!this.seen) return;
 
-    // ---- organic, living blob clip in screen space ----
+    // ---- pebble-shaped reveal window centered on cursor (segue o padrao anexo) ----
     const R = this.baseR;
-    const pts = 16;
-    const rad = (a) => R * (1 + 0.18 * Math.sin(a * 3 + t * 1.1) + 0.11 * Math.cos(a * 2 - t * 0.8) + 0.06 * Math.sin(a * 5 + t * 1.7));
-    const Pt = [];
-    for (let k = 0; k < pts; k++) { const a = (k / pts) * Math.PI * 2; const r = rad(a); Pt.push([this.cx + Math.cos(a) * r, this.cy + Math.sin(a) * r]); }
     ctx.save();
-    ctx.beginPath();
-    ctx.moveTo((Pt[pts - 1][0] + Pt[0][0]) / 2, (Pt[pts - 1][1] + Pt[0][1]) / 2);
-    for (let k = 0; k < pts; k++) { const c = Pt[k], nx = Pt[(k + 1) % pts]; ctx.quadraticCurveTo(c[0], c[1], (c[0] + nx[0]) / 2, (c[1] + nx[1]) / 2); }
-    ctx.closePath();
-    ctx.clip();
-
-    // ---- draw woven strands inside clip ----
     ctx.translate(this.W / 2, this.H / 2);
     ctx.rotate(this.angle);
     ctx.lineCap = 'round';
@@ -652,7 +730,7 @@ class Component extends DCLogic {
     const ca = Math.cos(-this.angle), sa = Math.sin(-this.angle);
     const dx = this.cx - this.W / 2, dy = this.cy - this.H / 2;
     const lx = ca * dx - sa * dy, ly = sa * dx + ca * dy;
-    const maxR = R * 1.4, s = this.s, over = s * 0.16;
+    const maxR = R * 2.1, s = this.s, over = s * 0.16;
 
     for (let j = 0; j < this.n; j++) {
       const y = j * s - this.R;
@@ -672,6 +750,78 @@ class Component extends DCLogic {
       }
     }
     ctx.restore();
+    // recorta a textura revelada no FORMATO das pedras (padrao anexo), ao redor do cursor
+    this._maskToPebble(ctx, this.cx, this.cy);
+    this._punchGuards(ctx, { left: 0, top: 0 }, this.W, this.H, '#intro h2,#intro h3,#intro p,#intro .mec-cursor-hint,#galeria h2,#galeria h3,#galeria p,#car-counter');
+  }
+
+  // recorta o conteudo ja desenhado para a silhueta das pedras, centrada no cursor
+  // revelador: forma de pedra menor, que respira e alterna entre as formas disponiveis
+  _maskToPebble(ctx, cx, cy) {
+    const shapes = (this._pebbleShapes || []).filter(s => s && s.complete && s.naturalWidth);
+    ctx.save();
+    ctx.globalCompositeOperation = 'destination-in';
+    if (shapes.length) {
+      const now = performance.now() / 1000;
+      const per = 3.4;                                  // segundos por forma (mais lento)
+      const t = now / per;
+      const idx = Math.floor(t) % shapes.length;
+      const nxt = (idx + 1) % shapes.length;
+      const frac = t - Math.floor(t);                   // 0..1 dentro da forma atual
+      // crossfade suave (smoothstep) na parte final do ciclo — sem trocas abruptas
+      const fadeStart = 0.55;
+      let b = frac <= fadeStart ? 0 : (frac - fadeStart) / (1 - fadeStart);
+      b = b * b * (3 - 2 * b);                          // smoothstep
+      const breathe = 1 + 0.05 * Math.sin(now * 0.9);   // respira de leve, contínuo
+      const rot = Math.sin(now * 0.32) * 0.30;          // giro lento e contínuo
+      // compõe a máscara num buffer e aplica de uma vez (evita flicker do destination-in)
+      const cv = ctx.canvas;
+      let buf = this._pebbleBuf;
+      if (!buf) { buf = this._pebbleBuf = document.createElement('canvas'); }
+      if (buf.width !== cv.width || buf.height !== cv.height) { buf.width = cv.width; buf.height = cv.height; }
+      const bx = buf.getContext('2d');
+      bx.setTransform(1, 0, 0, 1, 0, 0);
+      bx.clearRect(0, 0, buf.width, buf.height);
+      const dpr = (cv.width / (cv.clientWidth || cv.width)) || 1;
+      const drawShape = (img, alpha) => {
+        if (alpha <= 0.001) return;
+        const w = this.baseR * 1.55 * breathe;
+        const hh = w * img.naturalHeight / img.naturalWidth;
+        bx.save();
+        bx.globalAlpha = alpha;
+        bx.translate(cx * dpr, cy * dpr);
+        bx.scale(dpr, dpr);
+        bx.rotate(rot);
+        bx.drawImage(img, -w / 2, -hh / 2, w, hh);
+        bx.restore();
+      };
+      drawShape(shapes[idx], 1 - b);
+      drawShape(shapes[nxt], b);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.globalAlpha = 1;
+      ctx.drawImage(buf, 0, 0);
+      ctx.restore();
+      return;
+    }
+    if (false) {} else {
+      ctx.beginPath();
+      ctx.arc(cx, cy, this.baseR * 0.8, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  // barreira: apaga a textura sobre os blocos de texto marcados
+  _punchGuards(ctx, boxRect, W, H, sel) {
+    let els; try { els = document.querySelectorAll(sel); } catch (e) { return; }
+    const pad = 9, bl = boxRect.left || 0, bt = boxRect.top || 0;
+    for (let i = 0; i < els.length; i++) {
+      const r = els[i].getBoundingClientRect();
+      if (!r.width || !r.height) continue;
+      const x = r.left - bl, y = r.top - bt;
+      if (x > W || y > H || x + r.width < 0 || y + r.height < 0) continue;
+      ctx.clearRect(x - pad, y - pad, r.width + pad * 2, r.height + pad * 2);
+    }
   }
 
   _setupCarousel() {
@@ -728,7 +878,7 @@ class Component extends DCLogic {
 
     // button hover
     [prev, next].forEach((b) => { if (!b) return;
-      b.addEventListener('mouseenter', () => { b.style.background = 'var(--accent, #0C82BA)'; b.style.borderColor = 'transparent'; b.style.color = '#FBF8EE'; });
+      b.addEventListener('mouseenter', () => { b.style.background = 'var(--accent, #1E8B8A)'; b.style.borderColor = 'transparent'; b.style.color = '#FBF8EE'; });
       b.addEventListener('mouseleave', () => { b.style.background = 'rgba(255,255,255,0.7)'; b.style.borderColor = 'rgba(35,38,30,0.22)'; b.style.color = '#23261E'; });
     });
 
@@ -1016,7 +1166,7 @@ class Component extends DCLogic {
     vig.style.cssText = 'position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .5s ease;background:linear-gradient(to top, rgba(11,8,4,0.88) 0%, rgba(11,8,4,0.5) 30%, rgba(11,8,4,0) 60%), radial-gradient(130% 130% at 50% 42%, rgba(0,0,0,0) 42%, rgba(0,0,0,0.55) 100%);';
     const cap = document.createElement('figcaption');
     cap.textContent = caption;
-    cap.style.cssText = 'position:absolute;left:0;right:0;bottom:0;z-index:2;padding:clamp(14px,1.5vw,22px);color:#FBF3E6;font-family:Fraunces,serif;font-weight:500;font-size:clamp(14px,1.15vw,19px);line-height:1.25;letter-spacing:0.005em;opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .55s cubic-bezier(.2,.7,.2,1);text-shadow:0 2px 14px rgba(0,0,0,0.5);pointer-events:none;';
+    cap.style.cssText = 'position:absolute;left:0;right:0;bottom:0;z-index:2;padding:clamp(14px,1.5vw,22px);color:#FBF3E6;font-family:"Space Grotesk",sans-serif;font-feature-settings:"ss01","ss02","ss03","ss05";font-weight:500;font-size:clamp(14px,1.15vw,19px);line-height:1.25;letter-spacing:0.005em;opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .55s cubic-bezier(.2,.7,.2,1);text-shadow:0 2px 14px rgba(0,0,0,0.5);pointer-events:none;';
     fig.appendChild(vig); fig.appendChild(cap);
     fig._vig = vig; fig._cap = cap;
   }
@@ -1041,7 +1191,7 @@ class Component extends DCLogic {
     wrap.style.cssText = 'max-width:1120px;margin:0 auto;padding:clamp(40px,7vh,88px) clamp(22px,5vw,44px) clamp(60px,10vh,120px);';
     const intro = document.createElement('p');
     intro.textContent = 'Na serra da Bodoquena, o aviturismo se traduz em atividades para todos os ritmos — do passeio contemplativo à fotografia especializada. Conheça o que se pratica na região.';
-    intro.style.cssText = 'font-family:Fraunces,serif;font-style:italic;font-size:clamp(19px,2.1vw,28px);line-height:1.5;color:#2E3A22;margin:0 0 clamp(44px,7vh,80px);max-width:32ch;';
+    intro.style.cssText = 'font-family:"Space Grotesk",sans-serif;font-feature-settings:"ss01","ss02","ss03","ss05";font-style:italic;font-size:clamp(19px,2.1vw,28px);line-height:1.5;color:#2E3A22;margin:0 0 clamp(44px,7vh,80px);max-width:32ch;';
     wrap.appendChild(intro);
     const twoCol = grid.clientWidth >= 720;
     this._activePhotos.forEach((post) => {
@@ -1062,13 +1212,13 @@ class Component extends DCLogic {
       const txt = document.createElement('div');
       const kicker = document.createElement('div');
       kicker.textContent = post.kicker || '';
-      kicker.style.cssText = 'font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#5C7A3A;margin-bottom:14px;';
+      kicker.style.cssText = 'font-family:"Space Grotesk",sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#5C7A3A;margin-bottom:14px;';
       const h = document.createElement('h4');
       h.textContent = post.title || '';
-      h.style.cssText = 'font-family:Fraunces,serif;font-weight:500;font-size:clamp(24px,3vw,38px);line-height:1.12;color:#23261E;margin:0 0 10px;';
+      h.style.cssText = 'font-family:"Space Grotesk",sans-serif;font-feature-settings:"ss01","ss02","ss03","ss05";font-weight:500;font-size:clamp(24px,3vw,38px);line-height:1.12;color:#23261E;margin:0 0 10px;';
       const sub = document.createElement('div');
       sub.textContent = post.sub || '';
-      sub.style.cssText = 'font-family:Fraunces,serif;font-style:italic;font-size:clamp(17px,1.7vw,23px);line-height:1.25;color:#2C6E49;margin:0 0 18px;';
+      sub.style.cssText = 'font-family:"Space Grotesk",sans-serif;font-feature-settings:"ss01","ss02","ss03","ss05";font-style:italic;font-size:clamp(17px,1.7vw,23px);line-height:1.25;color:#2C6E49;margin:0 0 18px;';
       const body = document.createElement('p');
       body.textContent = post.body || '';
       body.style.cssText = 'font-size:clamp(15px,1.25vw,17.5px);line-height:1.78;color:#4B4A3E;margin:0;max-width:52ch;';
@@ -1098,7 +1248,7 @@ class Component extends DCLogic {
       const theme = opts && opts.theme ? opts.theme : (/bonito/i.test(title) ? 'water' : 'orange');
       const map = {
         orange: ['#E96C15', 'rgba(120,52,4,0.35)', 'rgba(120,52,4,0.18)'],
-        water:  ['#0E7FB0', 'rgba(6,54,78,0.4)', 'rgba(6,54,78,0.22)'],
+        water:  ['#1E8B8A', 'rgba(6,54,78,0.4)', 'rgba(6,54,78,0.22)'],
         green:  ['#356B34', 'rgba(20,48,18,0.4)', 'rgba(20,48,18,0.22)']
       };
       const c = map[theme] || map.orange;
@@ -1183,28 +1333,20 @@ class Component extends DCLogic {
     box.addEventListener('pointerleave', leave);
 
     const R = this.baseR;
-    const pts = 16;
     const draw = () => {
       if (this._dead) return;
       cx += (tx - cx) * 0.16; cy += (ty - cy) * 0.16;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, H);
       if (seen && img.complete && img.naturalWidth) {
-        const t = performance.now() / 1000;
-        const rad = (a) => R * (1 + 0.18 * Math.sin(a * 3 + t * 1.1) + 0.11 * Math.cos(a * 2 - t * 0.8) + 0.06 * Math.sin(a * 5 + t * 1.7));
-        const Pt = [];
-        for (let k = 0; k < pts; k++) { const a = (k / pts) * Math.PI * 2; const r = rad(a); Pt.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]); }
-        ctx.save();
-        ctx.beginPath();
-        ctx.moveTo((Pt[pts - 1][0] + Pt[0][0]) / 2, (Pt[pts - 1][1] + Pt[0][1]) / 2);
-        for (let k = 0; k < pts; k++) { const c = Pt[k], nx = Pt[(k + 1) % pts]; ctx.quadraticCurveTo(c[0], c[1], (c[0] + nx[0]) / 2, (c[1] + nx[1]) / 2); }
-        ctx.closePath();
-        ctx.clip();
         const ir = img.naturalWidth / img.naturalHeight, sr = W / H;
         let dw, dh; if (sr > ir) { dw = W; dh = W / ir; } else { dh = H; dw = H * ir; }
         ctx.globalAlpha = 0.95;
         ctx.drawImage(img, (W - dw) / 2, (H - dh) / 2, dw, dh);
-        ctx.restore();
+        ctx.globalAlpha = 1;
+        // janela revelada no FORMATO das pedras (padrao anexo)
+        this._maskToPebble(ctx, cx, cy);
+        this._punchGuards(ctx, box.getBoundingClientRect(), W, H, '#' + secId + ' h2, #' + secId + ' h3, #' + secId + ' p, #' + secId + ' .mec-cursor-hint');
       }
       this[rafKey] = requestAnimationFrame(draw);
     };
@@ -1424,7 +1566,7 @@ class Component extends DCLogic {
       const THEMES = {
         orange: { bg: '#E96C15', bd: 'rgba(120,52,4,0.35)', sh: '0 6px 24px rgba(120,52,4,0.18)' },
         green:  { bg: '#356B34', bd: 'rgba(20,48,18,0.4)',   sh: '0 6px 24px rgba(20,48,18,0.22)' },
-        blue:   { bg: '#0C6C93', bd: 'rgba(4,42,58,0.42)',   sh: '0 6px 24px rgba(4,42,58,0.28)' }
+        blue:   { bg: '#176E6D', bd: 'rgba(4,42,58,0.42)',   sh: '0 6px 24px rgba(4,42,58,0.28)' }
       };
       const apply = (name) => {
         const t = THEMES[name] || THEMES.orange;
@@ -1471,19 +1613,31 @@ class Component extends DCLogic {
       const TOTAL = 184320;
       const fmt = (n) => Math.round(n).toLocaleString('pt-BR');
       const counter = { v: 0 };
+      pcNum.textContent = fmt(0);
+      if (pcBar) pcBar.style.width = '0%';
       gsap.set(pcMsgs, { autoAlpha: 0, y: 28 });
       if (pcMsgs[0]) gsap.set(pcMsgs[0], { autoAlpha: 1, y: 0 });
+
+      // CONTADOR AUTOMATICO: anima 0 -> TOTAL uma unica vez, ao entrar em vista (independe do scroll)
+      const countST = window.ScrollTrigger.create({
+        trigger: '#prestacao', start: 'top 75%', once: true,
+        onEnter: () => {
+          gsap.to(counter, {
+            v: TOTAL, duration: 2.8, ease: 'power2.out',
+            onUpdate: () => {
+              pcNum.textContent = fmt(counter.v);
+              if (pcBar) pcBar.style.width = (counter.v / TOTAL * 100) + '%';
+            }
+          });
+        }
+      });
+      if (countST) this._sts.push(countST);
+
+      // SCROLL move apenas as frases (o numero nao depende mais do scroll)
       const pt = gsap.timeline({
         scrollTrigger: { trigger: '#prestacao', start: 'top top', end: 'bottom bottom', scrub: 0.6 }
       });
-      pt.to(counter, {
-        v: TOTAL, ease: 'none', duration: 4,
-        onUpdate: () => {
-          pcNum.textContent = fmt(counter.v);
-          if (pcBar) pcBar.style.width = (counter.v / TOTAL * 100) + '%';
-        }
-      }, 0);
-      // frases trocam em quatro fases
+      pt.to({}, { duration: 4 }, 0); // espacador p/ manter a cadencia das frases
       for (let i = 1; i < pcMsgs.length; i++) {
         const t = i * (4 / pcMsgs.length);
         pt.to(pcMsgs[i - 1], { autoAlpha: 0, y: -28, duration: 0.35 }, t)
