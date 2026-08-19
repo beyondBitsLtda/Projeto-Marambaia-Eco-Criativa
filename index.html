@@ -71,7 +71,17 @@
   @media (max-width: 760px) {
     #hero-scroll { height: 175vh !important; }
     .intro-grid { grid-template-columns: 1fr !important; gap: 26px !important; }
-    .artesa-msgbox { width: 86vw !important; height: 300px !important; }
+    /* Comunidade/Transformação/Futuro: no mobile os 3 textos aparecem empilhados de uma vez,
+       em vez do cross-fade preso ao scroll (havia espaço de sobra e pouca leitura). Cada um
+       entra com uma transição suave conforme a pessoa rola — ver _setupMobileReveal(). */
+    #artesa-scroll { height: auto !important; }
+    #artesa-stage { position: relative !important; height: auto !important; overflow: hidden !important; }
+    #artesa-img { position: relative !important; inset: auto !important; height: 44vh !important; display: block !important; }
+    #artesa-shade { height: 44vh !important; bottom: auto !important; }
+    #artesa-textwrap { position: static !important; height: auto !important; display: block !important; padding: 30px 22px 46px !important; }
+    .artesa-msgbox { position: static !important; width: 100% !important; height: auto !important; display: flex !important; flex-direction: column !important; gap: 34px !important; }
+    .artesa-msg { position: static !important; opacity: 0; transform: translateY(20px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+    .artesa-msg.mec-inview { opacity: 1 !important; transform: translateY(0) !important; }
     #car-prev, #car-next { width: 44px !important; height: 44px !important; }
     .avi-msgs { width: 86vw !important; padding: 0 7vw !important; }
     .avi-msgs h2 { font-size: clamp(44px, 15vw, 70px) !important; }
@@ -82,7 +92,7 @@
     #avi-motmot { height: 54vh !important; }
     /* passaro do aviturismo: mata o vazamento de ~8px pras laterais no mobile */
     #avi-bird { left: 0 !important; right: 0 !important; width: 100% !important; }
-    .mp-logo { width: 150px !important; top: 78px !important; }
+    .mp-logo { width: 108px !important; top: 78px !important; }
     .mp-msgs { width: 86vw !important; }
     .mp-msgbox { height: 320px !important; }
     .mp-grid { grid-template-columns: repeat(2, 1fr) !important; grid-auto-rows: calc((100vw - 4px) / 2) !important; }
@@ -168,7 +178,7 @@
           <div id="hero-sub" style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 24px; margin-top: clamp(24px, 4vh, 44px);">
             <p style="max-width: 480px; font-size: clamp(14px, 1.3vw, 18px); line-height: 1.6; color: #E4E0D2;">Uma associação que fortalece a economia criativa e circular, o turismo sustentável e o desenvolvimento comunitário em Bonito, MS.</p>
             <a href="#intro" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #FBF8EE; padding-bottom: 6px; border-bottom: 1px solid rgba(251,248,238,0.4);">
-              Conheça a Marambaia
+              Descubra mais
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </div>
@@ -186,11 +196,11 @@
       <div class="intro-grid" style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(32px, 6vw, 80px); align-items: start;">
         <div>
           <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 22px;">01 · Quem somos</div>
-          <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 300; color: #23261E;">Conectando pessoas, cultura e <em style="font-weight: 700; font-style: italic; color: var(--accent, #1E8B8A);">natureza</em>.</h2>
+          <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 300; color: #23261E;"><em style="font-weight: 700; font-style: italic; color: var(--accent, #1E8B8A);">Conectamos</em> pessoas, cultura e natureza.</h2>
         </div>
         <div style="padding-top: clamp(8px, 3vh, 40px);">
-          <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; margin-bottom: 22px;">A Marambaia Eco Criativa reúne pessoas, ideias e iniciativas que transformam talentos locais em oportunidades de desenvolvimento — fortalecendo a cultura, o turismo sustentável e a economia criativa e circular de Bonito, MS.</p>
-          <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E;">Com projetos, capacitações, eventos e parcerias, incentivamos o empreendedorismo, fortalecemos redes de colaboração e valorizamos os saberes locais — gerando impacto social, cultural, ambiental e econômico para a comunidade.</p>
+          <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; margin-bottom: 22px; text-align: justify;">A Marambaia Eco Criativa reúne pessoas, ideias e iniciativas que transformam talentos locais em oportunidades de desenvolvimento — fortalecendo a cultura, o turismo sustentável e a economia criativa e circular de Bonito, MS.</p>
+          <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; text-align: justify;">Com projetos, capacitações, eventos e parcerias, incentivamos o empreendedorismo, fortalecemos redes de colaboração e valorizamos os saberes locais — gerando impacto social, cultural, ambiental e econômico para a comunidade.</p>
           <div class="mec-cursor-hint" style="margin-top: 36px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar a trança de palha</div>
         </div>
       </div>
@@ -198,12 +208,12 @@
 
     <!-- ==================== ARTESÃ — full-bleed image + scroll messages ==================== -->
     <section id="artesa-scroll" style="position: relative; height: 300vh; z-index: 3;">
-      <div style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #1A140A;">
+      <div id="artesa-stage" style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #1A140A;">
         <img id="artesa-img" src="assets/artesa.png" alt="Artesã de Bonito segurando um cesto de palha trançada" decoding="async"
              style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 28%; will-change: transform;">
-        <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(105deg, rgba(18,13,5,0.80) 0%, rgba(18,13,5,0.42) 46%, rgba(18,13,5,0.10) 100%);"></div>
+        <div id="artesa-shade" aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(105deg, rgba(18,13,5,0.80) 0%, rgba(18,13,5,0.42) 46%, rgba(18,13,5,0.10) 100%);"></div>
 
-        <div style="position: absolute; inset: 0; display: flex; align-items: center; padding: 0 clamp(24px, 7vw, 130px);">
+        <div id="artesa-textwrap" style="position: absolute; inset: 0; display: flex; align-items: center; padding: 0 clamp(24px, 7vw, 130px);">
           <div class="artesa-msgbox" style="position: relative; width: min(640px, 78vw); height: 340px;">
             <div class="artesa-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
               <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">Comunidade</div>
@@ -227,9 +237,12 @@
       <div style="max-width: 1240px; margin: 0 auto clamp(36px, 6vh, 56px); padding: 0 clamp(24px, 6vw, 64px); display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
         <div>
           <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 16px;">02 · Galeria</div>
-          <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.06; font-weight: 300; color: #23261E; max-width: 640px;">O que <em style="font-weight: 700; font-style: italic; color: var(--accent, #1E8B8A);">movimenta</em> a Marambaia.</h2>
+          <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.06; font-weight: 300; color: #23261E; max-width: 640px;">O que <em style="font-weight: 700; font-style: italic; color: var(--accent, #1E8B8A);">nos movimenta</em>.</h2>
         </div>
-        <p style="max-width: 300px; font-size: 15px; line-height: 1.6; color: #6b6656;">As iniciativas que fortalecem a cultura, o turismo sustentável, a economia criativa e circular e o desenvolvimento comunitário. Navegue ao lado.</p>
+        <a href="#avi-scroll" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #23261E; padding-bottom: 6px; border-bottom: 1px solid rgba(35,38,30,0.3); flex: 0 0 auto;">
+          Ver Aviturismo
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
       </div>
 
       <div id="carousel" style="position: relative;">
@@ -393,9 +406,22 @@
             <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 22px;">03 · Aviturismo</div>
             <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 300; color: #23261E; margin-bottom: 26px;">Descubra Bonito por um <em style="font-weight: 700; font-style: italic; color: var(--accent, #1E8B8A);">outro olhar</em>.</h2>
             <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; max-width: 46ch;">A Trilha Urbana de Aviturismo da Grande Marambaia convida moradores e visitantes a redescobrir Bonito pela diversidade de suas aves. Mais do que observar espécies, é uma experiência que conecta natureza, educação ambiental, turismo sustentável e comunidade.</p>
-            <div class="mec-cursor-hint" style="margin-top: 36px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar as aves</div>
+            <a href="#galeria" style="display: inline-flex; align-items: center; gap: 12px; margin-top: 30px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #23261E; padding-bottom: 6px; border-bottom: 1px solid rgba(35,38,30,0.3);">
+              Ver Galeria
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <div class="mec-cursor-hint" style="margin-top: 20px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar as aves</div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ==================== O MUNDO OLHA PARA BONITO ==================== -->
+    <section id="mundo-bonito" style="position: relative; background: #FCFAF4; padding: 0 clamp(24px, 6vw, 64px) clamp(70px, 11vh, 130px);">
+      <div style="max-width: 780px; margin: 0 auto; text-align: center;">
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 20px;">03 · Alcance internacional</div>
+        <h2 style="font-size: clamp(28px, 3.6vw, 48px); line-height: 1.14; font-weight: 300; color: #23261E; margin-bottom: 22px;">O mundo olha para <em style="font-weight: 700; font-style: italic; color: var(--accent, #1E8B8A);">Bonito</em>.</h2>
+        <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; text-align: justify;">A oficina de Aviturismo tem ampliado o contato direto entre a comunidade e visitantes estrangeiros, gerando novas fontes de renda ligadas à observação de aves e fortalecendo o Marambaia como destino dentro do turismo de natureza em circulação internacional.</p>
       </div>
     </section>
 
@@ -410,7 +436,7 @@
 
           <!-- logo em destaque -->
           <div style="position: absolute; top: clamp(84px, 13vh, 120px); right: clamp(24px, 5vw, 72px); left: auto; z-index: 3;">
-            <img src="assets/museu-logo.png" alt="Museu da Pessoa" class="mp-logo" decoding="async" style="display: block; width: clamp(140px, 16vw, 220px); height: auto; filter: drop-shadow(0 6px 22px rgba(0,0,0,0.45));">
+            <img src="assets/museu-logo.png" alt="Museu da Pessoa" class="mp-logo" decoding="async" style="display: block; width: clamp(96px, 11vw, 150px); height: auto; filter: drop-shadow(0 6px 22px rgba(0,0,0,0.45));">
           </div>
 
           <!-- textos (cross-fade no scroll) sobre a imagem -->
@@ -543,7 +569,7 @@
             <div class="pc-msgwrap" style="position: relative; height: clamp(200px,32vh,300px); min-width: 0;">
               <div class="pc-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
                 <div style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">42% · Formação</div>
-                <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">Oficinas e bolsas capacitaram <em style="font-weight: 700; font-style: italic; color: #2C6E49;">68 artesãos</em> da comunidade.</p>
+                <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">Até agora, oficinas e bolsas capacitaram <em style="font-weight: 700; font-style: italic; color: #2C6E49;">68 artesãos</em> da comunidade.</p>
               </div>
               <div class="pc-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
                 <div style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">31% · Matéria-prima</div>
@@ -1483,8 +1509,21 @@ class Component extends DCLogic {
     this._navClose = close;
   }
 
+  // mobile: revela cada item empilhado (.mec-inview liga a transição definida no CSS) conforme entra na tela
+  _setupMobileReveal(els) {
+    if (!els || !els.length) return;
+    if (!window.IntersectionObserver) { els.forEach((el) => el.classList.add('mec-inview')); return; }
+    const io = new IntersectionObserver((ents) => {
+      ents.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('mec-inview'); io.unobserve(en.target); } });
+    }, { threshold: 0.35 });
+    els.forEach((el) => io.observe(el));
+  }
+
   _fallback() {
     document.querySelectorAll('.hero-line').forEach(el => { el.style.transform = 'none'; });
+    document.querySelectorAll('.artesa-msg').forEach((el, i) => {
+      if (this.isMobile) el.classList.add('mec-inview'); else el.style.opacity = i === 0 ? '1' : '0';
+    });
     document.querySelectorAll('.avi-msg').forEach((el, i) => { el.style.opacity = i === 0 ? '1' : '0'; });
     document.querySelectorAll('.mp-msg').forEach((el, i) => { el.style.opacity = i === 0 ? '1' : '0'; });
     document.querySelectorAll('.pc-msg').forEach((el, i) => { el.style.opacity = i === 0 ? '1' : '0'; });
@@ -1512,20 +1551,30 @@ class Component extends DCLogic {
     gsap.set('.hero-line', { yPercent: 118 });
     gsap.set(['#hero-eyebrow', '#hero-sub'], { autoAlpha: 0, y: 24 });
     try {
-    const tl = gsap.timeline({
-      scrollTrigger: { trigger: '#hero-scroll', start: 'top top', end: 'bottom bottom', scrub: 0.7 }
-    });
-    tl.to('#hero-eyebrow', { autoAlpha: 1, y: 0, duration: 0.6 }, 0.02)
-      .to('.hero-line', { yPercent: 0, duration: 1, stagger: 0.28, ease: 'power3.out' }, 0.05)
-      .to('#hero-sub', { autoAlpha: 1, y: 0, duration: 0.7 }, 0.7)
-      .to('#hero-video', { scale: 1.14, duration: 2, ease: 'none' }, 0)
-      .to('#hero-shade', { opacity: 1.15, duration: 2, ease: 'none' }, 0)
-      .to('#hero-cue', { autoAlpha: 0, duration: 0.4 }, 0.05);
-    if (tl.scrollTrigger) this._sts.push(tl.scrollTrigger);
+    if (this.isMobile) {
+      // mobile: o texto do hero abre sozinho, com uma transição suave, sem depender do scroll
+      gsap.timeline({ delay: 0.25 })
+        .to('#hero-eyebrow', { autoAlpha: 1, y: 0, duration: 0.6 }, 0)
+        .to('.hero-line', { yPercent: 0, duration: 0.9, stagger: 0.22, ease: 'power3.out' }, 0.1)
+        .to('#hero-sub', { autoAlpha: 1, y: 0, duration: 0.7 }, 0.65)
+        .to('#hero-cue', { autoAlpha: 0, duration: 0.4 }, 0.05);
+    } else {
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: '#hero-scroll', start: 'top top', end: 'bottom bottom', scrub: 0.7 }
+      });
+      tl.to('#hero-eyebrow', { autoAlpha: 1, y: 0, duration: 0.6 }, 0.02)
+        .to('.hero-line', { yPercent: 0, duration: 1, stagger: 0.28, ease: 'power3.out' }, 0.05)
+        .to('#hero-sub', { autoAlpha: 1, y: 0, duration: 0.7 }, 0.7)
+        .to('#hero-video', { scale: 1.14, duration: 2, ease: 'none' }, 0)
+        .to('#hero-shade', { opacity: 1.15, duration: 2, ease: 'none' }, 0)
+        .to('#hero-cue', { autoAlpha: 0, duration: 0.4 }, 0.05);
+      if (tl.scrollTrigger) this._sts.push(tl.scrollTrigger);
+    }
 
-    // ---- ARTESÃ full-bleed: cross-fade messages + slow image push on scroll ----
+    // ---- ARTESÃ full-bleed: cross-fade messages + slow image push on scroll (desktop) ----
+    // no mobile os 3 textos ficam empilhados (CSS) e entram com transição suave — ver _setupMobileReveal
     const msgs = gsap.utils.toArray('.artesa-msg');
-    if (msgs.length) {
+    if (msgs.length && !this.isMobile) {
       gsap.set(msgs, { autoAlpha: 0, y: 34 });
       gsap.set(msgs[0], { autoAlpha: 1, y: 0 });
       const at = gsap.timeline({
@@ -1537,6 +1586,8 @@ class Component extends DCLogic {
         .to(msgs[1], { autoAlpha: 0, y: -34, duration: 0.5 }, 1.75)
         .fromTo(msgs[2], { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.5 }, 1.95);
       if (at.scrollTrigger) this._sts.push(at.scrollTrigger);
+    } else if (msgs.length && this.isMobile) {
+      this._setupMobileReveal(msgs);
     }
 
     // ---- AVITURISMO: parallax 3D do pássaro + BG + frases ----
