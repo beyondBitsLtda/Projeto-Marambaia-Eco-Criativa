@@ -2021,13 +2021,12 @@ class Component extends DCLogic {
      ============================================================ -->
 <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
 <script>
-  (function () {
-    function initVLibras() {
-      if (window.VLibras) { new window.VLibras.Widget('https://vlibras.gov.br/app'); }
-    }
-    if (document.readyState === 'complete') initVLibras();
-    else window.addEventListener('load', initVLibras);
-  })();
+  // Chamado direto (sem esperar o evento "load"): o próprio widget do VLibras
+  // registra um listener interno em window "load" para terminar de montar o
+  // ícone/avatar. Se a gente só chama o construtor depois que "load" já
+  // disparou (ex.: dentro de window.addEventListener('load', ...)), esse
+  // listener interno nunca dispara e o botão fica sem o ícone.
+  if (window.VLibras) { new window.VLibras.Widget('https://vlibras.gov.br/app'); }
 </script>
 </body>
 </html>
