@@ -23,6 +23,13 @@
 <script src="./support.js"></script>
 </head>
 <body>
+<!-- VLibras — tradutor para Libras (Língua Brasileira de Sinais) -->
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1855,6 +1862,172 @@ class Component extends DCLogic {
     setTimeout(function () { mo.disconnect(); }, 15000);
   } catch (e) {}
 })();
+</script>
+
+<!-- ============================================================
+     Acessibilidade — modo de visão de cores (apoio a daltonismo)
+     ============================================================ -->
+<svg aria-hidden="true" focusable="false" style="position:absolute; width:0; height:0; overflow:hidden;">
+  <defs>
+    <filter id="mec-vision-protanopia" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="0.567 0.433 0 0 0 0.558 0.442 0 0 0 0 0.242 0.758 0 0 0 0 0 1 0" />
+    </filter>
+    <filter id="mec-vision-deuteranopia" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="0.625 0.375 0 0 0 0.7 0.3 0 0 0 0 0.3 0.7 0 0 0 0 0 1 0" />
+    </filter>
+    <filter id="mec-vision-tritanopia" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="0.95 0.05 0 0 0 0 0.433 0.567 0 0 0 0.475 0.525 0 0 0 0 0 1 0" />
+    </filter>
+  </defs>
+</svg>
+
+<div id="mec-vision-overlay" aria-hidden="true"></div>
+
+<div id="mec-a11y-widget">
+  <button type="button" id="mec-a11y-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="mec-a11y-panel" aria-label="Opções de acessibilidade para daltonismo">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+    </svg>
+  </button>
+  <div id="mec-a11y-panel" role="menu" aria-label="Modo de visão de cores">
+    <p class="mec-a11y-title">Visão de cores</p>
+    <button type="button" class="mec-a11y-opt" role="menuitemradio" aria-checked="true" data-vision="normal">
+      <span class="mec-a11y-dot" style="background:linear-gradient(135deg,#1E8B8A,#E96C15)"></span>Normal
+    </button>
+    <button type="button" class="mec-a11y-opt" role="menuitemradio" aria-checked="false" data-vision="protanopia">
+      <span class="mec-a11y-dot" style="background:#8f8a3f"></span>Protanopia
+    </button>
+    <button type="button" class="mec-a11y-opt" role="menuitemradio" aria-checked="false" data-vision="deuteranopia">
+      <span class="mec-a11y-dot" style="background:#a68b3f"></span>Deuteranopia
+    </button>
+    <button type="button" class="mec-a11y-opt" role="menuitemradio" aria-checked="false" data-vision="tritanopia">
+      <span class="mec-a11y-dot" style="background:#3f7a91"></span>Tritanopia
+    </button>
+    <button type="button" class="mec-a11y-opt" role="menuitemradio" aria-checked="false" data-vision="grayscale">
+      <span class="mec-a11y-dot" style="background:#888"></span>Escala de cinza
+    </button>
+  </div>
+</div>
+
+<style>
+  #mec-vision-overlay {
+    position: fixed; inset: 0; z-index: 999990; pointer-events: none;
+  }
+  #mec-a11y-widget {
+    position: fixed; left: 20px; bottom: 20px; z-index: 999999;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+  #mec-a11y-toggle {
+    width: 52px; height: 52px; border-radius: 50%; border: none; cursor: pointer;
+    background: #1E8B8A; color: #fff; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.28); transition: transform .2s ease, background .2s ease;
+  }
+  #mec-a11y-toggle:hover { background: #176e6d; transform: scale(1.06); }
+  #mec-a11y-toggle:focus-visible { outline: 3px solid #E96C15; outline-offset: 3px; }
+  #mec-a11y-panel {
+    position: absolute; left: 0; bottom: 64px; width: 220px;
+    background: #FCFAF4; color: #23261E; border-radius: 14px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.3); padding: 10px;
+    opacity: 0; visibility: hidden; transform: translateY(8px);
+    transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+  }
+  #mec-a11y-widget.mec-open #mec-a11y-panel { opacity: 1; visibility: visible; transform: translateY(0); }
+  .mec-a11y-title {
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+    opacity: .6; padding: 6px 10px 8px; margin: 0;
+  }
+  .mec-a11y-opt {
+    width: 100%; display: flex; align-items: center; gap: 10px;
+    background: none; border: none; cursor: pointer; text-align: left;
+    padding: 9px 10px; border-radius: 9px; font-size: 14.5px; color: inherit; font-family: inherit;
+  }
+  .mec-a11y-opt:hover { background: rgba(30,139,138,0.1); }
+  .mec-a11y-opt[aria-checked="true"] { background: rgba(30,139,138,0.16); font-weight: 700; }
+  .mec-a11y-opt:focus-visible { outline: 2px solid #E96C15; outline-offset: -2px; }
+  .mec-a11y-dot { width: 14px; height: 14px; border-radius: 50%; flex: none; }
+  @media (max-width: 600px) {
+    #mec-a11y-widget { left: 14px; bottom: 14px; }
+    #mec-a11y-toggle { width: 46px; height: 46px; }
+  }
+</style>
+
+<script>
+(function () {
+  var FILTERS = {
+    normal: '',
+    protanopia: 'url(#mec-vision-protanopia)',
+    deuteranopia: 'url(#mec-vision-deuteranopia)',
+    tritanopia: 'url(#mec-vision-tritanopia)',
+    grayscale: 'grayscale(1)'
+  };
+  var STORAGE_KEY = 'mec-vision-mode';
+  var overlay = document.getElementById('mec-vision-overlay');
+  var widget = document.getElementById('mec-a11y-widget');
+  var toggle = document.getElementById('mec-a11y-toggle');
+  var opts = Array.prototype.slice.call(document.querySelectorAll('.mec-a11y-opt'));
+
+  // Usamos backdrop-filter num overlay fixo (em vez de filter no <html>/<body>)
+  // porque aplicar "filter" num ancestral quebra o position:fixed do header,
+  // canvas e lightbox (vira containing block e eles deixam de grudar na tela).
+  var supportsBackdrop = (function () {
+    try {
+      return !!(window.CSS && CSS.supports &&
+        (CSS.supports('backdrop-filter', 'grayscale(1)') || CSS.supports('-webkit-backdrop-filter', 'grayscale(1)')));
+    } catch (e) { return false; }
+  })();
+
+  function applyVision(mode) {
+    var value = FILTERS[mode] || '';
+    if (supportsBackdrop) {
+      overlay.style.backdropFilter = value;
+      overlay.style.webkitBackdropFilter = value;
+      document.documentElement.style.filter = '';
+    } else {
+      // navegador antigo sem backdrop-filter: aplica no <html> mesmo assim
+      document.documentElement.style.filter = value;
+    }
+    opts.forEach(function (b) { b.setAttribute('aria-checked', b.dataset.vision === mode ? 'true' : 'false'); });
+    try { localStorage.setItem(STORAGE_KEY, mode); } catch (e) {}
+  }
+
+  function openPanel(open) {
+    widget.classList.toggle('mec-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  toggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    openPanel(!widget.classList.contains('mec-open'));
+  });
+  opts.forEach(function (btn) {
+    btn.addEventListener('click', function () { applyVision(btn.dataset.vision); });
+  });
+  document.addEventListener('click', function (e) {
+    if (widget.classList.contains('mec-open') && !widget.contains(e.target)) openPanel(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && widget.classList.contains('mec-open')) { openPanel(false); toggle.focus(); }
+  });
+
+  var saved = 'normal';
+  try { saved = localStorage.getItem(STORAGE_KEY) || 'normal'; } catch (e) {}
+  applyVision(saved);
+})();
+</script>
+
+<!-- ============================================================
+     VLibras — tradução automática para Libras
+     ============================================================ -->
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+  (function () {
+    function initVLibras() {
+      if (window.VLibras) { new window.VLibras.Widget('https://vlibras.gov.br/app'); }
+    }
+    if (document.readyState === 'complete') initVLibras();
+    else window.addEventListener('load', initVLibras);
+  })();
 </script>
 </body>
 </html>
