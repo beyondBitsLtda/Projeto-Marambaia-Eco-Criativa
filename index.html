@@ -105,11 +105,10 @@
     .mp-grid { grid-template-columns: repeat(2, 1fr) !important; grid-auto-rows: calc((100vw - 4px) / 2) !important; }
     .mp-card { grid-column: span 1 !important; grid-row: span 1 !important; }
     .mp-card .mp-sum { display: none !important; }
-    .pc-sticky { padding: 84px 22px 40px !important; }
-    .pc-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
-    #pc-num { font-size: clamp(64px, 22vw, 96px) !important; }
-    .pc-msgwrap { height: 200px !important; }
-    .pc-msgwrap .pc-msg p { font-size: clamp(20px, 5.4vw, 28px) !important; }
+    #prestacao { padding: 72px 22px 84px !important; }
+    .pc-top { grid-template-columns: 1fr !important; gap: 22px !important; align-items: start !important; }
+    #pc-num { font-size: clamp(56px, 19vw, 92px) !important; }
+    .pc-metas { grid-template-columns: 1fr !important; }
     .mec-foot-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
   }
   .mp-card { position: relative; overflow: hidden; background: #0A1A22; cursor: pointer; min-width: 0; }
@@ -545,61 +544,62 @@
       <div style="position: absolute; top: clamp(88px,14vh,130px); left: 50%; transform: translateX(-50%); z-index: 2; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(251,243,234,0.72);">↓ role para ver os números</div>
     </section>
 
-    <!-- ==================== PRESTAÇÃO DE CONTAS — contador gigante no scroll ==================== -->
-    <section id="prestacao" style="position: relative; height: 360vh; background: #FCFAF4;">
-      <div class="pc-sticky" style="position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding: clamp(70px,10vh,120px) clamp(24px,6vw,96px) clamp(40px,7vh,80px);">
-        <canvas id="pc-reveal-canvas" aria-hidden="true" style="position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
+    <!-- ==================== PRESTAÇÃO DE CONTAS — valor global + metas, tudo visível ==================== -->
+    <section id="prestacao" style="position: relative; background: #FCFAF4; padding: clamp(72px,11vh,130px) clamp(24px,6vw,96px) clamp(84px,12vh,130px);">
+      <div style="max-width: 1440px; margin: 0 auto; width: 100%;">
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #2C6E49; margin-bottom: clamp(28px,4vh,50px);">05 · Governança e transparência</div>
 
-        <div style="position: relative; z-index: 2; max-width: 1440px; margin: 0 auto; width: 100%;">
-          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #2C6E49; margin-bottom: clamp(14px,2vh,26px);">05 · Governança e transparência</div>
-
-          <div class="pc-grid" style="display: grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); gap: clamp(40px,5vw,110px); align-items: center;">
-
-            <!-- número gigante -->
-            <div style="min-width: 0;">
-              <div style="display: flex; align-items: baseline; gap: 0.15em; line-height: 0.9; white-space: nowrap;">
-                <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(22px,3vw,44px); color: #2C6E49;">R$</span>
-                <span id="pc-num" style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(52px,8.5vw,148px); color: #2C6E49; letter-spacing: -0.01em; font-variant-numeric: tabular-nums;">0</span>
-              </div>
-              <div style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(12px,1.1vw,15px); letter-spacing: 0.14em; text-transform: uppercase; color: #7C8A6A; margin-top: clamp(10px,2vh,22px);">valor global do projeto · FUNDTUR</div>
-              <div style="display: inline-flex; align-items: baseline; gap: 8px; margin-top: clamp(14px,2vh,22px); padding: 9px 16px; border-radius: 999px; background: rgba(44,110,73,0.1); border: 1px solid rgba(44,110,73,0.28);">
-                <span style="font-family: 'Space Grotesk', sans-serif; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #2C6E49;">Aplicação</span>
-                <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(16px,1.4vw,20px); color: #1E8B8A;">4 metas do projeto</span>
-              </div>
-
-              <!-- barra de progresso -->
-              <div style="margin-top: clamp(20px,3vh,34px); height: 6px; border-radius: 3px; background: rgba(44,110,73,0.14); overflow: hidden; max-width: 620px;">
-                <div id="pc-bar" style="height: 100%; width: 0%; background: #2C6E49; border-radius: 3px;"></div>
-              </div>
+        <!-- topo: valor global + apresentação das metas -->
+        <div class="pc-top" style="display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: clamp(36px,5vw,88px); align-items: end; margin-bottom: clamp(44px,7vh,80px);">
+          <div style="min-width: 0;">
+            <div style="display: flex; align-items: baseline; gap: 0.15em; line-height: 0.9; white-space: nowrap;">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(22px,3vw,44px); color: #2C6E49;">R$</span>
+              <span id="pc-num" style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(52px,8.5vw,138px); color: #2C6E49; letter-spacing: -0.01em; font-variant-numeric: tabular-nums;">130.000</span>
             </div>
-
-            <!-- investimento em cada meta (cross-fade no scroll) -->
-            <div style="min-width: 0;">
-              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #7C8A6A; margin-bottom: clamp(14px,2vh,22px);">Investimento em cada meta</div>
-              <div class="pc-msgwrap" style="position: relative; height: clamp(200px,32vh,300px); min-width: 0;">
-                <div class="pc-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-                  <div style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">Meta 1</div>
-                  <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">Encontros e <em style="font-weight: 700; font-style: italic; color: #2C6E49;">capacitação de lideranças</em>.</p>
-                </div>
-                <div class="pc-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-                  <div style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">Meta 2</div>
-                  <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">Identidade visual, produção e <em style="font-weight: 700; font-style: italic; color: #2C6E49;">divulgação multimídia</em>.</p>
-                </div>
-                <div class="pc-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-                  <div style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">Meta 3</div>
-                  <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;">Oficinas temáticas e <em style="font-weight: 700; font-style: italic; color: #2C6E49;">desenvolvimento de produtos</em>.</p>
-                </div>
-                <div class="pc-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-                  <div style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C6E49; margin-bottom: 16px;">Meta 4</div>
-                  <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(22px,2.4vw,34px); line-height: 1.18; color: #23261E; margin: 0;"><em style="font-weight: 700; font-style: italic; color: #2C6E49;">Trilha urbana de aviturismo</em>.</p>
-                </div>
-              </div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(12px,1.1vw,15px); letter-spacing: 0.14em; text-transform: uppercase; color: #7C8A6A; margin-top: clamp(10px,2vh,20px);">valor global do projeto · FUNDTUR</div>
+            <div style="margin-top: clamp(18px,2.6vh,30px); height: 6px; border-radius: 3px; background: rgba(44,110,73,0.14); overflow: hidden; max-width: 620px;">
+              <div id="pc-bar" style="height: 100%; width: 100%; background: #2C6E49; border-radius: 3px;"></div>
             </div>
-
           </div>
-
-          <div style="margin-top: clamp(26px,4vh,48px); font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">Detalhamento da alocação de recursos para as quatro metas do projeto — aberto para qualquer pessoa consultar.</div>
+          <div style="min-width: 0;">
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(24px,2.6vw,38px); line-height: 1.1; color: #23261E; margin: 0 0 14px;">Investimento em <em style="font-weight: 700; font-style: italic; color: #2C6E49;">cada meta</em></h2>
+            <p style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(14px,1.1vw,16px); line-height: 1.6; color: #5A5F4E; margin: 0;">Como os R$ 130.000,00 são distribuídos entre as quatro metas que estruturam o projeto.</p>
+          </div>
         </div>
+
+        <!-- as quatro metas, todas visíveis -->
+        <div class="pc-metas" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: clamp(12px,1.4vw,20px);">
+          <article style="background: #2C6E49; border-radius: 16px; padding: clamp(22px,2vw,30px); display: flex; flex-direction: column; min-height: clamp(180px,23vh,232px);">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251,248,238,0.72);">Meta 1</span>
+              <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(20px,1.8vw,26px); color: rgba(251,248,238,0.28);">01</span>
+            </div>
+            <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(17px,1.35vw,21px); line-height: 1.28; color: #FBF8EE; margin: auto 0 0;">Encontros e <strong style="font-weight: 700;">capacitação de lideranças</strong></p>
+          </article>
+          <article style="background: #2C6E49; border-radius: 16px; padding: clamp(22px,2vw,30px); display: flex; flex-direction: column; min-height: clamp(180px,23vh,232px);">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251,248,238,0.72);">Meta 2</span>
+              <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(20px,1.8vw,26px); color: rgba(251,248,238,0.28);">02</span>
+            </div>
+            <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(17px,1.35vw,21px); line-height: 1.28; color: #FBF8EE; margin: auto 0 0;">Identidade visual, produção e <strong style="font-weight: 700;">divulgação multimídia</strong></p>
+          </article>
+          <article style="background: #2C6E49; border-radius: 16px; padding: clamp(22px,2vw,30px); display: flex; flex-direction: column; min-height: clamp(180px,23vh,232px);">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251,248,238,0.72);">Meta 3</span>
+              <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(20px,1.8vw,26px); color: rgba(251,248,238,0.28);">03</span>
+            </div>
+            <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(17px,1.35vw,21px); line-height: 1.28; color: #FBF8EE; margin: auto 0 0;">Oficinas temáticas e <strong style="font-weight: 700;">desenvolvimento de produtos</strong></p>
+          </article>
+          <article style="background: #2C6E49; border-radius: 16px; padding: clamp(22px,2vw,30px); display: flex; flex-direction: column; min-height: clamp(180px,23vh,232px);">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251,248,238,0.72);">Meta 4</span>
+              <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(20px,1.8vw,26px); color: rgba(251,248,238,0.28);">04</span>
+            </div>
+            <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(17px,1.35vw,21px); line-height: 1.28; color: #FBF8EE; margin: auto 0 0;"><strong style="font-weight: 700;">Trilha urbana de aviturismo</strong></p>
+          </article>
+        </div>
+
+        <div style="margin-top: clamp(28px,4vh,48px); font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">Cada real do recurso é aplicado nas metas acima e fica aberto para consulta pública.</div>
       </div>
     </section>
 
@@ -1338,9 +1338,6 @@ class Component extends DCLogic {
 
   _setupAviReveal() {
     this._makeReveal('avi-sobre', 'avi-reveal-canvas', 'assets/avi/aves-pattern.jpg', '_aviReveal', '_aviRAF', '_aviResize');
-    // efeito de revelar textura/imagem do ultimo hero (Prestacao de Contas) desativado tambem no desktop
-    var _pcCv = document.getElementById('pc-reveal-canvas');
-    if (_pcCv) _pcCv.style.display = 'none';
   }
 
   _makeReveal(secId, canvasId, imgSrc, refKey, rafKey, resizeKey) {
@@ -1537,7 +1534,6 @@ class Component extends DCLogic {
     });
     document.querySelectorAll('.avi-msg').forEach((el, i) => { el.style.opacity = i === 0 ? '1' : '0'; });
     document.querySelectorAll('.mp-msg').forEach((el, i) => { el.style.opacity = i === 0 ? '1' : '0'; });
-    document.querySelectorAll('.pc-msg').forEach((el, i) => { el.style.opacity = i === 0 ? '1' : '0'; });
     const pcNumEl = document.getElementById('pc-num');
     if (pcNumEl) { pcNumEl.textContent = (130000).toLocaleString('pt-BR'); const b = document.getElementById('pc-bar'); if (b) b.style.width = '100%'; }
   }
@@ -1667,25 +1663,21 @@ class Component extends DCLogic {
       if (mt.scrollTrigger) this._sts.push(mt.scrollTrigger);
     }
 
-    // ---- PRESTAÇÃO DE CONTAS: contador gigante + barra + frases no scroll ----
+    // ---- PRESTAÇÃO DE CONTAS: contador do valor global (anima uma vez ao entrar em vista) ----
     const pcNum = document.getElementById('pc-num');
     const pcBar = document.getElementById('pc-bar');
-    const pcMsgs = gsap.utils.toArray('.pc-msg');
     if (pcNum) {
       const TOTAL = 130000;
       const fmt = (n) => Math.round(n).toLocaleString('pt-BR');
       const counter = { v: 0 };
       pcNum.textContent = fmt(0);
       if (pcBar) pcBar.style.width = '0%';
-      gsap.set(pcMsgs, { autoAlpha: 0, y: 28 });
-      if (pcMsgs[0]) gsap.set(pcMsgs[0], { autoAlpha: 1, y: 0 });
 
-      // CONTADOR AUTOMATICO: anima 0 -> TOTAL uma unica vez, ao entrar em vista (independe do scroll)
       const countST = window.ScrollTrigger.create({
-        trigger: '#prestacao', start: 'top 75%', once: true,
+        trigger: '#prestacao', start: 'top 80%', once: true,
         onEnter: () => {
           gsap.to(counter, {
-            v: TOTAL, duration: 2.8, ease: 'power2.out',
+            v: TOTAL, duration: 2.4, ease: 'power2.out',
             onUpdate: () => {
               pcNum.textContent = fmt(counter.v);
               if (pcBar) pcBar.style.width = (counter.v / TOTAL * 100) + '%';
@@ -1694,18 +1686,6 @@ class Component extends DCLogic {
         }
       });
       if (countST) this._sts.push(countST);
-
-      // SCROLL move apenas as frases (o numero nao depende mais do scroll)
-      const pt = gsap.timeline({
-        scrollTrigger: { trigger: '#prestacao', start: 'top top', end: 'bottom bottom', scrub: 0.6 }
-      });
-      pt.to({}, { duration: 4 }, 0); // espacador p/ manter a cadencia das frases
-      for (let i = 1; i < pcMsgs.length; i++) {
-        const t = i * (4 / pcMsgs.length);
-        pt.to(pcMsgs[i - 1], { autoAlpha: 0, y: -28, duration: 0.35 }, t)
-          .fromTo(pcMsgs[i], { autoAlpha: 0, y: 28 }, { autoAlpha: 1, y: 0, duration: 0.35 }, t + 0.12);
-      }
-      if (pt.scrollTrigger) this._sts.push(pt.scrollTrigger);
     }
 
     } catch (err) { console.error('initScroll error', err); }
@@ -1791,11 +1771,10 @@ class Component extends DCLogic {
     '  .mp-grid{grid-template-columns:repeat(2,1fr)!important;grid-auto-rows:calc((100vw - 4px) / 2)!important;}',
     '  .mp-card{grid-column:span 1!important;grid-row:span 1!important;}',
     '  .mp-card .mp-sum{display:none!important;}',
-    '  .pc-sticky{padding:84px 22px 40px!important;}',
-    '  .pc-grid{grid-template-columns:1fr!important;gap:24px!important;}',
-    '  #pc-num{font-size:clamp(64px,22vw,96px)!important;}',
-    '  .pc-msgwrap{height:200px!important;}',
-    '  .pc-msgwrap .pc-msg p{font-size:clamp(20px,5.4vw,28px)!important;}',
+    '  #prestacao{padding:72px 22px 84px!important;}',
+    '  .pc-top{grid-template-columns:1fr!important;gap:22px!important;align-items:start!important;}',
+    '  #pc-num{font-size:clamp(56px,19vw,92px)!important;}',
+    '  .pc-metas{grid-template-columns:1fr!important;}',
     '  .mec-foot-grid{grid-template-columns:1fr!important;gap:32px!important;}',
     '}'
   ].join('\n');
