@@ -106,9 +106,8 @@
     .avi-msgs h2 { font-size: clamp(36px, 11vw, 60px) !important; }
     .avi-msgs p { font-size: clamp(16px, 4.4vw, 22px) !important; }
     .avi-sobre-grid { grid-template-columns: 1fr !important; gap: 30px !important; }
-    /* card do motmot: centralizado (era alinhado a esquerda, pensado p/ a coluna do desktop) */
-    .avi-motmot-wrap { margin: 0 auto !important; height: 54vh !important; }
-    #avi-motmot { height: 54vh !important; margin-left: auto !important; margin-right: auto !important; }
+    .avi-motmot-wrap { margin-left: 0 !important; }
+    #avi-motmot { height: 54vh !important; }
     /* passaro do aviturismo: mata o vazamento de ~8px pras laterais no mobile */
     #avi-bird { left: 0 !important; right: 0 !important; width: 100% !important; }
 
@@ -128,8 +127,7 @@
     #prestacao { padding: 72px 22px 84px !important; }
     .pc-top { grid-template-columns: 1fr !important; gap: 22px !important; align-items: start !important; }
     #pc-num { font-size: clamp(56px, 19vw, 92px) !important; }
-    .pc-metas { grid-template-columns: 1fr !important; gap: 12px !important; }
-    .pc-metas > article { min-height: 0 !important; padding: 20px 22px !important; gap: 14px !important; }
+    .pc-metas { grid-template-columns: 1fr !important; }
     .mec-foot-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
   }
   .mp-card { position: relative; overflow: hidden; background: #0A1A22; cursor: pointer; min-width: 0; }
@@ -1797,8 +1795,8 @@ class Component extends DCLogic {
     '  .avi-msgs h2{font-size:clamp(36px,11vw,60px)!important;}',
     '  .avi-msgs p{font-size:clamp(16px,4.4vw,22px)!important;}',
     '  .avi-sobre-grid{grid-template-columns:1fr!important;gap:30px!important;}',
-    '  .avi-motmot-wrap{margin:0 auto!important;height:54vh!important;}',
-    '  #avi-motmot{height:54vh!important;margin-left:auto!important;margin-right:auto!important;}',
+    '  .avi-motmot-wrap{margin-left:0!important;}',
+    '  #avi-motmot{height:54vh!important;}',
     '  #avi-bird{left:0!important;right:0!important;width:100%!important;}',
     '  #museu-scroll{height:100vh!important;min-height:560px!important;}',
     '  .mp-logo{width:108px!important;}',
@@ -1814,8 +1812,7 @@ class Component extends DCLogic {
     '  #prestacao{padding:72px 22px 84px!important;}',
     '  .pc-top{grid-template-columns:1fr!important;gap:22px!important;align-items:start!important;}',
     '  #pc-num{font-size:clamp(56px,19vw,92px)!important;}',
-    '  .pc-metas{grid-template-columns:1fr!important;gap:12px!important;}',
-    '  .pc-metas > article{min-height:0!important;padding:20px 22px!important;gap:14px!important;}',
+    '  .pc-metas{grid-template-columns:1fr!important;}',
     '  .mec-foot-grid{grid-template-columns:1fr!important;gap:32px!important;}',
     '}'
   ].join('\n');
