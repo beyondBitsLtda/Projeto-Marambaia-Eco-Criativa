@@ -94,34 +94,33 @@
     .artesa-msg.mec-inview { opacity: 1 !important; transform: translateY(0) !important; }
     #car-prev, #car-next { width: 44px !important; height: 44px !important; }
 
-    /* Aviturismo: mesmo tratamento do Artesã acima — sem pin/scroll-jack no mobile.
-       BG + passaro ficam numa area fixa no topo (grid), as 3 frases empilham abaixo
-       e entram com transição suave — ver _setupMobileReveal(). */
-    #avi-scroll { height: auto !important; }
-    #avi-stage { position: relative !important; height: auto !important; display: grid !important; grid-template-rows: min(78vh, 620px) auto !important; overflow: hidden !important; }
-    #avi-bg-wrap { position: relative !important; inset: auto !important; grid-row: 1 !important; grid-column: 1 !important; height: 100% !important; }
-    #avi-bird { position: absolute !important; grid-row: 1 !important; grid-column: 1 !important; left: 0 !important; right: 0 !important; width: 100% !important; }
-    .avi-msgs { position: static !important; grid-row: 2 !important; grid-column: 1 !important; top: auto !important; bottom: auto !important; left: auto !important; z-index: auto !important; width: 100% !important; height: auto !important; display: block !important; padding: 30px 22px 46px !important; }
-    .avi-msgbox { position: static !important; width: 100% !important; height: auto !important; display: flex !important; flex-direction: column !important; gap: 34px !important; }
-    .avi-msg { position: static !important; opacity: 0; transform: translateY(20px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+    /* Aviturismo: sem pin/scroll-jack no mobile, mas o enquadramento continua o mesmo
+       de sempre (imagem + passaro ocupando a tela) — os textos continuam SOBREPOSTOS
+       a ela, só que agora empilhados (em vez de cross-fade), entrando com transição
+       suave — ver _setupMobileReveal(). Nada do hero em si é redimensionado. */
+    #avi-scroll { height: 100vh !important; min-height: 560px !important; }
+    .avi-msgs { width: 86vw !important; padding: 0 7vw !important; }
+    .avi-msgbox { height: auto !important; display: flex !important; flex-direction: column !important; justify-content: center !important; gap: 24px !important; }
+    .avi-msg { position: relative !important; inset: auto !important; opacity: 0; transform: translateY(16px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
     .avi-msg.mec-inview { opacity: 1 !important; transform: translateY(0) !important; }
-    .avi-msgs h2 { font-size: clamp(44px, 15vw, 70px) !important; }
-    .avi-msgs p { font-size: clamp(19px, 5.4vw, 30px) !important; }
+    .avi-msgs h2 { font-size: clamp(36px, 11vw, 60px) !important; }
+    .avi-msgs p { font-size: clamp(16px, 4.4vw, 22px) !important; }
     .avi-sobre-grid { grid-template-columns: 1fr !important; gap: 30px !important; }
     .avi-motmot-wrap { margin-left: 0 !important; }
     #avi-motmot { height: 54vh !important; }
+    /* passaro do aviturismo: mata o vazamento de ~8px pras laterais no mobile */
+    #avi-bird { left: 0 !important; right: 0 !important; width: 100% !important; }
 
-    /* Museu da Pessoa (intro): mesmo tratamento — foto fixa no topo, textos empilhados abaixo. */
-    #museu-scroll { height: auto !important; }
-    #mp-stage { position: relative !important; height: auto !important; display: grid !important; grid-template-rows: min(64vh, 520px) auto !important; overflow: hidden !important; }
-    #mp-hero-photo { position: relative !important; inset: auto !important; grid-row: 1 !important; grid-column: 1 !important; width: 100% !important; height: 100% !important; }
-    .mp-shade { position: absolute !important; grid-row: 1 !important; grid-column: 1 !important; }
-    .mp-logo-wrap { position: absolute !important; grid-row: 1 !important; grid-column: 1 !important; }
+    /* Museu da Pessoa (intro): mesmo tratamento — a foto continua ocupando a tela
+       normalmente, os textos continuam sobrepostos a ela, agora empilhados. */
+    #museu-scroll { height: 100vh !important; min-height: 560px !important; }
     .mp-logo { width: 108px !important; }
-    .mp-msgs { position: static !important; grid-row: 2 !important; grid-column: 1 !important; top: auto !important; bottom: auto !important; left: auto !important; z-index: auto !important; width: 100% !important; height: auto !important; display: block !important; padding: 30px 22px 40px !important; }
-    .mp-msgbox { position: static !important; width: 100% !important; height: auto !important; display: flex !important; flex-direction: column !important; gap: 30px !important; }
-    .mp-msg { position: static !important; opacity: 0; transform: translateY(20px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+    .mp-msgs { width: 86vw !important; }
+    .mp-msgbox { height: auto !important; display: flex !important; flex-direction: column !important; justify-content: center !important; gap: 22px !important; }
+    .mp-msg { position: relative !important; inset: auto !important; opacity: 0; transform: translateY(16px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
     .mp-msg.mec-inview { opacity: 1 !important; transform: translateY(0) !important; }
+    .mp-msgs h2 { font-size: clamp(26px, 8vw, 46px) !important; }
+    .mp-msgs p { font-size: clamp(16px, 4.4vw, 22px) !important; }
     .mp-grid { grid-template-columns: repeat(2, 1fr) !important; grid-auto-rows: calc((100vw - 4px) / 2) !important; }
     .mp-card { grid-column: span 1 !important; grid-row: span 1 !important; }
     .mp-card .mp-sum { display: none !important; }
@@ -1788,29 +1787,25 @@ class Component extends DCLogic {
     '  #hero-stage{position:relative!important;height:100%!important;}',
     '  .intro-grid{grid-template-columns:1fr!important;gap:26px!important;}',
     '  #car-prev,#car-next{width:44px!important;height:44px!important;}',
-    '  #avi-scroll{height:auto!important;}',
-    '  #avi-stage{position:relative!important;height:auto!important;display:grid!important;grid-template-rows:min(78vh,620px) auto!important;overflow:hidden!important;}',
-    '  #avi-bg-wrap{position:relative!important;inset:auto!important;grid-row:1!important;grid-column:1!important;height:100%!important;}',
-    '  #avi-bird{position:absolute!important;grid-row:1!important;grid-column:1!important;left:0!important;right:0!important;width:100%!important;}',
-    '  .avi-msgs{position:static!important;grid-row:2!important;grid-column:1!important;top:auto!important;bottom:auto!important;left:auto!important;z-index:auto!important;width:100%!important;height:auto!important;display:block!important;padding:30px 22px 46px!important;}',
-    '  .avi-msgbox{position:static!important;width:100%!important;height:auto!important;display:flex!important;flex-direction:column!important;gap:34px!important;}',
-    '  .avi-msg{position:static!important;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}',
+    '  #avi-scroll{height:100vh!important;min-height:560px!important;}',
+    '  .avi-msgs{width:86vw!important;padding:0 7vw!important;}',
+    '  .avi-msgbox{height:auto!important;display:flex!important;flex-direction:column!important;justify-content:center!important;gap:24px!important;}',
+    '  .avi-msg{position:relative!important;inset:auto!important;opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}',
     '  .avi-msg.mec-inview{opacity:1!important;transform:translateY(0)!important;}',
-    '  .avi-msgs h2{font-size:clamp(44px,15vw,70px)!important;}',
-    '  .avi-msgs p{font-size:clamp(19px,5.4vw,30px)!important;}',
+    '  .avi-msgs h2{font-size:clamp(36px,11vw,60px)!important;}',
+    '  .avi-msgs p{font-size:clamp(16px,4.4vw,22px)!important;}',
     '  .avi-sobre-grid{grid-template-columns:1fr!important;gap:30px!important;}',
     '  .avi-motmot-wrap{margin-left:0!important;}',
     '  #avi-motmot{height:54vh!important;}',
-    '  #museu-scroll{height:auto!important;}',
-    '  #mp-stage{position:relative!important;height:auto!important;display:grid!important;grid-template-rows:min(64vh,520px) auto!important;overflow:hidden!important;}',
-    '  #mp-hero-photo{position:relative!important;inset:auto!important;grid-row:1!important;grid-column:1!important;width:100%!important;height:100%!important;}',
-    '  .mp-shade{position:absolute!important;grid-row:1!important;grid-column:1!important;}',
-    '  .mp-logo-wrap{position:absolute!important;grid-row:1!important;grid-column:1!important;}',
+    '  #avi-bird{left:0!important;right:0!important;width:100%!important;}',
+    '  #museu-scroll{height:100vh!important;min-height:560px!important;}',
     '  .mp-logo{width:108px!important;}',
-    '  .mp-msgs{position:static!important;grid-row:2!important;grid-column:1!important;top:auto!important;bottom:auto!important;left:auto!important;z-index:auto!important;width:100%!important;height:auto!important;display:block!important;padding:30px 22px 40px!important;}',
-    '  .mp-msgbox{position:static!important;width:100%!important;height:auto!important;display:flex!important;flex-direction:column!important;gap:30px!important;}',
-    '  .mp-msg{position:static!important;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}',
+    '  .mp-msgs{width:86vw!important;}',
+    '  .mp-msgbox{height:auto!important;display:flex!important;flex-direction:column!important;justify-content:center!important;gap:22px!important;}',
+    '  .mp-msg{position:relative!important;inset:auto!important;opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}',
     '  .mp-msg.mec-inview{opacity:1!important;transform:translateY(0)!important;}',
+    '  .mp-msgs h2{font-size:clamp(26px,8vw,46px)!important;}',
+    '  .mp-msgs p{font-size:clamp(16px,4.4vw,22px)!important;}',
     '  .mp-grid{grid-template-columns:repeat(2,1fr)!important;grid-auto-rows:calc((100vw - 4px) / 2)!important;}',
     '  .mp-card{grid-column:span 1!important;grid-row:span 1!important;}',
     '  .mp-card .mp-sum{display:none!important;}',
