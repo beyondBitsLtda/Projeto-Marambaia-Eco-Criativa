@@ -76,7 +76,10 @@
     .mec-nav .mec-navlink:last-child { border-bottom: 0; }
   }
   @media (max-width: 760px) {
-    #hero-scroll { height: 175vh !important; }
+    /* Hero principal: nada de pin/scroll-jack no mobile — o texto ja abre sozinho
+       (ver _initScroll), aqui so tiramos o "scroll morto" do sticky de 175vh. */
+    #hero-scroll { height: 100vh !important; min-height: 560px !important; }
+    #hero-stage { position: relative !important; height: 100% !important; }
     .intro-grid { grid-template-columns: 1fr !important; gap: 26px !important; }
     /* Comunidade/Transformação/Futuro: no mobile os 3 textos aparecem empilhados de uma vez,
        em vez do cross-fade preso ao scroll (havia espaço de sobra e pouca leitura). Cada um
@@ -90,18 +93,35 @@
     .artesa-msg { position: static !important; opacity: 0; transform: translateY(20px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
     .artesa-msg.mec-inview { opacity: 1 !important; transform: translateY(0) !important; }
     #car-prev, #car-next { width: 44px !important; height: 44px !important; }
-    .avi-msgs { width: 86vw !important; padding: 0 7vw !important; }
+
+    /* Aviturismo: mesmo tratamento do Artesã acima — sem pin/scroll-jack no mobile.
+       BG + passaro ficam numa area fixa no topo (grid), as 3 frases empilham abaixo
+       e entram com transição suave — ver _setupMobileReveal(). */
+    #avi-scroll { height: auto !important; }
+    #avi-stage { position: relative !important; height: auto !important; display: grid !important; grid-template-rows: min(78vh, 620px) auto !important; overflow: hidden !important; }
+    #avi-bg-wrap { position: relative !important; inset: auto !important; grid-row: 1 !important; grid-column: 1 !important; height: 100% !important; }
+    #avi-bird { position: absolute !important; grid-row: 1 !important; grid-column: 1 !important; left: 0 !important; right: 0 !important; width: 100% !important; }
+    .avi-msgs { position: static !important; grid-row: 2 !important; grid-column: 1 !important; top: auto !important; bottom: auto !important; left: auto !important; z-index: auto !important; width: 100% !important; height: auto !important; display: block !important; padding: 30px 22px 46px !important; }
+    .avi-msgbox { position: static !important; width: 100% !important; height: auto !important; display: flex !important; flex-direction: column !important; gap: 34px !important; }
+    .avi-msg { position: static !important; opacity: 0; transform: translateY(20px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+    .avi-msg.mec-inview { opacity: 1 !important; transform: translateY(0) !important; }
     .avi-msgs h2 { font-size: clamp(44px, 15vw, 70px) !important; }
     .avi-msgs p { font-size: clamp(19px, 5.4vw, 30px) !important; }
-    .avi-msgbox { height: 300px !important; }
     .avi-sobre-grid { grid-template-columns: 1fr !important; gap: 30px !important; }
     .avi-motmot-wrap { margin-left: 0 !important; }
     #avi-motmot { height: 54vh !important; }
-    /* passaro do aviturismo: mata o vazamento de ~8px pras laterais no mobile */
-    #avi-bird { left: 0 !important; right: 0 !important; width: 100% !important; }
-    .mp-logo { width: 108px !important; top: 78px !important; }
-    .mp-msgs { width: 86vw !important; }
-    .mp-msgbox { height: 320px !important; }
+
+    /* Museu da Pessoa (intro): mesmo tratamento — foto fixa no topo, textos empilhados abaixo. */
+    #museu-scroll { height: auto !important; }
+    #mp-stage { position: relative !important; height: auto !important; display: grid !important; grid-template-rows: min(64vh, 520px) auto !important; overflow: hidden !important; }
+    #mp-hero-photo { position: relative !important; inset: auto !important; grid-row: 1 !important; grid-column: 1 !important; width: 100% !important; height: 100% !important; }
+    .mp-shade { position: absolute !important; grid-row: 1 !important; grid-column: 1 !important; }
+    .mp-logo-wrap { position: absolute !important; grid-row: 1 !important; grid-column: 1 !important; }
+    .mp-logo { width: 108px !important; }
+    .mp-msgs { position: static !important; grid-row: 2 !important; grid-column: 1 !important; top: auto !important; bottom: auto !important; left: auto !important; z-index: auto !important; width: 100% !important; height: auto !important; display: block !important; padding: 30px 22px 40px !important; }
+    .mp-msgbox { position: static !important; width: 100% !important; height: auto !important; display: flex !important; flex-direction: column !important; gap: 30px !important; }
+    .mp-msg { position: static !important; opacity: 0; transform: translateY(20px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+    .mp-msg.mec-inview { opacity: 1 !important; transform: translateY(0) !important; }
     .mp-grid { grid-template-columns: repeat(2, 1fr) !important; grid-auto-rows: calc((100vw - 4px) / 2) !important; }
     .mp-card { grid-column: span 1 !important; grid-row: span 1 !important; }
     .mp-card .mp-sum { display: none !important; }
@@ -284,7 +304,7 @@
 
     <!-- ==================== AVITURISMO — hero 3D com pássaro saindo do BG ==================== -->
     <section id="avi-scroll" style="position: relative; height: 300vh; z-index: 3;">
-      <div style="position: sticky; top: 0; height: 100vh; overflow: visible; background: #FCFAF4;">
+      <div id="avi-stage" style="position: sticky; top: 0; height: 100vh; overflow: visible; background: #FCFAF4;">
 
         <!-- BG cobrindo toda a área do hero — encolhe no scroll (clip-path) -->
         <div id="avi-bg-wrap" style="position: absolute; inset: 0; overflow: hidden; will-change: clip-path;">
@@ -422,12 +442,12 @@
 
       <!-- intro: hero com imagem full-bleed + textos que reagem ao scroll -->
       <div id="museu-scroll" style="position: relative; height: 260vh;">
-        <div style="position: sticky; top: 0; height: 100vh; overflow: hidden;">
+        <div id="mp-stage" style="position: sticky; top: 0; height: 100vh; overflow: hidden;">
           <img id="mp-hero-photo" src="assets/avi/cesto.jpg" alt="Mãos tecendo um cesto de fibra com padrão azul" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; will-change: transform;">
-          <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(4,26,36,0.82) 0%, rgba(4,26,36,0.55) 38%, rgba(4,26,36,0.15) 66%, rgba(4,26,36,0.05) 100%);"></div>
+          <div class="mp-shade" aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(4,26,36,0.82) 0%, rgba(4,26,36,0.55) 38%, rgba(4,26,36,0.15) 66%, rgba(4,26,36,0.05) 100%);"></div>
 
           <!-- logo em destaque -->
-          <div style="position: absolute; top: clamp(84px, 13vh, 120px); right: clamp(24px, 5vw, 72px); left: auto; z-index: 3;">
+          <div class="mp-logo-wrap" style="position: absolute; top: clamp(84px, 13vh, 120px); right: clamp(24px, 5vw, 72px); left: auto; z-index: 3;">
             <svg class="mp-logo" role="img" aria-label="Museu da Pessoa" viewBox="0 0 585.92 603.91" style="display: block; width: clamp(96px, 11vw, 150px); height: auto; filter: drop-shadow(0 6px 22px rgba(0,0,0,0.45));"><defs><style>.cls-1{font-size:298.32px;font-family:MuseuDaPessoaOficalFontPro-Rg, Museu Da Pessoa Ofical Font Pro;}.cls-1,.cls-2{fill:#fffffe;}.cls-2{font-size:68px;font-family:SpaceGrotesk-Bold, Space Grotesk;font-weight:700;}</style></defs><text class="cls-1" transform="translate(157.22 386.88)">M</text><text class="cls-2" transform="translate(100.79 271.46) rotate(-68.47) scale(1.02 1)">M</text><text class="cls-2" transform="matrix(0.57, -0.85, 0.83, 0.56, 121.99, 218.27)">u</text><text class="cls-2" transform="translate(143.81 185.69) rotate(-46.12) scale(1.02 1)">s</text><text class="cls-2" transform="matrix(0.82, -0.61, 0.59, 0.8, 166.25, 161.68)">e</text><text class="cls-2" transform="translate(195.27 139.66) rotate(-25.86) scale(1.02 1)">u</text><text class="cls-2" transform="translate(231.13 122.96) rotate(-18.2) scale(1.02 1)"> </text><text class="cls-2" transform="matrix(1.01, -0.18, 0.18, 0.98, 244.44, 117.36)">d</text><text class="cls-2" transform="matrix(1.02, 0.02, -0.02, 1, 284.3, 109.97)">a</text><text class="cls-2" transform="matrix(1.01, 0.15, -0.15, 0.99, 321.23, 111.14)"> </text><text class="cls-2" transform="translate(335.61 112.24) rotate(16.4) scale(1.02 1)">P</text><text class="cls-2" transform="translate(371.65 122.49) rotate(27.02) scale(1.02 1)">e</text><text class="cls-2" transform="translate(404.18 138.88) rotate(37.22) scale(1.02 1)">s</text><text class="cls-2" transform="translate(430.53 158.52) rotate(46.88) scale(1.02 1)">s</text><text class="cls-2" transform="matrix(0.55, 0.86, -0.84, 0.54, 453.37, 182.02)">o</text><text class="cls-2" transform="matrix(0.39, 0.95, -0.93, 0.38, 474.58, 214.52)">a</text><text class="cls-2" transform="translate(488.04 249) rotate(75.13) scale(1.02 1)"> </text><text class="cls-2" transform="translate(492.21 263.21) rotate(80.7) scale(1.02 1)">•</text><text class="cls-2" transform="translate(496.14 287.85) rotate(86.25) scale(1.02 1)"> </text><text class="cls-2" transform="translate(498.16 301.42) rotate(93.73) scale(1.02 1)">A</text><text class="cls-2" transform="translate(494.97 341.3) rotate(101.15) scale(1.02 1)"> </text><text class="cls-2" transform="matrix(-0.32, 0.98, -0.95, -0.31, 492.91, 355.81)">v</text><text class="cls-2" transform="translate(483.13 387.93) rotate(117.62) scale(1.02 1)">o</text><text class="cls-2" transform="translate(465.4 422.01) rotate(127.33) scale(1.02 1)">z</text><text class="cls-2" transform="matrix(-0.71, 0.74, -0.72, -0.69, 445.14, 448)"> </text><text class="cls-2" transform="matrix(-0.8, 0.64, -0.62, -0.78, 435.94, 459.17)">d</text><text class="cls-2" transform="translate(404.19 484.47) rotate(152.47) scale(1.02 1)">a</text><text class="cls-2" transform="translate(371.15 501.12) rotate(159.76) scale(1.02 1)"> </text><text class="cls-2" transform="translate(357.87 507.05) rotate(167.21) scale(1.02 1)">c</text><text class="cls-2" transform="matrix(-1.02, 0.03, -0.03, -1, 321.94, 515.69)">o</text><text class="cls-2" transform="matrix(-1, -0.21, 0.21, -0.98, 283.52, 518.41)">m</text><text class="cls-2" transform="translate(230.21 506.69) rotate(-154.54) scale(1.02 1)">u</text><text class="cls-2" transform="translate(194.86 490.31) rotate(-143.07) scale(1.02 1)">n</text><text class="cls-2" transform="matrix(-0.72, -0.72, 0.71, -0.71, 163.67, 466.09)">i</text><text class="cls-2" transform="matrix(-0.61, -0.82, 0.8, -0.6, 152.1, 456.17)">d</text><text class="cls-2" transform="matrix(-0.45, -0.92, 0.9, -0.44, 127.65, 423.8)">a</text><text class="cls-2" transform="matrix(-0.27, -0.99, 0.96, -0.26, 111.48, 391.84)">d</text><text class="cls-2" transform="matrix(-0.08, -1.02, 1, -0.08, 100.67, 352.71)">e</text><text class="cls-2" transform="translate(98.28 315.84) rotate(-87.32) scale(1.02 1)"> </text><text class="cls-2" transform="translate(98.59 301.02) rotate(-81.79) scale(1.02 1)">•</text></svg>
           </div>
 
@@ -1532,8 +1552,12 @@ class Component extends DCLogic {
     document.querySelectorAll('.artesa-msg').forEach((el, i) => {
       if (this.isMobile) el.classList.add('mec-inview'); else el.style.opacity = i === 0 ? '1' : '0';
     });
-    document.querySelectorAll('.avi-msg').forEach((el, i) => { el.style.opacity = i === 0 ? '1' : '0'; });
-    document.querySelectorAll('.mp-msg').forEach((el, i) => { el.style.opacity = i === 0 ? '1' : '0'; });
+    document.querySelectorAll('.avi-msg').forEach((el, i) => {
+      if (this.isMobile) el.classList.add('mec-inview'); else el.style.opacity = i === 0 ? '1' : '0';
+    });
+    document.querySelectorAll('.mp-msg').forEach((el, i) => {
+      if (this.isMobile) el.classList.add('mec-inview'); else el.style.opacity = i === 0 ? '1' : '0';
+    });
     const pcNumEl = document.getElementById('pc-num');
     if (pcNumEl) { pcNumEl.textContent = (130000).toLocaleString('pt-BR'); const b = document.getElementById('pc-bar'); if (b) b.style.width = '100%'; }
   }
@@ -1597,12 +1621,13 @@ class Component extends DCLogic {
       this._setupMobileReveal(msgs);
     }
 
-    // ---- AVITURISMO: parallax 3D do pássaro + BG + frases ----
+    // ---- AVITURISMO: parallax 3D do pássaro + BG + frases (desktop) ----
+    // no mobile o hero fica estatico (CSS) e os 3 textos ficam empilhados,
+    // entrando com transição suave — ver _setupMobileReveal
     const aviMsgs = gsap.utils.toArray('.avi-msg');
     const aviBird = document.getElementById('avi-bird');
     const aviBg = document.getElementById('avi-bg');
-    const aviWrap = document.getElementById('avi-bg-wrap');
-    if (aviBird) {
+    if (aviBird && !this.isMobile) {
       gsap.set(aviMsgs, { autoAlpha: 0, y: 34 });
       gsap.set(aviMsgs[0], { autoAlpha: 1, y: 0 });
       const vt = gsap.timeline({
@@ -1616,6 +1641,8 @@ class Component extends DCLogic {
         .to(aviMsgs[1], { autoAlpha: 0, y: -34, duration: 0.5 }, 1.75)
         .fromTo(aviMsgs[2], { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.5 }, 1.95);
       if (vt.scrollTrigger) this._sts.push(vt.scrollTrigger);
+    } else if (aviMsgs.length && this.isMobile) {
+      this._setupMobileReveal(aviMsgs);
     }
 
     // ---- HEADER muda de cor por seção (verde no Aviturismo, azul no Museu) ----
@@ -1646,10 +1673,12 @@ class Component extends DCLogic {
       this._sts.push(stG, stB);
     }
 
-    // ---- MUSEU: imagem em parallax + textos em cross-fade no scroll ----
+    // ---- MUSEU: imagem em parallax + textos em cross-fade no scroll (desktop) ----
+    // no mobile o hero fica estatico (CSS) e os textos ficam empilhados,
+    // entrando com transição suave — ver _setupMobileReveal
     const mpMsgs = gsap.utils.toArray('.mp-msg');
     const mpImg = document.getElementById('mp-hero-photo');
-    if (mpMsgs.length) {
+    if (mpMsgs.length && !this.isMobile) {
       gsap.set(mpMsgs, { autoAlpha: 0, y: 34 });
       gsap.set(mpMsgs[0], { autoAlpha: 1, y: 0 });
       const mt = gsap.timeline({
@@ -1661,6 +1690,8 @@ class Component extends DCLogic {
         .to(mpMsgs[1], { autoAlpha: 0, y: -34, duration: 0.5 }, 1.8)
         .fromTo(mpMsgs[2], { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.5 }, 2.0);
       if (mt.scrollTrigger) this._sts.push(mt.scrollTrigger);
+    } else if (mpMsgs.length && this.isMobile) {
+      this._setupMobileReveal(mpMsgs);
     }
 
     // ---- PRESTAÇÃO DE CONTAS: contador do valor global (anima uma vez ao entrar em vista) ----
@@ -1753,21 +1784,33 @@ class Component extends DCLogic {
     '  .mec-nav .mec-navlink:last-child{border-bottom:0;}',
     '}',
     '@media (max-width: 760px){',
-    '  #hero-scroll{height:175vh!important;}',
+    '  #hero-scroll{height:100vh!important;min-height:560px!important;}',
+    '  #hero-stage{position:relative!important;height:100%!important;}',
     '  .intro-grid{grid-template-columns:1fr!important;gap:26px!important;}',
-    '  .artesa-msgbox{width:86vw!important;height:300px!important;}',
     '  #car-prev,#car-next{width:44px!important;height:44px!important;}',
-    '  .avi-msgs{width:86vw!important;padding:0 7vw!important;}',
+    '  #avi-scroll{height:auto!important;}',
+    '  #avi-stage{position:relative!important;height:auto!important;display:grid!important;grid-template-rows:min(78vh,620px) auto!important;overflow:hidden!important;}',
+    '  #avi-bg-wrap{position:relative!important;inset:auto!important;grid-row:1!important;grid-column:1!important;height:100%!important;}',
+    '  #avi-bird{position:absolute!important;grid-row:1!important;grid-column:1!important;left:0!important;right:0!important;width:100%!important;}',
+    '  .avi-msgs{position:static!important;grid-row:2!important;grid-column:1!important;top:auto!important;bottom:auto!important;left:auto!important;z-index:auto!important;width:100%!important;height:auto!important;display:block!important;padding:30px 22px 46px!important;}',
+    '  .avi-msgbox{position:static!important;width:100%!important;height:auto!important;display:flex!important;flex-direction:column!important;gap:34px!important;}',
+    '  .avi-msg{position:static!important;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}',
+    '  .avi-msg.mec-inview{opacity:1!important;transform:translateY(0)!important;}',
     '  .avi-msgs h2{font-size:clamp(44px,15vw,70px)!important;}',
     '  .avi-msgs p{font-size:clamp(19px,5.4vw,30px)!important;}',
-    '  .avi-msgbox{height:300px!important;}',
     '  .avi-sobre-grid{grid-template-columns:1fr!important;gap:30px!important;}',
     '  .avi-motmot-wrap{margin-left:0!important;}',
     '  #avi-motmot{height:54vh!important;}',
-    '  #avi-bird{left:0!important;right:0!important;width:100%!important;}',
-    '  .mp-logo{width:150px!important;top:78px!important;}',
-    '  .mp-msgs{width:86vw!important;}',
-    '  .mp-msgbox{height:320px!important;}',
+    '  #museu-scroll{height:auto!important;}',
+    '  #mp-stage{position:relative!important;height:auto!important;display:grid!important;grid-template-rows:min(64vh,520px) auto!important;overflow:hidden!important;}',
+    '  #mp-hero-photo{position:relative!important;inset:auto!important;grid-row:1!important;grid-column:1!important;width:100%!important;height:100%!important;}',
+    '  .mp-shade{position:absolute!important;grid-row:1!important;grid-column:1!important;}',
+    '  .mp-logo-wrap{position:absolute!important;grid-row:1!important;grid-column:1!important;}',
+    '  .mp-logo{width:108px!important;}',
+    '  .mp-msgs{position:static!important;grid-row:2!important;grid-column:1!important;top:auto!important;bottom:auto!important;left:auto!important;z-index:auto!important;width:100%!important;height:auto!important;display:block!important;padding:30px 22px 40px!important;}',
+    '  .mp-msgbox{position:static!important;width:100%!important;height:auto!important;display:flex!important;flex-direction:column!important;gap:30px!important;}',
+    '  .mp-msg{position:static!important;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}',
+    '  .mp-msg.mec-inview{opacity:1!important;transform:translateY(0)!important;}',
     '  .mp-grid{grid-template-columns:repeat(2,1fr)!important;grid-auto-rows:calc((100vw - 4px) / 2)!important;}',
     '  .mp-card{grid-column:span 1!important;grid-row:span 1!important;}',
     '  .mp-card .mp-sum{display:none!important;}',
