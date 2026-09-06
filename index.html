@@ -106,6 +106,8 @@
     .avi-msgs h2 { font-size: clamp(36px, 11vw, 60px) !important; }
     .avi-msgs p { font-size: clamp(16px, 4.4vw, 22px) !important; }
     .avi-sobre-grid { grid-template-columns: 1fr !important; gap: 30px !important; }
+    .avi-sobre-acoes { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; }
+    #avi-trilha-btn { width: 100% !important; justify-content: center !important; }
     .avi-motmot-wrap { margin-left: 0 !important; }
     #avi-motmot { height: 54vh !important; }
     /* passaro do aviturismo: mata o vazamento de ~8px pras laterais no mobile */
@@ -426,10 +428,16 @@
             <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 22px;">03 · Aviturismo</div>
             <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 300; color: #23261E; margin-bottom: 26px;">O mundo olha para <em style="font-weight: 700; font-style: italic; color: var(--accent, #1E8B8A);">Bonito</em>.</h2>
             <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; max-width: 46ch; text-align: justify;">A oficina de Aviturismo tem ampliado o contato direto entre a comunidade e visitantes estrangeiros, gerando novas fontes de renda ligadas à observação de aves e fortalecendo o Marambaia como destino dentro do turismo de natureza em circulação internacional.</p>
-            <a href="#galeria" style="display: inline-flex; align-items: center; gap: 12px; margin-top: 30px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #23261E; padding-bottom: 6px; border-bottom: 1px solid rgba(35,38,30,0.3);">
-              Ver Galeria
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
+            <div class="avi-sobre-acoes" style="display: flex; align-items: center; flex-wrap: wrap; gap: 14px 26px; margin-top: 30px;">
+              <button id="avi-trilha-btn" type="button" style="display: inline-flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 26px; border: 0; border-radius: 999px; background: #2C6E49; color: #FBF8EE; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; box-shadow: 0 14px 30px -14px rgba(20,48,18,0.7); transition: background .25s ease, transform .25s ease;" onmouseover="this.style.background='#235C3C'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#2C6E49'; this.style.transform='none'">
+                Percorrer a trilha
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <a href="#galeria" style="display: inline-flex; align-items: center; gap: 12px; min-height: 44px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #23261E; padding-bottom: 6px; border-bottom: 1px solid rgba(35,38,30,0.3);">
+                Ver Galeria
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
             <div class="mec-cursor-hint" style="margin-top: 20px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar as aves</div>
           </div>
         </div>
@@ -640,7 +648,7 @@
        style="position: fixed; inset: 0; z-index: 90; background: #FCFAF4; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .5s ease, visibility .5s ease; overflow-y: scroll; overscroll-behavior: contain; scrollbar-gutter: stable;">
     <div id="mec-lb-head" style="position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: clamp(20px,2.6vw,30px) clamp(20px,4vw,52px); background: #E96C15; border-bottom: 1px solid rgba(120,52,4,0.35); box-shadow: 0 6px 24px rgba(120,52,4,0.18);">
       <div>
-        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFE3C4; margin-bottom: 9px;">Galeria estendida</div>
+        <div id="mec-lb-kicker" style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFE3C4; margin-bottom: 9px;">Galeria estendida</div>
         <h3 id="mec-lb-title" style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(24px, 3vw, 40px); line-height: 1; color: #FBF8EE; margin: 0;"></h3>
       </div>
       <button id="mec-lb-close" aria-label="Fechar galeria" style="flex: 0 0 auto; width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(251,248,238,0.4); background: rgba(251,248,238,0.12); color: #FBF8EE; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .25s ease, transform .25s ease;">
@@ -1096,19 +1104,89 @@ class Component extends DCLogic {
       { src: 'assets/avi/ave-8.jpg', caption: 'Observar é também um jeito de conservar.' }
     ];
     this._activePhotos = this._photos;
-    this._aviBlog = [
-      { src: 'assets/avi/ave-1.jpg', kicker: '01 · Trilhas ao amanhecer', sub: 'quando a mata acorda primeiro', title: 'Caminhadas guiadas na primeira luz', body: 'As saídas mais procuradas partem antes do sol, quando a serra desperta e os cantos se sobrepõem. Em grupos pequenos, os visitantes caminham devagar por trilhas abertas na mata, parando a cada movimento entre as folhas. É a atividade de entrada do aviturismo — acessível, contemplativa e guiada do começo ao fim.' },
-      { src: 'assets/avi/ave-6.jpg', kicker: '02 · Pontos de observação', sub: 'esperar em silêncio, ver mais', title: 'Mirantes e beiras de rio da Bodoquena', body: 'A região oferece pontos fixos onde as aves se concentram: bebedouros, clareiras e beiras de rio. Instalados em silêncio, os observadores esperam o movimento chegar até eles. São roteiros ideais para quem quer densidade de espécies sem longas caminhadas.' },
-      { src: 'assets/avi/ave-2.jpg', kicker: '03 · Fotografia de natureza', sub: 'o instante que não se repete', title: 'Lentes atentas ao voo', body: 'A fotografia de aves é uma das práticas que mais cresce em Bonito. Com teleobjetivas e muita paciência, fotógrafos registram plumagens e comportamentos raros. As saídas fotográficas têm ritmo próprio: menos distância percorrida, mais tempo parado no mesmo ponto.' },
-      { src: 'assets/avi/ave-3.jpg', kicker: '04 · Condutores locais', sub: 'o saber que vira sustento', title: 'Roteiros com quem conhece a mata', body: 'Moradores formados como condutores ambientais são o coração do aviturismo local. Conhecem os horários, os cantos e os melhores pontos de cada estação — e transformam esse saber em renda para a comunidade. Contratar um guia local é parte da experiência.' },
-      { src: 'assets/avi/ave-5.jpg', kicker: '05 · Ciência cidadã', sub: 'observar também é registrar', title: 'Cada registro ajuda a mapear a fauna', body: 'Muitos passeios incluem o registro das espécies avistadas em cadernetas e aplicativos. Esses dados alimentam inventários da fauna e ajudam pesquisadores a acompanhar a saúde da serra. Observar, aqui, também é contribuir.' },
-      { src: 'assets/avi/ave-4.jpg', kicker: '06 · Conservação', sub: 'a floresta em pé vale mais', title: 'Turismo de baixo impacto', body: 'Todas as atividades seguem o mesmo princípio: respeitar a distância, o silêncio e o ritmo das aves. O aviturismo prova que a floresta em pé vale mais — e que a economia da observação é aliada da conservação da Bodoquena.' }
-    ];
+
+    // ---- TRILHA INTERATIVA "O Voo da Marambaia" (abre ao clicar no card do motmot) ----
+    this._aviTrilha = {
+      kicker: 'Trilha Urbana de Aviturismo',
+      title: 'O Voo da Marambaia',
+      titleHtml: 'O <em>Voo</em> da Marambaia',
+      sub: 'Uma jornada lúdica pelos céus e encantos de Bonito',
+      lead: 'Imagine fechar os olhos por um instante e ouvir, no coração da cidade, uma sinfonia que não vem dos carros, mas das copas das árvores. Bem-vindo à Grande Marambaia, em Bonito, onde a magia não está apenas nas águas cristalinas, mas dança pelos ares. Aqui, o aviturismo não é apenas um passeio; é um convite para desacelerar, olhar para cima e se reconectar com a natureza de um jeito que você nunca imaginou.',
+      heroImg: 'assets/avi/ave-1.jpg',
+      estacoes: [
+        {
+          n: '01', short: 'O Despertar da Trilha',
+          title: 'O Despertar da Trilha',
+          sub: 'com os Guardiões da Marambaia',
+          img: 'assets/avi/ave-4.jpg',
+          alt: 'Observador de aves em trilha na mata da Grande Marambaia',
+          body: 'Nossa aventura começa com um encontro especial: os Guardiões da Marambaia. Moradores locais, apaixonados e treinados, serão seus guias nesta jornada. Eles conhecem cada canto, cada lenda e cada som. Com eles, você aprenderá o segredo da observação invisível — pisar leve, falar manso e deixar que a própria natureza revele seus habitantes de penas e cores vibrantes, sem pressa e com total respeito aos seus ninhos e rituais de vida.',
+          chips: ['Pisar leve', 'Falar manso', 'Respeitar os ninhos']
+        },
+        {
+          n: '02', short: 'Todos os Sentidos',
+          title: 'Uma Experiência para Todos os Sentidos',
+          sub: 'e para todos!',
+          img: 'assets/avi/ave-7.jpg',
+          alt: 'Grupo em parada à sombra durante a trilha urbana de aviturismo',
+          body: 'A magia do voo não tem barreiras. Nossas trilhas urbanas foram cuidadosamente desenhadas para abraçar cada visitante. Com caminhos acessíveis, paradas à sombra, guias prontos para traduzir as cores em descrições sonoras e elementos de texturização para quem sente o mundo de forma diferente, garantimos que a beleza das aves do cerrado bonitense seja uma experiência inclusiva, segura e acolhedora.',
+          chips: ['Caminhos acessíveis', 'Paradas à sombra', 'Descrição sonora', 'Elementos táteis']
+        },
+        {
+          n: '03', short: 'Os Três Caminhos', rotas: true,
+          title: 'Os Três Caminhos Encantados',
+          sub: 'escolha por onde começar',
+          body: 'Preparamos três portais de entrada para essa experiência, onde o urbano se mistura com o silvestre. Qual deles será o seu preferido?'
+        },
+        {
+          n: '04', short: 'A Alma da Comunidade',
+          title: 'A Alma da Comunidade',
+          sub: 'arte, sabor e memória',
+          img: 'assets/avi/cesto.jpg',
+          alt: 'Mãos tecendo peça artesanal da comunidade da Grande Marambaia',
+          body: 'Mas o que seria de uma jornada sem as memórias que levamos para casa? No fim da nossa trilha, a experiência se transforma em arte e sabor. Você vai mergulhar na cultura criativa do bairro, conhecendo as mãos habilidosas de artesãos que esculpem aves na madeira e tecem histórias usando sementes e penas. Além disso, poderá saborear a genuína gastronomia local, fortalecendo uma comunidade que protege a natureza enquanto compartilha com você seus saberes e paixões.',
+          chips: ['Artesanato local', 'Gastronomia', 'Saberes da comunidade']
+        }
+      ],
+      rotas: [
+        {
+          nome: 'A Rota da Liberdade', local: 'Praça da Liberdade',
+          dist: '2,7 km', tempo: '3 horas',
+          img: 'assets/avi/ave-2.jpg',
+          alt: 'Ave pousada em árvore de praça urbana em Bonito',
+          desc: 'Um passeio pelo coração vibrante da cidade, onde as aves fazem das árvores da praça o seu palco principal. Ideal para quem adora a mistura da vida urbana com as agradáveis surpresas que a natureza nos reserva a cada esquina.'
+        },
+        {
+          nome: 'O Refúgio do Viveiro', local: 'Viveiro Municipal Eduardo Domingos Tumuleiro',
+          dist: '1,6 km', tempo: '2 horas',
+          img: 'assets/avi/ave-6.jpg',
+          alt: 'Vegetação densa e mudas do viveiro municipal',
+          desc: 'Um santuário verde e tranquilo. Aqui, as mudas e as flores atraem uma biodiversidade incrível. É uma trilha intimista, perfeita para quem busca uma imersão botânica e sonora longe de qualquer agitação.'
+        },
+        {
+          nome: 'O Corredor das Asas', local: 'Avenida Heron do Couto',
+          dist: '1,7 km', tempo: '2 horas',
+          img: 'assets/avi/ave-3.jpg',
+          alt: 'Ave típica do cerrado em área de transição entre cidade e mata',
+          desc: 'Uma caminhada margeando os limites entre a cidade e o cenário rural. Prepare seus binóculos, pois esta rota é um verdadeiro desfile de espécies típicas do cerrado que aproveitam a transição das matas de proteção e as ruas arborizadas.'
+        }
+      ],
+      convite: {
+        title: 'Aceita o Convite?',
+        body: 'Deixe a tecnologia e os playbacks de lado e venha com o coração aberto. Traga seus sentidos, sua curiosidade e deixe-se guiar pelo som real da vida silvestre. A Grande Marambaia está de asas abertas, pronta para mostrar a você que, em Bonito, o céu também é um espetáculo inesquecível.',
+        cta: 'Vamos passarinhar juntos?',
+        href: 'https://wa.me/5567992001469?text=Ol%C3%A1!%20Quero%20conhecer%20a%20Trilha%20Urbana%20de%20Aviturismo%20da%20Grande%20Marambaia.'
+      }
+    };
+    const abrirTrilha = () => this._openGallery(null, { title: 'O Voo da Marambaia', theme: 'green', mode: 'trilha' });
+    this._abrirTrilha = abrirTrilha;
     const motmot = document.getElementById('avi-motmot');
     if (motmot) {
-      motmot.style.cursor = 'zoom-in';
-      motmot.addEventListener('click', () => this._openGallery(null, { title: 'Aviturismo — atividades na região', photos: this._aviBlog, theme: 'green', mode: 'blog' }));
+      motmot.style.cursor = 'pointer';
+      motmot.addEventListener('click', abrirTrilha);
     }
+    const trilhaBtn = document.getElementById('avi-trilha-btn');
+    if (trilhaBtn) trilhaBtn.addEventListener('click', abrirTrilha);
     this._lbHead = document.getElementById('mec-lb-head');
     this._lbTitle = document.getElementById('mec-lb-title');
     this._lbGrid = document.getElementById('mec-lb-grid');
@@ -1148,7 +1226,7 @@ class Component extends DCLogic {
     if (!cw || cw < 1) return;
 
     // modo "blog": artigos verticais (imagem + texto) sobre as atividades
-    if (this._galleryMode === 'blog') { this._buildBlog(); return; }
+    if (this._galleryMode === 'trilha') { this._buildTrilha(); return; }
 
     grid.style.padding = '0 clamp(10px,2vw,22px) clamp(40px,7vh,80px)';
     // modo "inteiro": masonry por colunas — cada foto aparece completa (sem corte)
@@ -1234,59 +1312,318 @@ class Component extends DCLogic {
     fig._cap.style.transform = on ? 'translateY(0)' : 'translateY(14px)';
   }
 
-  _buildBlog() {
+  // ---- TRILHA INTERATIVA: "O Voo da Marambaia" ----
+  // Layout 100% responsivo por CSS: o resize não refaz o DOM (só re-mede o acordeão aberto),
+  // preservando a rota que a pessoa deixou aberta e a posição de leitura.
+  _trilhaCSS() {
+    return [
+      '.avt{--g:#2C6E49;--gd:#1E4E34;--mint:#7FE0CE;--olive:#5C7A3A;--ink:#23261E;--body:#4B4A3E;--line:rgba(44,110,73,.20);}',
+      '.avt,.avt *{box-sizing:border-box;}',
+      '.avt{font-family:"Space Grotesk",system-ui,sans-serif;color:var(--body);}',
+      '.avt p{margin:0;}',
+      /* capa */
+      '.avt-hero{position:relative;overflow:hidden;min-height:clamp(330px,54vh,540px);display:flex;align-items:flex-end;background:#101a10;}',
+      '.avt-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;}',
+      '.avt-hero-sh{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,12,.34) 0%,rgba(10,22,12,.08) 32%,rgba(10,22,12,.80) 100%);}',
+      '.avt-hero-in{position:relative;z-index:2;width:100%;max-width:1080px;margin:0 auto;padding:clamp(26px,5vw,54px);}',
+      '.avt-kicker{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mint);margin:0 0 12px;}',
+      '.avt-h1{font-feature-settings:"ss01","ss02","ss03","ss05";font-weight:700;font-size:clamp(34px,9vw,76px);line-height:.98;letter-spacing:-.02em;color:#FBF8EE;margin:0;}',
+      '.avt-h1 em{font-style:italic;font-weight:400;color:var(--mint);}',
+      '.avt-hero-sub{font-feature-settings:"ss01","ss02","ss03","ss05";font-style:italic;font-weight:300;font-size:clamp(17px,4.6vw,26px);line-height:1.26;color:#E8F3E4;margin:14px 0 0;max-width:26ch;}',
+      /* abertura */
+      '.avt-lead-wrap{max-width:1080px;margin:0 auto;padding:clamp(30px,6vh,58px) clamp(20px,5vw,44px) 0;}',
+      '.avt-lead{font-size:clamp(16px,4.3vw,19px);line-height:1.75;color:var(--ink);max-width:62ch;text-align:justify;}',
+      '.avt-start{display:inline-flex;align-items:center;gap:12px;min-height:54px;margin-top:clamp(22px,4vh,34px);padding:0 26px;border:0;border-radius:999px;background:var(--g);color:#FBF8EE;font-family:inherit;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;box-shadow:0 16px 34px -16px rgba(20,48,18,.8);transition:background .25s ease,transform .25s ease;}',
+      '.avt-start:hover{background:var(--gd);transform:translateY(-2px);}',
+      '.avt-start svg{transition:transform .3s ease;}',
+      '.avt-start:hover svg{transform:translateY(3px);}',
+      /* trilha */
+      '.avt-trail{position:relative;max-width:1080px;margin:0 auto;padding:clamp(30px,6vh,56px) clamp(20px,5vw,44px) clamp(18px,4vh,38px);}',
+      '.avt-rail{position:absolute;left:calc(clamp(20px,5vw,44px) + 15px);top:clamp(30px,6vh,56px);bottom:clamp(18px,4vh,38px);width:2px;background:var(--line);border-radius:2px;}',
+      '.avt-rail-fill{position:absolute;left:0;top:0;width:100%;height:0;background:linear-gradient(180deg,var(--g),#54B183);border-radius:2px;transition:height .15s linear;}',
+      '.avt-st{position:relative;padding-left:52px;padding-bottom:clamp(40px,7vh,74px);opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}',
+      '.avt-st.is-in{opacity:1;transform:none;}',
+      '.avt-st:last-child{padding-bottom:0;}',
+      '.avt-dot{position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#FCFAF4;border:2px solid var(--line);color:var(--olive);font-size:11px;font-weight:700;transition:background .45s ease,border-color .45s ease,color .45s ease,transform .45s ease;}',
+      '.avt-st.is-in .avt-dot{background:var(--g);border-color:var(--g);color:#FBF8EE;transform:scale(1.06);}',
+      '.avt-st-kicker{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--olive);margin:9px 0 9px !important;}',
+      '.avt-st-title{font-feature-settings:"ss01","ss02","ss03","ss05";font-weight:500;font-size:clamp(23px,6.2vw,38px);line-height:1.1;color:var(--ink);margin:0;letter-spacing:-.01em;}',
+      '.avt-st-sub{font-feature-settings:"ss01","ss02","ss03","ss05";font-style:italic;font-size:clamp(16px,4.3vw,22px);line-height:1.26;color:var(--g);margin:9px 0 0 !important;}',
+      '.avt-fig{margin:clamp(18px,3vh,26px) 0 0;border-radius:14px;overflow:hidden;background:#EDE9DD;box-shadow:0 22px 44px -24px rgba(20,28,14,.55);cursor:zoom-in;}',
+      '.avt-fig img{width:100%;height:auto;display:block;aspect-ratio:16/10;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1);}',
+      '.avt-fig:hover img{transform:scale(1.04);}',
+      '.avt-text{font-size:clamp(15px,4.1vw,17px);line-height:1.78;color:var(--body);margin:clamp(16px,3vh,24px) 0 0 !important;max-width:58ch;text-align:justify;}',
+      '.avt-chips{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;}',
+      '.avt-chips li{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--g);background:rgba(44,110,73,.09);border:1px solid rgba(44,110,73,.22);border-radius:999px;padding:8px 14px;}',
+      /* rotas (acordeao) */
+      '.avt-rotas{margin:clamp(20px,4vh,30px) 0 0;display:flex;flex-direction:column;gap:12px;}',
+      '.avt-rota{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#FFFDF7;transition:border-color .3s ease,box-shadow .3s ease;}',
+      '.avt-rota.is-open{border-color:rgba(44,110,73,.45);box-shadow:0 18px 40px -26px rgba(20,48,18,.75);}',
+      '.avt-rota-hd{width:100%;display:flex;align-items:center;gap:14px;min-height:66px;padding:14px 16px;border:0;background:transparent;cursor:pointer;text-align:left;font-family:inherit;color:var(--ink);}',
+      '.avt-rota-n{flex:0 0 auto;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(44,110,73,.12);color:var(--g);font-size:11px;font-weight:700;transition:background .3s ease,color .3s ease;}',
+      '.avt-rota.is-open .avt-rota-n{background:var(--g);color:#FBF8EE;}',
+      '.avt-rota-t{flex:1 1 auto;min-width:0;}',
+      '.avt-rota-t b{display:block;font-feature-settings:"ss01","ss02","ss03","ss05";font-weight:700;font-size:clamp(16px,4.3vw,20px);line-height:1.2;}',
+      '.avt-rota-t span{display:block;font-size:12.5px;line-height:1.4;color:var(--olive);margin-top:3px;}',
+      '.avt-rota-cv{flex:0 0 auto;display:flex;color:var(--g);transition:transform .35s cubic-bezier(.2,.7,.2,1);}',
+      '.avt-rota.is-open .avt-rota-cv{transform:rotate(180deg);}',
+      '.avt-rota-pn{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,.7,.2,1);}',
+      '.avt-rota-in{padding:0 16px 18px;}',
+      '.avt-meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;}',
+      '.avt-meta span{display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--g);background:rgba(44,110,73,.09);border-radius:999px;padding:8px 13px;}',
+      '.avt-rota-fig{margin:0 0 14px;border-radius:12px;overflow:hidden;background:#EDE9DD;cursor:zoom-in;}',
+      '.avt-rota-fig img{width:100%;height:auto;display:block;aspect-ratio:16/10;object-fit:cover;}',
+      '.avt-rota-d{font-size:clamp(14.5px,3.9vw,16.5px);line-height:1.74;color:var(--body);text-align:justify;}',
+      /* convite */
+      '.avt-cta{max-width:1080px;margin:0 auto;padding:0 clamp(20px,5vw,44px) clamp(60px,11vh,120px);}',
+      '.avt-cta-in{position:relative;overflow:hidden;border-radius:20px;background:var(--g);padding:clamp(28px,6vw,54px);}',
+      '.avt-cta h3{font-feature-settings:"ss01","ss02","ss03","ss05";font-weight:700;font-size:clamp(26px,7vw,44px);line-height:1.06;color:#FBF8EE;margin:0 0 16px;letter-spacing:-.01em;}',
+      '.avt-cta p{font-size:clamp(15px,4.1vw,17px);line-height:1.75;max-width:60ch;text-align:justify;color:rgba(251,248,238,.9);}',
+      '.avt-cta-btn{display:inline-flex;align-items:center;gap:12px;min-height:56px;margin-top:clamp(22px,4vh,32px);padding:0 28px;border-radius:999px;background:#FBF8EE;color:#1E4E34;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease;}',
+      '.avt-cta-btn:hover{transform:translateY(-2px);box-shadow:0 16px 32px -14px rgba(0,0,0,.5);opacity:1;}',
+      /* desktop */
+      '@media (min-width:820px){',
+      '  .avt-st{padding-left:68px;}',
+      '  .avt-rail{left:calc(clamp(20px,5vw,44px) + 17px);}',
+      '  .avt-dot{width:36px;height:36px;font-size:12px;}',
+      '  .avt-st-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,3.4vw,52px);align-items:start;}',
+      '  .avt-st-grid .avt-fig{margin-top:6px;}',
+      '  .avt-st-grid .avt-text{margin-top:6px !important;}',
+      '  .avt-rota-hd{padding:16px 22px;}',
+      '  .avt-rota-in{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:26px;align-items:start;padding:0 22px 24px 66px;}',
+      '  .avt-rota-fig{margin:0;}',
+      '}',
+      '@media (prefers-reduced-motion:reduce){',
+      '  .avt-st{opacity:1;transform:none;transition:none;}',
+      '  .avt-rota-pn,.avt-rail-fill,.avt-fig img{transition:none;}',
+      '}'
+    ].join('\n');
+  }
+
+  _buildTrilha() {
     const grid = this._lbGrid; if (!grid) return;
+    // já montado: o resize só re-mede o acordeão aberto e a barra de progresso
+    if (this._trilhaBuilt) { if (this._trilhaSync) this._trilhaSync(); return; }
+    this._trilhaBuilt = true;
+
+    // limpa estilos herdados dos modos mosaico/inteiro
     grid.style.columnCount = '';
     grid.style.display = 'block';
     grid.style.gridTemplateColumns = '';
     grid.style.gridAutoRows = '';
     grid.style.gap = '';
     grid.style.padding = '0';
-    grid.innerHTML = '';
-    const wrap = document.createElement('div');
-    wrap.style.cssText = 'max-width:1120px;margin:0 auto;padding:clamp(40px,7vh,88px) clamp(22px,5vw,44px) clamp(60px,10vh,120px);';
-    const intro = document.createElement('p');
-    intro.textContent = 'Na serra da Bodoquena, o aviturismo se traduz em atividades para todos os ritmos — do passeio contemplativo à fotografia especializada. Conheça o que se pratica na região.';
-    intro.style.cssText = 'font-family:"Space Grotesk",sans-serif;font-feature-settings:"ss01","ss02","ss03","ss05";font-style:italic;font-size:clamp(19px,2.1vw,28px);line-height:1.5;color:#2E3A22;margin:0 0 clamp(44px,7vh,80px);max-width:32ch;';
-    wrap.appendChild(intro);
-    const twoCol = grid.clientWidth >= 720;
-    this._activePhotos.forEach((post) => {
-      const art = document.createElement('article');
-      art.style.cssText = twoCol
-        ? 'display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,4vw,64px);align-items:center;margin-bottom:clamp(52px,9vh,104px);'
-        : 'margin-bottom:clamp(48px,8vh,96px);';
-      const fig = document.createElement('figure');
-      fig.style.cssText = 'margin:0' + (twoCol ? '' : ' 0 clamp(20px,3vh,30px)') + ';overflow:hidden;border-radius:3px;position:relative;cursor:zoom-in;background:#EDE9DD;box-shadow:0 24px 50px -22px rgba(20,28,14,0.4);';
-      const img = document.createElement('img');
-      img.src = post.src; img.alt = post.title || ''; img.loading = 'lazy'; img.decoding = 'async';
-      img.style.cssText = 'width:100%;height:auto;display:block;transition:transform .7s cubic-bezier(.2,.7,.2,1);transform:scale(1.001);';
-      fig.appendChild(img);
-      fig.addEventListener('mouseenter', () => { img.style.transform = 'scale(1.05)'; });
-      fig.addEventListener('mouseleave', () => { img.style.transform = 'scale(1.001)'; });
-      fig.addEventListener('click', () => this._openZoom(post.src));
-      art.appendChild(fig);
-      const txt = document.createElement('div');
-      const kicker = document.createElement('div');
-      kicker.textContent = post.kicker || '';
-      kicker.style.cssText = 'font-family:"Space Grotesk",sans-serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#5C7A3A;margin-bottom:14px;';
-      const h = document.createElement('h4');
-      h.textContent = post.title || '';
-      h.style.cssText = 'font-family:"Space Grotesk",sans-serif;font-feature-settings:"ss01","ss02","ss03","ss05";font-weight:500;font-size:clamp(24px,3vw,38px);line-height:1.12;color:#23261E;margin:0 0 10px;';
-      const sub = document.createElement('div');
-      sub.textContent = post.sub || '';
-      sub.style.cssText = 'font-family:"Space Grotesk",sans-serif;font-feature-settings:"ss01","ss02","ss03","ss05";font-style:italic;font-size:clamp(17px,1.7vw,23px);line-height:1.25;color:#2C6E49;margin:0 0 18px;';
-      const body = document.createElement('p');
-      body.textContent = post.body || '';
-      body.style.cssText = 'font-size:clamp(15px,1.25vw,17.5px);line-height:1.78;color:#4B4A3E;margin:0;max-width:52ch;';
-      txt.appendChild(kicker); txt.appendChild(h); if (post.sub) txt.appendChild(sub); txt.appendChild(body);
-      art.appendChild(txt);
-      wrap.appendChild(art);
+
+    const D = this._aviTrilha || {};
+    const ests = D.estacoes || [];
+    const esc = (s) => String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const chipsHtml = (a) => (!a || !a.length) ? ''
+      : '<ul class="avt-chips">' + a.map((c) => '<li>' + esc(c) + '</li>').join('') + '</ul>';
+    const svgDown = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    const svgChev = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    const svgPin = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-5.4 7-11a7 7 0 10-14 0c0 5.6 7 11 7 11z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.7"/></svg>';
+    const svgClock = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.6V12l3 1.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+    const svgWpp = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1112 20.2zm4.6-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.1-.2 0-.4.1-.5l.4-.5.2-.4v-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1 2.1-.4 3.4a11 11 0 004.1 4.3c1.7.8 2.5.8 3.3.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.2z"/></svg>';
+
+    const rotasHtml = (D.rotas || []).map((r, i) => [
+      '<div class="avt-rota' + (i === 0 ? ' is-open' : '') + '">',
+        '<button class="avt-rota-hd" type="button" aria-expanded="' + (i === 0 ? 'true' : 'false') + '" aria-controls="avt-pn-' + i + '">',
+          '<span class="avt-rota-n">0' + (i + 1) + '</span>',
+          '<span class="avt-rota-t"><b>' + esc(r.nome) + '</b><span>' + esc(r.local) + '</span></span>',
+          '<span class="avt-rota-cv">' + svgChev + '</span>',
+        '</button>',
+        '<div class="avt-rota-pn" id="avt-pn-' + i + '" role="region">',
+          '<div class="avt-rota-in">',
+            '<figure class="avt-rota-fig"><img src="' + esc(r.img) + '" alt="' + esc(r.alt) + '" loading="lazy" decoding="async"></figure>',
+            '<div>',
+              '<div class="avt-meta"><span>' + svgPin + esc(r.dist) + '</span><span>' + svgClock + esc(r.tempo) + '</span></div>',
+              '<p class="avt-rota-d">' + esc(r.desc) + '</p>',
+            '</div>',
+          '</div>',
+        '</div>',
+      '</div>'
+    ].join('')).join('');
+
+    const total = '0' + ests.length;
+    const stHtml = ests.map((s, i) => {
+      const corpo = s.rotas
+        ? ('<p class="avt-text">' + esc(s.body) + '</p><div class="avt-rotas">' + rotasHtml + '</div>')
+        : ('<div class="avt-st-grid">'
+            + '<figure class="avt-fig"><img src="' + esc(s.img) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async"></figure>'
+            + '<div><p class="avt-text">' + esc(s.body) + '</p>' + chipsHtml(s.chips) + '</div>'
+          + '</div>');
+      return [
+        '<article class="avt-st" data-i="' + i + '">',
+          '<div class="avt-dot"><span>' + esc(s.n) + '</span></div>',
+          '<p class="avt-st-kicker">Estação ' + esc(s.n) + ' de ' + total + '</p>',
+          '<h3 class="avt-st-title">' + esc(s.title) + '</h3>',
+          (s.sub ? '<p class="avt-st-sub">' + esc(s.sub) + '</p>' : ''),
+          corpo,
+        '</article>'
+      ].join('');
+    }).join('');
+
+    const cv = D.convite || {};
+    grid.innerHTML = [
+      '<style>' + this._trilhaCSS() + '</style>',
+      '<div class="avt">',
+        '<header class="avt-hero">',
+          '<img src="' + esc(D.heroImg) + '" alt="" decoding="async">',
+          '<div class="avt-hero-sh"></div>',
+          '<div class="avt-hero-in">',
+            '<p class="avt-kicker">' + esc(D.kicker) + '</p>',
+            '<h2 class="avt-h1">' + (D.titleHtml || esc(D.title)) + '</h2>',
+            '<p class="avt-hero-sub">' + esc(D.sub) + '</p>',
+          '</div>',
+        '</header>',
+        '<div class="avt-lead-wrap">',
+          '<p class="avt-lead">' + esc(D.lead) + '</p>',
+          '<button class="avt-start" type="button">Começar a jornada' + svgDown + '</button>',
+        '</div>',
+        '<section class="avt-trail">',
+          '<div class="avt-rail"><div class="avt-rail-fill"></div></div>',
+          stHtml,
+        '</section>',
+        '<section class="avt-cta">',
+          '<div class="avt-cta-in">',
+            '<h3>' + esc(cv.title) + '</h3>',
+            '<p>' + esc(cv.body) + '</p>',
+            '<a class="avt-cta-btn" href="' + esc(cv.href) + '" target="_blank" rel="noopener">' + svgWpp + esc(cv.cta) + '</a>',
+          '</div>',
+        '</section>',
+      '</div>'
+    ].join('');
+
+    const lb = this._lb;
+    const trail = grid.querySelector('.avt-trail');
+    const fill = grid.querySelector('.avt-rail-fill');
+    const sts = Array.prototype.slice.call(grid.querySelectorAll('.avt-st'));
+    const kicker = document.getElementById('mec-lb-kicker');
+
+    // barra de progresso colada na base do cabeçalho da overlay
+    let bar = document.getElementById('avt-progress');
+    if (!bar && this._lbHead) {
+      bar = document.createElement('div');
+      bar.id = 'avt-progress';
+      bar.style.cssText = 'position:absolute;left:0;bottom:-1px;height:3px;width:0%;background:#7FE0CE;border-radius:0 3px 3px 0;transition:width .15s linear;pointer-events:none;';
+      this._lbHead.appendChild(bar);
+    }
+
+    // zoom nas fotos
+    grid.querySelectorAll('.avt-fig,.avt-rota-fig').forEach((f) => {
+      const im = f.querySelector('img');
+      if (im) f.addEventListener('click', () => this._openZoom(im.getAttribute('src')));
     });
-    grid.appendChild(wrap);
+
+    // ---- acordeão das rotas (uma aberta por vez) ----
+    const cards = Array.prototype.slice.call(grid.querySelectorAll('.avt-rota'));
+    const panelOf = (c) => c.querySelector('.avt-rota-pn');
+    const abrir = (c) => {
+      const pn = panelOf(c), bt = c.querySelector('.avt-rota-hd');
+      if (!pn) return;
+      c.classList.add('is-open');
+      if (bt) bt.setAttribute('aria-expanded', 'true');
+      pn.style.maxHeight = pn.scrollHeight + 'px';
+    };
+    const fechar = (c) => {
+      const pn = panelOf(c), bt = c.querySelector('.avt-rota-hd');
+      if (!pn || !c.classList.contains('is-open')) return;
+      pn.style.maxHeight = pn.scrollHeight + 'px';  // trava a altura atual antes de animar
+      void pn.offsetHeight;
+      c.classList.remove('is-open');
+      if (bt) bt.setAttribute('aria-expanded', 'false');
+      pn.style.maxHeight = '0px';
+    };
+    cards.forEach((c) => {
+      const pn = panelOf(c);
+      const bt = c.querySelector('.avt-rota-hd');
+      const im = c.querySelector('img');
+      // depois de abrir, solta o teto p/ a altura acompanhar imagem/reflow
+      if (pn) pn.addEventListener('transitionend', (e) => {
+        if (e.propertyName === 'max-height' && c.classList.contains('is-open')) pn.style.maxHeight = 'none';
+      });
+      if (im && pn) im.addEventListener('load', () => {
+        if (c.classList.contains('is-open')) pn.style.maxHeight = 'none';
+      });
+      if (bt) bt.addEventListener('click', () => {
+        const vaiAbrir = !c.classList.contains('is-open');
+        cards.forEach((o) => { if (o !== c) fechar(o); });
+        if (vaiAbrir) abrir(c); else fechar(c);
+      });
+    });
+    if (cards[0]) { const p0 = panelOf(cards[0]); if (p0) p0.style.maxHeight = 'none'; }
+
+    // ---- revelação das estações ----
+    if (this.reduce || !window.IntersectionObserver) {
+      sts.forEach((el) => el.classList.add('is-in'));
+    } else {
+      this._trilhaIO = new IntersectionObserver((ents) => {
+        ents.forEach((en) => { if (en.isIntersecting) en.target.classList.add('is-in'); });
+      }, { root: lb, rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
+      sts.forEach((el) => this._trilhaIO.observe(el));
+    }
+
+    // ---- progresso: barra do cabeçalho + preenchimento do trilho + estação atual ----
+    const sync = () => {
+      if (!lb) return;
+      const max = lb.scrollHeight - lb.clientHeight;
+      const p = max > 0 ? Math.min(1, Math.max(0, lb.scrollTop / max)) : 0;
+      if (bar) bar.style.width = (p * 100).toFixed(2) + '%';
+      const lbTop = lb.getBoundingClientRect().top;
+      if (trail && fill) {
+        const tr = trail.getBoundingClientRect();
+        const alvo = lbTop + lb.clientHeight * 0.55;
+        const feito = Math.min(tr.height, Math.max(0, alvo - tr.top));
+        fill.style.height = (tr.height ? (feito / tr.height) * 100 : 0).toFixed(2) + '%';
+      }
+      let cur = -1;
+      const corte = lb.clientHeight * 0.45;
+      for (let i = 0; i < sts.length; i++) {
+        if (sts[i].getBoundingClientRect().top - lbTop <= corte) cur = i;
+      }
+      if (kicker) {
+        const e = cur >= 0 ? ests[cur] : null;
+        kicker.textContent = e ? ('Estação ' + e.n + ' de ' + total + ' · ' + e.short) : (D.kicker || 'Trilha interativa');
+      }
+    };
+    this._trilhaSync = () => {
+      const aberto = grid.querySelector('.avt-rota.is-open .avt-rota-pn');
+      if (aberto && aberto.style.maxHeight !== 'none') aberto.style.maxHeight = aberto.scrollHeight + 'px';
+      sync();
+    };
+    this._trilhaScroll = sync;
+    if (lb) lb.addEventListener('scroll', sync, { passive: true });
+    requestAnimationFrame(sync);
+
+    // ---- "Começar a jornada" ----
+    const start = grid.querySelector('.avt-start');
+    if (start && sts[0] && lb) {
+      start.addEventListener('click', () => {
+        const alvo = sts[0].getBoundingClientRect().top - lb.getBoundingClientRect().top
+          + lb.scrollTop - (this._lbHead ? this._lbHead.offsetHeight : 0) - 14;
+        const y = Math.max(0, alvo);
+        try { lb.scrollTo({ top: y, behavior: this.reduce ? 'auto' : 'smooth' }); }
+        catch (err) { lb.scrollTop = y; }
+      });
+    }
+  }
+
+  _teardownTrilha() {
+    if (this._trilhaIO) { try { this._trilhaIO.disconnect(); } catch (e) {} this._trilhaIO = null; }
+    if (this._lb && this._trilhaScroll) this._lb.removeEventListener('scroll', this._trilhaScroll);
+    this._trilhaScroll = null;
+    this._trilhaSync = null;
+    this._trilhaBuilt = false;
+    const bar = document.getElementById('avt-progress');
+    if (bar && bar.parentNode) bar.parentNode.removeChild(bar);
+    const k = document.getElementById('mec-lb-kicker');
+    if (k) k.textContent = 'Galeria estendida';
   }
 
   _openGallery(idx, opts) {
     if (!this._lb) return;
+    this._teardownTrilha();
     let title;
     if (opts) {
       title = opts.title || '';
@@ -1315,7 +1652,7 @@ class Component extends DCLogic {
     this._lb.setAttribute('aria-hidden', 'false');
     const rev = document.getElementById('mec-lb-reveal');
     if (rev) {
-      if (this._galleryMode === 'blog') { rev.style.display = 'block'; if (this._lbRevResize) requestAnimationFrame(() => this._lbRevResize()); }
+      if (this._galleryMode === 'trilha') { rev.style.display = 'block'; if (this._lbRevResize) requestAnimationFrame(() => this._lbRevResize()); }
       else { rev.style.display = 'none'; }
     }
     this._lb.style.visibility = 'visible';
@@ -1336,6 +1673,7 @@ class Component extends DCLogic {
     setTimeout(() => { if (this._lb.getAttribute('aria-hidden') === 'true') this._lb.style.visibility = 'hidden'; }, 500);
     document.body.style.overflow = '';
     if (this._lenis) { try { this._lenis.start(); } catch (e) {} }
+    this._teardownTrilha();
   }
 
   _openZoom(src) {
@@ -1795,6 +2133,8 @@ class Component extends DCLogic {
     '  .avi-msgs h2{font-size:clamp(36px,11vw,60px)!important;}',
     '  .avi-msgs p{font-size:clamp(16px,4.4vw,22px)!important;}',
     '  .avi-sobre-grid{grid-template-columns:1fr!important;gap:30px!important;}',
+    '  .avi-sobre-acoes{flex-direction:column!important;align-items:flex-start!important;gap:16px!important;}',
+    '  #avi-trilha-btn{width:100%!important;justify-content:center!important;}',
     '  .avi-motmot-wrap{margin-left:0!important;}',
     '  #avi-motmot{height:54vh!important;}',
     '  #avi-bird{left:0!important;right:0!important;width:100%!important;}',
