@@ -656,7 +656,6 @@
       </button>
     </div>
     <div id="mec-lb-grid" style="position: relative; z-index: 1; display: flex; flex-direction: column; gap: 6px; padding: 0 clamp(10px,2vw,22px) clamp(40px,7vh,80px);"></div>
-    <canvas id="mec-lb-reveal" aria-hidden="true" style="position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; display: none;"></canvas>
   </div>
 
   <!-- lightbox de imagem única -->
@@ -1112,14 +1111,14 @@ class Component extends DCLogic {
       titleHtml: 'O <em>Voo</em> da Marambaia',
       sub: 'Uma jornada lúdica pelos céus e encantos de Bonito',
       lead: 'Imagine fechar os olhos por um instante e ouvir, no coração da cidade, uma sinfonia que não vem dos carros, mas das copas das árvores. Bem-vindo à Grande Marambaia, em Bonito, onde a magia não está apenas nas águas cristalinas, mas dança pelos ares. Aqui, o aviturismo não é apenas um passeio; é um convite para desacelerar, olhar para cima e se reconectar com a natureza de um jeito que você nunca imaginou.',
-      heroImg: 'assets/avi/ave-1.jpg',
+      heroImg: 'assets/avi/trilha-hero.jpg',
       estacoes: [
         {
           n: '01', short: 'O Despertar da Trilha',
           title: 'O Despertar da Trilha',
           sub: 'com os Guardiões da Marambaia',
-          img: 'assets/avi/ave-4.jpg',
-          alt: 'Observador de aves em trilha na mata da Grande Marambaia',
+          img: 'assets/avi/trilha-guia.jpg',
+          alt: 'Guia local conduzindo visitantes na Trilha Urbana de Aviturismo',
           body: 'Nossa aventura começa com um encontro especial: os Guardiões da Marambaia. Moradores locais, apaixonados e treinados, serão seus guias nesta jornada. Eles conhecem cada canto, cada lenda e cada som. Com eles, você aprenderá o segredo da observação invisível — pisar leve, falar manso e deixar que a própria natureza revele seus habitantes de penas e cores vibrantes, sem pressa e com total respeito aos seus ninhos e rituais de vida.',
           chips: ['Pisar leve', 'Falar manso', 'Respeitar os ninhos']
         },
@@ -1127,8 +1126,8 @@ class Component extends DCLogic {
           n: '02', short: 'Todos os Sentidos',
           title: 'Uma Experiência para Todos os Sentidos',
           sub: 'e para todos!',
-          img: 'assets/avi/ave-7.jpg',
-          alt: 'Grupo em parada à sombra durante a trilha urbana de aviturismo',
+          img: 'assets/avi/trilha-caminho.jpg',
+          alt: 'Caminho acessível e arborizado da trilha urbana da Grande Marambaia',
           body: 'A magia do voo não tem barreiras. Nossas trilhas urbanas foram cuidadosamente desenhadas para abraçar cada visitante. Com caminhos acessíveis, paradas à sombra, guias prontos para traduzir as cores em descrições sonoras e elementos de texturização para quem sente o mundo de forma diferente, garantimos que a beleza das aves do cerrado bonitense seja uma experiência inclusiva, segura e acolhedora.',
           chips: ['Caminhos acessíveis', 'Paradas à sombra', 'Descrição sonora', 'Elementos táteis']
         },
@@ -1152,15 +1151,15 @@ class Component extends DCLogic {
         {
           nome: 'A Rota da Liberdade', local: 'Praça da Liberdade',
           dist: '2,7 km', tempo: '3 horas',
-          img: 'assets/avi/ave-2.jpg',
-          alt: 'Ave pousada em árvore de praça urbana em Bonito',
+          img: 'assets/avi/trilha-praca-liberdade.jpg',
+          alt: 'Praça da Liberdade, ponto de partida da Rota da Liberdade',
           desc: 'Um passeio pelo coração vibrante da cidade, onde as aves fazem das árvores da praça o seu palco principal. Ideal para quem adora a mistura da vida urbana com as agradáveis surpresas que a natureza nos reserva a cada esquina.'
         },
         {
           nome: 'O Refúgio do Viveiro', local: 'Viveiro Municipal Eduardo Domingos Tumuleiro',
           dist: '1,6 km', tempo: '2 horas',
-          img: 'assets/avi/ave-6.jpg',
-          alt: 'Vegetação densa e mudas do viveiro municipal',
+          img: 'assets/avi/trilha-viveiro.jpg',
+          alt: 'Viveiro Municipal Eduardo Domingos Tumuleiro, com mudas e vegetação',
           desc: 'Um santuário verde e tranquilo. Aqui, as mudas e as flores atraem uma biodiversidade incrível. É uma trilha intimista, perfeita para quem busca uma imersão botânica e sonora longe de qualquer agitação.'
         },
         {
@@ -1213,7 +1212,7 @@ class Component extends DCLogic {
     }
     this._lbRelayout = () => { if (this._lb && this._lb.getAttribute('aria-hidden') === 'false') this._buildJustified(); };
     window.addEventListener('resize', this._lbRelayout);
-    this._makeReveal('mec-lb', 'mec-lb-reveal', 'assets/avi/aves-pattern.jpg', '_lbRev', '_lbRevRAF', '_lbRevResize');
+    // (a textura revelada de aves foi removida da overlay — nada de canvas/loop aqui)
   }
 
   // mosaico denso: células quadradas, tiles grandes (2x2), largos (2x1) e altos (1x2)
@@ -1317,23 +1316,27 @@ class Component extends DCLogic {
   // preservando a rota que a pessoa deixou aberta e a posição de leitura.
   _trilhaCSS() {
     return [
-      '.avt{--g:#2C6E49;--gd:#1E4E34;--mint:#7FE0CE;--olive:#5C7A3A;--ink:#23261E;--body:#4B4A3E;--line:rgba(44,110,73,.20);}',
+      // mesma tipografia do resto do site: Space Grotesk, com os stylistic sets
+      // reservados aos títulos (texto corrido fica na versão normal, como no CSS global)
+      '.avt{--g:#2C6E49;--gd:#1E4E34;--mint:#7FE0CE;--olive:#5C7A3A;--ink:#23261E;--body:#4B4A3E;--line:rgba(44,110,73,.20);',
+      '  --ff:"Space Grotesk",system-ui,sans-serif;--ffh:"Space Grotesk",sans-serif;--ss:"ss01","ss02","ss03","ss05";}',
       '.avt,.avt *{box-sizing:border-box;}',
-      '.avt{font-family:"Space Grotesk",system-ui,sans-serif;color:var(--body);}',
+      '.avt{font-family:var(--ff);font-weight:300;color:var(--body);-webkit-font-smoothing:antialiased;}',
+      '.avt p,.avt h2,.avt h3,.avt ul,.avt li,.avt button,.avt a,.avt b,.avt span,.avt em,.avt strong{font-family:inherit;}',
       '.avt p{margin:0;}',
       /* capa */
       '.avt-hero{position:relative;overflow:hidden;min-height:clamp(330px,54vh,540px);display:flex;align-items:flex-end;background:#101a10;}',
       '.avt-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;}',
       '.avt-hero-sh{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,12,.34) 0%,rgba(10,22,12,.08) 32%,rgba(10,22,12,.80) 100%);}',
       '.avt-hero-in{position:relative;z-index:2;width:100%;max-width:1080px;margin:0 auto;padding:clamp(26px,5vw,54px);}',
-      '.avt-kicker{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mint);margin:0 0 12px;}',
-      '.avt-h1{font-feature-settings:"ss01","ss02","ss03","ss05";font-weight:700;font-size:clamp(34px,9vw,76px);line-height:.98;letter-spacing:-.02em;color:#FBF8EE;margin:0;}',
+      '.avt-kicker{font-family:var(--ffh);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mint);margin:0 0 12px;}',
+      '.avt-h1{font-family:var(--ffh);font-feature-settings:var(--ss);font-weight:700;font-size:clamp(34px,9vw,76px);line-height:.98;letter-spacing:-.02em;color:#FBF8EE;margin:0;}',
       '.avt-h1 em{font-style:italic;font-weight:400;color:var(--mint);}',
-      '.avt-hero-sub{font-feature-settings:"ss01","ss02","ss03","ss05";font-style:italic;font-weight:300;font-size:clamp(17px,4.6vw,26px);line-height:1.26;color:#E8F3E4;margin:14px 0 0;max-width:26ch;}',
+      '.avt-hero-sub{font-family:var(--ffh);font-feature-settings:var(--ss);font-style:italic;font-weight:300;font-size:clamp(17px,4.6vw,26px);line-height:1.26;color:#E8F3E4;margin:14px 0 0;max-width:26ch;}',
       /* abertura */
       '.avt-lead-wrap{max-width:1080px;margin:0 auto;padding:clamp(30px,6vh,58px) clamp(20px,5vw,44px) 0;}',
-      '.avt-lead{font-size:clamp(16px,4.3vw,19px);line-height:1.75;color:var(--ink);max-width:62ch;text-align:justify;}',
-      '.avt-start{display:inline-flex;align-items:center;gap:12px;min-height:54px;margin-top:clamp(22px,4vh,34px);padding:0 26px;border:0;border-radius:999px;background:var(--g);color:#FBF8EE;font-family:inherit;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;box-shadow:0 16px 34px -16px rgba(20,48,18,.8);transition:background .25s ease,transform .25s ease;}',
+      '.avt-lead{font-family:var(--ff);font-size:clamp(16px,4.3vw,19px);line-height:1.75;color:var(--ink);max-width:62ch;text-align:justify;}',
+      '.avt-start{display:inline-flex;align-items:center;gap:12px;min-height:54px;margin-top:clamp(22px,4vh,34px);padding:0 26px;border:0;border-radius:999px;background:var(--g);color:#FBF8EE;font-family:var(--ffh);font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;box-shadow:0 16px 34px -16px rgba(20,48,18,.8);transition:background .25s ease,transform .25s ease;}',
       '.avt-start:hover{background:var(--gd);transform:translateY(-2px);}',
       '.avt-start svg{transition:transform .3s ease;}',
       '.avt-start:hover svg{transform:translateY(3px);}',
@@ -1344,42 +1347,42 @@ class Component extends DCLogic {
       '.avt-st{position:relative;padding-left:52px;padding-bottom:clamp(40px,7vh,74px);opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}',
       '.avt-st.is-in{opacity:1;transform:none;}',
       '.avt-st:last-child{padding-bottom:0;}',
-      '.avt-dot{position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#FCFAF4;border:2px solid var(--line);color:var(--olive);font-size:11px;font-weight:700;transition:background .45s ease,border-color .45s ease,color .45s ease,transform .45s ease;}',
+      '.avt-dot{position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#FCFAF4;border:2px solid var(--line);color:var(--olive);font-family:var(--ffh);font-size:11px;font-weight:700;transition:background .45s ease,border-color .45s ease,color .45s ease,transform .45s ease;}',
       '.avt-st.is-in .avt-dot{background:var(--g);border-color:var(--g);color:#FBF8EE;transform:scale(1.06);}',
-      '.avt-st-kicker{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--olive);margin:9px 0 9px !important;}',
-      '.avt-st-title{font-feature-settings:"ss01","ss02","ss03","ss05";font-weight:500;font-size:clamp(23px,6.2vw,38px);line-height:1.1;color:var(--ink);margin:0;letter-spacing:-.01em;}',
-      '.avt-st-sub{font-feature-settings:"ss01","ss02","ss03","ss05";font-style:italic;font-size:clamp(16px,4.3vw,22px);line-height:1.26;color:var(--g);margin:9px 0 0 !important;}',
+      '.avt-st-kicker{font-family:var(--ffh);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--olive);margin:9px 0 9px !important;}',
+      '.avt-st-title{font-family:var(--ffh);font-feature-settings:var(--ss);font-weight:500;font-size:clamp(23px,6.2vw,38px);line-height:1.1;color:var(--ink);margin:0;letter-spacing:-.01em;}',
+      '.avt-st-sub{font-family:var(--ffh);font-feature-settings:var(--ss);font-style:italic;font-size:clamp(16px,4.3vw,22px);line-height:1.26;color:var(--g);margin:9px 0 0 !important;}',
       '.avt-fig{margin:clamp(18px,3vh,26px) 0 0;border-radius:14px;overflow:hidden;background:#EDE9DD;box-shadow:0 22px 44px -24px rgba(20,28,14,.55);cursor:zoom-in;}',
       '.avt-fig img{width:100%;height:auto;display:block;aspect-ratio:16/10;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1);}',
       '.avt-fig:hover img{transform:scale(1.04);}',
-      '.avt-text{font-size:clamp(15px,4.1vw,17px);line-height:1.78;color:var(--body);margin:clamp(16px,3vh,24px) 0 0 !important;max-width:58ch;text-align:justify;}',
+      '.avt-text{font-family:var(--ff);font-size:clamp(15px,4.1vw,17px);line-height:1.78;color:var(--body);margin:clamp(16px,3vh,24px) 0 0 !important;max-width:58ch;text-align:justify;}',
       '.avt-chips{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;}',
-      '.avt-chips li{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--g);background:rgba(44,110,73,.09);border:1px solid rgba(44,110,73,.22);border-radius:999px;padding:8px 14px;}',
+      '.avt-chips li{font-family:var(--ffh);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--g);background:rgba(44,110,73,.09);border:1px solid rgba(44,110,73,.22);border-radius:999px;padding:8px 14px;}',
       /* rotas (acordeao) */
       '.avt-rotas{margin:clamp(20px,4vh,30px) 0 0;display:flex;flex-direction:column;gap:12px;}',
       '.avt-rota{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#FFFDF7;transition:border-color .3s ease,box-shadow .3s ease;}',
       '.avt-rota.is-open{border-color:rgba(44,110,73,.45);box-shadow:0 18px 40px -26px rgba(20,48,18,.75);}',
-      '.avt-rota-hd{width:100%;display:flex;align-items:center;gap:14px;min-height:66px;padding:14px 16px;border:0;background:transparent;cursor:pointer;text-align:left;font-family:inherit;color:var(--ink);}',
-      '.avt-rota-n{flex:0 0 auto;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(44,110,73,.12);color:var(--g);font-size:11px;font-weight:700;transition:background .3s ease,color .3s ease;}',
+      '.avt-rota-hd{width:100%;display:flex;align-items:center;gap:14px;min-height:66px;padding:14px 16px;border:0;background:transparent;cursor:pointer;text-align:left;font-family:var(--ff);color:var(--ink);}',
+      '.avt-rota-n{flex:0 0 auto;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(44,110,73,.12);color:var(--g);font-family:var(--ffh);font-size:11px;font-weight:700;transition:background .3s ease,color .3s ease;}',
       '.avt-rota.is-open .avt-rota-n{background:var(--g);color:#FBF8EE;}',
       '.avt-rota-t{flex:1 1 auto;min-width:0;}',
-      '.avt-rota-t b{display:block;font-feature-settings:"ss01","ss02","ss03","ss05";font-weight:700;font-size:clamp(16px,4.3vw,20px);line-height:1.2;}',
-      '.avt-rota-t span{display:block;font-size:12.5px;line-height:1.4;color:var(--olive);margin-top:3px;}',
+      '.avt-rota-t b{display:block;font-family:var(--ffh);font-feature-settings:var(--ss);font-weight:700;font-size:clamp(16px,4.3vw,20px);line-height:1.2;}',
+      '.avt-rota-t span{display:block;font-family:var(--ff);font-size:12.5px;line-height:1.4;color:var(--olive);margin-top:3px;}',
       '.avt-rota-cv{flex:0 0 auto;display:flex;color:var(--g);transition:transform .35s cubic-bezier(.2,.7,.2,1);}',
       '.avt-rota.is-open .avt-rota-cv{transform:rotate(180deg);}',
       '.avt-rota-pn{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,.7,.2,1);}',
       '.avt-rota-in{padding:0 16px 18px;}',
       '.avt-meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;}',
-      '.avt-meta span{display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--g);background:rgba(44,110,73,.09);border-radius:999px;padding:8px 13px;}',
+      '.avt-meta span{display:inline-flex;align-items:center;gap:7px;font-family:var(--ffh);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--g);background:rgba(44,110,73,.09);border-radius:999px;padding:8px 13px;}',
       '.avt-rota-fig{margin:0 0 14px;border-radius:12px;overflow:hidden;background:#EDE9DD;cursor:zoom-in;}',
       '.avt-rota-fig img{width:100%;height:auto;display:block;aspect-ratio:16/10;object-fit:cover;}',
-      '.avt-rota-d{font-size:clamp(14.5px,3.9vw,16.5px);line-height:1.74;color:var(--body);text-align:justify;}',
+      '.avt-rota-d{font-family:var(--ff);font-size:clamp(14.5px,3.9vw,16.5px);line-height:1.74;color:var(--body);text-align:justify;}',
       /* convite */
       '.avt-cta{max-width:1080px;margin:0 auto;padding:0 clamp(20px,5vw,44px) clamp(60px,11vh,120px);}',
       '.avt-cta-in{position:relative;overflow:hidden;border-radius:20px;background:var(--g);padding:clamp(28px,6vw,54px);}',
-      '.avt-cta h3{font-feature-settings:"ss01","ss02","ss03","ss05";font-weight:700;font-size:clamp(26px,7vw,44px);line-height:1.06;color:#FBF8EE;margin:0 0 16px;letter-spacing:-.01em;}',
-      '.avt-cta p{font-size:clamp(15px,4.1vw,17px);line-height:1.75;max-width:60ch;text-align:justify;color:rgba(251,248,238,.9);}',
-      '.avt-cta-btn{display:inline-flex;align-items:center;gap:12px;min-height:56px;margin-top:clamp(22px,4vh,32px);padding:0 28px;border-radius:999px;background:#FBF8EE;color:#1E4E34;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease;}',
+      '.avt-cta h3{font-family:var(--ffh);font-feature-settings:var(--ss);font-weight:700;font-size:clamp(26px,7vw,44px);line-height:1.06;color:#FBF8EE;margin:0 0 16px;letter-spacing:-.01em;}',
+      '.avt-cta p{font-family:var(--ff);font-size:clamp(15px,4.1vw,17px);line-height:1.75;max-width:60ch;text-align:justify;color:rgba(251,248,238,.9);}',
+      '.avt-cta-btn{display:inline-flex;align-items:center;gap:12px;min-height:56px;margin-top:clamp(22px,4vh,32px);padding:0 28px;border-radius:999px;background:#FBF8EE;color:#1E4E34;font-family:var(--ffh);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease;}',
       '.avt-cta-btn:hover{transform:translateY(-2px);box-shadow:0 16px 32px -14px rgba(0,0,0,.5);opacity:1;}',
       /* desktop */
       '@media (min-width:820px){',
@@ -1650,11 +1653,7 @@ class Component extends DCLogic {
       this._lbHead.style.boxShadow = '0 6px 24px ' + c[2];
     }
     this._lb.setAttribute('aria-hidden', 'false');
-    const rev = document.getElementById('mec-lb-reveal');
-    if (rev) {
-      if (this._galleryMode === 'trilha') { rev.style.display = 'block'; if (this._lbRevResize) requestAnimationFrame(() => this._lbRevResize()); }
-      else { rev.style.display = 'none'; }
-    }
+    // (sem textura revelada de aves aqui dentro — a overlay fica limpa)
     this._lb.style.visibility = 'visible';
     this._lb.style.pointerEvents = 'auto';
     this._lb.scrollTop = 0;
