@@ -110,8 +110,9 @@
     #avi-trilha-btn { width: 100% !important; justify-content: center !important; }
     .avi-motmot-wrap { margin-left: 0 !important; }
     #avi-motmot { height: 54vh !important; }
-    /* passaro do aviturismo: mata o vazamento de ~8px pras laterais no mobile */
-    #avi-bird { left: 0 !important; right: 0 !important; width: 100% !important; }
+    /* passaro do aviturismo: compensa a margem transparente do PNG (~2,81% à esquerda)
+       sem estourar as laterais — o galho encosta nas duas bordas */
+    #avi-bird { left: -3% !important; right: auto !important; width: 103% !important; }
 
     /* Museu da Pessoa (intro): mesmo tratamento — a foto continua ocupando a tela
        normalmente, os textos continuam sobrepostos a ela, agora empilhados. */
@@ -131,6 +132,27 @@
     #pc-num { font-size: clamp(56px, 19vw, 92px) !important; }
     .pc-metas { grid-template-columns: 1fr !important; }
     .mec-foot-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  }
+  /* TESTE (só desktop): topo dos cards de meta em forma de onda.
+     A crista é um SVG que se repete acima do card, no mesmo verde — o card tem o topo
+     reto e só as pontas de baixo arredondadas, pra onda encaixar sem emenda. */
+  @media (min-width: 761px) {
+    .pc-metas { margin-top: 20px; }
+    .pc-metas > article {
+      position: relative;
+      border-radius: 0 0 16px 16px !important;
+    }
+    .pc-metas > article::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 100%;
+      height: 18px;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 18' preserveAspectRatio='none'%3E%3Cpath d='M0 18 V9 Q15 0 30 9 T60 9 T90 9 T120 9 V18 Z' fill='%232C6E49'/%3E%3C/svg%3E");
+      background-size: 120px 18px;
+      background-repeat: repeat-x;
+      background-position: left bottom;
+    }
   }
   .mp-card { position: relative; overflow: hidden; background: #0A1A22; cursor: pointer; min-width: 0; }
   .mp-card img.mp-thumb { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s ease; }
@@ -314,9 +336,12 @@
           <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9,15,7,0.30) 0%, rgba(9,15,7,0) 42%, rgba(9,15,7,0.42) 100%);"></div>
         </div>
 
-        <!-- galho + pássaro atravessando de ponta a ponta -->
+        <!-- galho + pássaro atravessando de ponta a ponta.
+             O PNG tem ~2,81% de margem transparente à esquerda (e 0 à direita), então o
+             left/width compensam isso: a ponta real do galho cai em ~-2% e a outra ponta em
+             ~103%, encostando nas duas laterais mesmo no menor scale do parallax (1.0). -->
         <img id="avi-bird" src="assets/avi/passaro-flip.png" alt="Ave típica do cerrado pousada em galho coberto de musgo" decoding="async"
-             style="position: absolute; left: -2%; top: 6%; width: 104%; z-index: 3; pointer-events: none; will-change: transform; filter: drop-shadow(0 30px 40px rgba(0,0,0,0.5));">
+             style="position: absolute; left: -5%; top: 6%; width: 108%; z-index: 3; pointer-events: none; will-change: transform; filter: drop-shadow(0 30px 40px rgba(0,0,0,0.5));">
 
         <!-- frases (cross-fade no scroll) -->
         <div class="avi-msgs" style="position: absolute; top: 0; bottom: 0; left: 0; z-index: 4; display: flex; align-items: center; padding: 0 clamp(24px, 6vw, 110px); width: min(720px, 58vw);">
@@ -814,59 +839,96 @@ class Component extends DCLogic {
     this._punchGuards(ctx, { left: 0, top: 0 }, this.W, this.H, '#intro h2,#intro h3,#intro p,#intro .mec-cursor-hint,#galeria h2,#galeria h3,#galeria p,#car-counter');
   }
 
+  // Le a silhueta de uma forma como "raio por angulo" (perfil polar) normalizado.
+  // E isso que permite MORFAR de uma forma na outra: em vez de sobrepor duas imagens
+  // com opacidade (o que mostrava as duas ao mesmo tempo), interpolamos o contorno.
+  _pebbleProfile(img) {
+    const N = 192, S = 96;                              // 192 angulos, amostrado em 96x96
+    let data;
+    try {
+      const c = document.createElement('canvas');
+      c.width = S; c.height = S;
+      const g = c.getContext('2d', { willReadFrequently: true });
+      // encaixa preservando proporcao (contain), centralizado
+      const ir = img.naturalWidth / img.naturalHeight;
+      let dw = S, dh = S;
+      if (ir > 1) dh = S / ir; else dw = S * ir;
+      g.drawImage(img, (S - dw) / 2, (S - dh) / 2, dw, dh);
+      data = g.getImageData(0, 0, S, S).data;
+    } catch (e) { return null; }                        // canvas "sujo" / sem permissao
+    const c0 = S / 2, prof = new Float32Array(N);
+    for (let a = 0; a < N; a++) {
+      const th = (a / N) * Math.PI * 2;
+      const dx = Math.cos(th), dy = Math.sin(th);
+      let r = 0;
+      for (let d = c0; d >= 1; d -= 0.5) {              // de fora pra dentro: 1o pixel opaco
+        const x = (c0 + dx * d) | 0, y = (c0 + dy * d) | 0;
+        if (x < 0 || y < 0 || x >= S || y >= S) continue;
+        if (data[(y * S + x) * 4 + 3] > 120) { r = d / c0; break; }
+      }
+      prof[a] = r;
+    }
+    // suaviza o contorno (media movel circular) p/ tirar serrilhado da amostragem
+    const out = new Float32Array(N);
+    for (let a = 0; a < N; a++) {
+      let s = 0;
+      for (let k = -2; k <= 2; k++) s += prof[(a + k + N) % N];
+      out[a] = s / 5;
+    }
+    return out;
+  }
+
+  // perfis prontos (monta uma vez, conforme os PNGs vao carregando)
+  _pebbleProfiles() {
+    const imgs = (this._pebbleShapes || []).filter(s => s && s.complete && s.naturalWidth);
+    if (!imgs.length) return null;
+    if (!this._pebbleProfCache) this._pebbleProfCache = new Map();
+    const out = [];
+    for (const im of imgs) {
+      let p = this._pebbleProfCache.get(im);
+      if (p === undefined) { p = this._pebbleProfile(im); this._pebbleProfCache.set(im, p); }
+      if (p) out.push(p);
+    }
+    return out.length ? out : null;
+  }
+
   // recorta o conteudo ja desenhado para a silhueta das pedras, centrada no cursor
-  // revelador: forma de pedra menor, que respira e alterna entre as formas disponiveis
+  // a forma se transforma na proxima de maneira continua (morph do contorno)
   _maskToPebble(ctx, cx, cy) {
-    const shapes = (this._pebbleShapes || []).filter(s => s && s.complete && s.naturalWidth);
+    const profs = this._pebbleProfiles();
     ctx.save();
     ctx.globalCompositeOperation = 'destination-in';
-    if (shapes.length) {
+    if (profs && profs.length > 1) {
       const now = performance.now() / 1000;
-      const per = 3.4;                                  // segundos por forma (mais lento)
+      const per = 4.2;                                  // segundos por forma
       const t = now / per;
-      const idx = Math.floor(t) % shapes.length;
-      const nxt = (idx + 1) % shapes.length;
-      const frac = t - Math.floor(t);                   // 0..1 dentro da forma atual
-      // crossfade suave (smoothstep) na parte final do ciclo — sem trocas abruptas
-      const fadeStart = 0.55;
-      let b = frac <= fadeStart ? 0 : (frac - fadeStart) / (1 - fadeStart);
-      b = b * b * (3 - 2 * b);                          // smoothstep
-      const breathe = 1 + 0.05 * Math.sin(now * 0.9);   // respira de leve, contínuo
-      const rot = Math.sin(now * 0.32) * 0.30;          // giro lento e contínuo
-      // compõe a máscara num buffer e aplica de uma vez (evita flicker do destination-in)
-      const cv = ctx.canvas;
-      let buf = this._pebbleBuf;
-      if (!buf) { buf = this._pebbleBuf = document.createElement('canvas'); }
-      if (buf.width !== cv.width || buf.height !== cv.height) { buf.width = cv.width; buf.height = cv.height; }
-      const bx = buf.getContext('2d');
-      bx.setTransform(1, 0, 0, 1, 0, 0);
-      bx.clearRect(0, 0, buf.width, buf.height);
-      const dpr = (cv.width / (cv.clientWidth || cv.width)) || 1;
-      const drawShape = (img, alpha) => {
-        if (alpha <= 0.001) return;
-        const w = this.baseR * 1.55 * breathe;
-        const hh = w * img.naturalHeight / img.naturalWidth;
-        bx.save();
-        bx.globalAlpha = alpha;
-        bx.translate(cx * dpr, cy * dpr);
-        bx.scale(dpr, dpr);
-        bx.rotate(rot);
-        bx.drawImage(img, -w / 2, -hh / 2, w, hh);
-        bx.restore();
-      };
-      drawShape(shapes[idx], 1 - b);
-      drawShape(shapes[nxt], b);
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.globalAlpha = 1;
-      ctx.drawImage(buf, 0, 0);
+      const idx = Math.floor(t) % profs.length;
+      const nxt = (idx + 1) % profs.length;
+      const frac = t - Math.floor(t);
+      // a forma descansa um pouco e depois se transforma; sem corte, so deformacao
+      const hold = 0.35;
+      let b = frac <= hold ? 0 : (frac - hold) / (1 - hold);
+      b = b * b * b * (b * (b * 6 - 15) + 10);          // smootherstep: entra/sai sem solavanco
+      const A = profs[idx], B = profs[nxt], N = A.length;
+      const breathe = 1 + 0.05 * Math.sin(now * 0.9);   // respira de leve, continuo
+      const rot = Math.sin(now * 0.32) * 0.30;          // giro lento e continuo
+      const R = this.baseR * 0.8 * breathe;
+      ctx.beginPath();
+      for (let a = 0; a <= N; a++) {
+        const i = a % N;
+        const r = (A[i] + (B[i] - A[i]) * b) * R;
+        const th = (i / N) * Math.PI * 2 + rot;
+        const x = cx + Math.cos(th) * r, y = cy + Math.sin(th) * r;
+        if (a === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.fill();
       ctx.restore();
       return;
     }
-    if (false) {} else {
-      ctx.beginPath();
-      ctx.arc(cx, cy, this.baseR * 0.8, 0, Math.PI * 2);
-      ctx.fill();
-    }
+    ctx.beginPath();
+    ctx.arc(cx, cy, this.baseR * 0.8, 0, Math.PI * 2);
+    ctx.fill();
     ctx.restore();
   }
 
@@ -2132,7 +2194,7 @@ class Component extends DCLogic {
     '  #avi-trilha-btn{width:100%!important;justify-content:center!important;}',
     '  .avi-motmot-wrap{margin-left:0!important;}',
     '  #avi-motmot{height:54vh!important;}',
-    '  #avi-bird{left:0!important;right:0!important;width:100%!important;}',
+    '  #avi-bird{left:-3%!important;right:auto!important;width:103%!important;}',
     '  #museu-scroll{height:100vh!important;min-height:560px!important;}',
     '  .mp-logo{width:108px!important;}',
     '  .mp-msgs{width:86vw!important;}',
