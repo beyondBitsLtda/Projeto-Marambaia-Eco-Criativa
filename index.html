@@ -295,8 +295,8 @@
             <figure class="car-slide" data-title="Economia Criativa e Circular" data-gallery="economia-circular" data-desc="Artesanato, biojoias, moda sustentável, reaproveitamento de materiais e outras iniciativas que transformam criatividade em oportunidades para os artistas." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
               <img src="assets/galeria-economia/ec-01.jpg" alt="Equipe de TV registra o trabalho das artesãs na Bonito Eco Criativa" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
             </figure>
-            <figure class="car-slide" data-title="Aviturismo" data-desc="A observação de aves convida visitantes a descobrir a natureza de Bonito e amplia as possibilidades do turismo sustentável por meio da nossa Trilha Urbana de Aviturismo da Grande Marambaia." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
-              <img src="assets/fibras.avif" alt="Aviturismo na Grande Marambaia" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <figure class="car-slide" data-title="Aviturismo" data-scroll-to="#avi-scroll" data-desc="A observação de aves convida visitantes a descobrir a natureza de Bonito e amplia as possibilidades do turismo sustentável por meio da nossa Trilha Urbana de Aviturismo da Grande Marambaia." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
+              <img src="assets/capa-aviturismo.jpg" alt="Saíra-de-bando pousada em galho na mata da Grande Marambaia" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: 85% center; display: block;">
             </figure>
             <figure class="car-slide" data-title="Audiovisual" data-desc="Documentários e produções audiovisuais que registram histórias e dão voz a comunidade." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
               <img src="assets/madeira.avif" alt="Produção audiovisual da comunidade" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
@@ -1026,9 +1026,10 @@ class Component extends DCLogic {
         this._idx = ni;
         this._apply(false);
       } else if (Math.abs(dx) < 8 && downSlide >= 0) {
-        // toque/clique: slide não-ativo seleciona, slide ativo abre a galeria
+        // toque/clique: slide não-ativo seleciona; slide ativo abre a galeria —
+        // ou, se tiver data-scroll-to, leva para a seção correspondente da página
         if (downSlide !== this._idx) { this._idx = downSlide; this._apply(false); }
-        else { this._openGallery(downSlide); }
+        else { this._ativarSlide(downSlide); }
       } else {
         this._apply(false);
       }
@@ -1700,6 +1701,24 @@ class Component extends DCLogic {
     if (bar && bar.parentNode) bar.parentNode.removeChild(bar);
     const k = document.getElementById('mec-lb-kicker');
     if (k) k.textContent = 'Galeria estendida';
+  }
+
+  // clique no slide ativo: alguns cards levam a uma seção da página
+  // (data-scroll-to) em vez de abrir a galeria em overlay
+  _ativarSlide(idx) {
+    const s = (this._slides && this._slides[idx]) || null;
+    const destino = s ? s.getAttribute('data-scroll-to') : null;
+    if (!destino) { this._openGallery(idx); return; }
+    let alvo = null;
+    try { alvo = document.querySelector(destino); } catch (e) {}
+    if (!alvo) { this._openGallery(idx); return; }
+    const topo = alvo.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || 0) - 72;
+    const y = Math.max(0, topo);
+    if (this._lenis && this._lenis.scrollTo) {
+      try { this._lenis.scrollTo(y, { duration: this.reduce ? 0 : 1.2 }); return; } catch (e) {}
+    }
+    try { window.scrollTo({ top: y, behavior: this.reduce ? 'auto' : 'smooth' }); }
+    catch (e) { window.scrollTo(0, y); }
   }
 
   _openGallery(idx, opts) {
