@@ -7,3 +7,8 @@
 # pelo site (as versoes otimizadas sao hero-home.mp4 e hero-museu-da-pessoa.jpg).
 assets/novo_video_home.mp4
 assets/nova_hero_museu_da _pessoa.jpeg
+
+# Pastas de originais das galerias (fotos de camera, ~213 MB, incluindo 2 MP4).
+# O site usa as versoes otimizadas em assets/galeria-economia e galeria-formacao.
+assets/Economia Circular/
+assets/Formação e Capacitação/

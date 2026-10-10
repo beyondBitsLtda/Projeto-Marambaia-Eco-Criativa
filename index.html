@@ -292,8 +292,8 @@
       <div id="carousel" style="position: relative;">
         <div id="car-viewport" style="position: relative; overflow: visible; touch-action: pan-y;">
           <div id="car-track" style="position: relative; z-index: 1; display: flex; align-items: center; will-change: transform;">
-            <figure class="car-slide" data-title="Economia Criativa e Circular" data-desc="Artesanato, biojoias, moda sustentável, reaproveitamento de materiais e outras iniciativas que transformam criatividade em oportunidades para os artistas." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
-              <img src="assets/ceramica.avif" alt="Economia criativa e circular" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <figure class="car-slide" data-title="Economia Criativa e Circular" data-gallery="economia-circular" data-desc="Artesanato, biojoias, moda sustentável, reaproveitamento de materiais e outras iniciativas que transformam criatividade em oportunidades para os artistas." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
+              <img src="assets/galeria-economia/ec-01.jpg" alt="Equipe de TV registra o trabalho das artesãs na Bonito Eco Criativa" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
             </figure>
             <figure class="car-slide" data-title="Aviturismo" data-desc="A observação de aves convida visitantes a descobrir a natureza de Bonito e amplia as possibilidades do turismo sustentável por meio da nossa Trilha Urbana de Aviturismo da Grande Marambaia." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
               <img src="assets/fibras.avif" alt="Aviturismo na Grande Marambaia" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
@@ -301,8 +301,8 @@
             <figure class="car-slide" data-title="Audiovisual" data-desc="Documentários e produções audiovisuais que registram histórias e dão voz a comunidade." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
               <img src="assets/madeira.avif" alt="Produção audiovisual da comunidade" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
             </figure>
-            <figure class="car-slide" data-title="Formação e Capacitação" data-desc="Capacitações para criativos e empreendedores da Grande Marambaia desenvolverem seus conhecimentos e transformá-los em negócios." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
-              <img src="assets/bonito.avif" alt="Formação e capacitação na comunidade" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <figure class="car-slide" data-title="Formação e Capacitação" data-gallery="formacao" data-desc="Capacitações para criativos e empreendedores da Grande Marambaia desenvolverem seus conhecimentos e transformá-los em negócios." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
+              <img src="assets/galeria-formacao/fc-01.jpg" alt="Participantes da capacitação em gestão e ferramentas digitais" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
             </figure>
           </div>
         </div>
@@ -1146,6 +1146,42 @@ class Component extends DCLogic {
       { src: 'assets/galeria/foto-9.jpg', ar: 1400/933, caption: 'Bonito Eco Criativa: vitrine do artesanato local.' },
       { src: 'assets/galeria/foto-7.jpg', ar: 1400/933, caption: 'Sorrisos que celebram o trabalho coletivo.' }
     ];
+
+    // Galerias proprias por card do carrossel. O slide indica qual usar pelo
+    // atributo data-gallery; sem ele, o card cai na galeria generica (_photos).
+    this._galerias = {
+      'economia-circular': [
+        { src: 'assets/galeria-economia/ec-01.jpg', ar: 1500/1000, caption: 'A imprensa registra o trabalho da Marambaia Eco Criativa.' },
+        { src: 'assets/galeria-economia/ec-02.jpg', ar: 1500/1000, caption: 'As artesãs da Grande Marambaia na Bonito Eco Criativa.' },
+        { src: 'assets/galeria-economia/ec-03.jpg', ar: 1500/1000, caption: 'A produção local ganha espaço na televisão.' },
+        { src: 'assets/galeria-economia/ec-04.jpg', ar: 1500/1000, caption: 'Vidro reaproveitado vira utensílio e decoração.' },
+        { src: 'assets/galeria-economia/ec-05.jpg', ar: 1500/1000, caption: 'Garrafas que renascem como peça de jardim.' },
+        { src: 'assets/galeria-economia/ec-06.jpg', ar: 1500/1000, caption: 'Cestaria feita a partir de material reaproveitado.' },
+        { src: 'assets/galeria-economia/ec-07.jpg', ar: 1500/1000, caption: 'Biojoias de sementes no balcão da feira.' },
+        { src: 'assets/galeria-economia/ec-08.jpg', ar: 1500/1000, caption: 'Cada peça exposta carrega a história de quem a fez.' },
+        { src: 'assets/galeria-economia/ec-09.jpg', ar: 1500/842,  caption: 'O visitante conhece a peça pelas mãos de quem produz.' },
+        { src: 'assets/galeria-economia/ec-10.jpg', ar: 1500/842,  caption: 'A feira aproxima o público do processo criativo.' },
+        { src: 'assets/galeria-economia/ec-11.jpg', ar: 1500/1000, caption: 'A marca Marambaia Eco Criativa na vitrine da feira.' },
+        { src: 'assets/galeria-economia/ec-12.jpg', ar: 1500/1000, caption: 'Parcerias que fortalecem a economia criativa local.' },
+        { src: 'assets/galeria-economia/ec-13.jpg', ar: 412/827,   caption: 'Neiva Prieto e sua produção em vidro reaproveitado.' },
+        { src: 'assets/galeria-economia/ec-14.jpg', ar: 431/1006,  caption: 'Maria Aparecida e as peças em crochê e fibras.' },
+        { src: 'assets/galeria-economia/ec-15.jpg', ar: 701/1341,  caption: 'Maria de Jesus e as biojoias de sementes do cerrado.' },
+        { src: 'assets/galeria-economia/ec-16.jpg', ar: 1122/646,  caption: 'O grupo reunido na Bonito Eco Criativa.' },
+        { src: 'assets/galeria-economia/ec-17.jpg', ar: 1500/841,  caption: 'Rodas de conversa organizam a produção coletiva.' },
+        { src: 'assets/galeria-economia/ec-18.jpg', ar: 1500/841,  caption: 'A comunidade decide junto os rumos do trabalho.' }
+      ],
+      'formacao': [
+        { src: 'assets/galeria-formacao/fc-01.jpg', ar: 1500/1000, caption: 'Capacitação em gestão e ferramentas digitais.' },
+        { src: 'assets/galeria-formacao/fc-02.jpg', ar: 1500/1000, caption: 'Mão na massa: a formação acontece no computador.' },
+        { src: 'assets/galeria-formacao/fc-03.jpg', ar: 1500/1000, caption: 'A roda de conversa abre os encontros.' },
+        { src: 'assets/galeria-formacao/fc-04.jpg', ar: 1500/1000, caption: 'Criativos e empreendedores do bairro reunidos.' },
+        { src: 'assets/galeria-formacao/fc-05.jpg', ar: 1500/1000, caption: 'Oficina prática em torno da mesa de trabalho.' },
+        { src: 'assets/galeria-formacao/fc-06.jpg', ar: 1500/1000, caption: 'As peças produzidas pelas participantes.' },
+        { src: 'assets/galeria-formacao/fc-07.jpg', ar: 1500/844,  caption: 'A equipe que conduz as capacitações.' },
+        { src: 'assets/galeria-formacao/fc-08.jpg', ar: 1500/844,  caption: 'Parcerias que levam a formação adiante.' }
+      ]
+    };
+
     this._lb = document.getElementById('mec-lb');
     this._avesPhotos = [
       { src: 'assets/avi/ave-1.jpg', caption: 'A observação começa antes do sol nascer.' },
@@ -1677,7 +1713,10 @@ class Component extends DCLogic {
     } else {
       const s = (this._slides && this._slides[idx]) || null;
       title = s ? (s.getAttribute('data-title') || '') : '';
-      this._activePhotos = this._photos;
+      // cada card pode ter a sua propria galeria (data-gallery); sem isso, usa a generica
+      const chave = s ? s.getAttribute('data-gallery') : null;
+      const propria = chave && this._galerias ? this._galerias[chave] : null;
+      this._activePhotos = (propria && propria.length) ? propria : this._photos;
       this._galleryMode = 'mosaic';
     }
     if (this._lbTitle) this._lbTitle.textContent = title;
