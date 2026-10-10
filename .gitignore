@@ -1,2 +1,9 @@
 .vercel
 .env*
+
+# Originais pesados entregues pelo cliente: ficam no disco, mas fora do Git.
+# O video tem 131 MB e o GitHub recusa arquivos acima de 100 MB; alem disso
+# a Vercel publica tudo que esta no repo, e esses originais nao sao usados
+# pelo site (as versoes otimizadas sao hero-home.mp4 e hero-museu-da-pessoa.jpg).
+assets/novo_video_home.mp4
+assets/nova_hero_museu_da _pessoa.jpeg
