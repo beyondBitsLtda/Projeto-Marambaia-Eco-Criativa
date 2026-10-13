@@ -1,0 +1,247 @@
+================================================================================
+MARAMBAIA ECO CRIATIVA
+Um site para contar a história de um bairro que vive de criatividade e natureza
+================================================================================
+
+Documento escrito em linguagem simples, para quem quer entender o projeto sem
+precisar saber nada de tecnologia.
+
+
+--------------------------------------------------------------------------------
+1. EM UMA FRASE
+--------------------------------------------------------------------------------
+
+É o site da Associação Eco Criativos Grande Marambaia, um bairro de Bonito, no
+Mato Grosso do Sul. O site apresenta o que a comunidade faz, dá voz a quem vive
+lá e mostra abertamente como o dinheiro do projeto está sendo usado.
+
+
+--------------------------------------------------------------------------------
+2. POR QUE ELE EXISTE
+--------------------------------------------------------------------------------
+
+Bonito é conhecida no mundo todo pelas águas cristalinas. Mas a Grande Marambaia
+tem outra riqueza, menos visível: gente que faz artesanato, biojoias, moda
+sustentável, audiovisual e que guia visitantes para observar aves dentro da
+própria cidade.
+
+O site serve a três propósitos ao mesmo tempo:
+
+  - MOSTRAR  -> apresentar esse trabalho para turistas, parceiros e para
+                quem nunca ouviu falar do bairro.
+
+  - DAR VOZ  -> colocar os próprios moradores contando suas histórias, em
+                vídeo, com nome e rosto.
+
+  - PRESTAR  -> deixar público, para qualquer pessoa consultar, quanto
+     CONTAS     dinheiro entrou e em que está sendo aplicado.
+
+Esse terceiro ponto é importante: o projeto é financiado com recurso público,
+e o site assume a transparência como parte da proposta, não como obrigação
+escondida no rodapé.
+
+
+--------------------------------------------------------------------------------
+3. O QUE A PESSOA ENCONTRA AO NAVEGAR
+--------------------------------------------------------------------------------
+
+O site é uma página única. A pessoa entra e vai descendo — cada trecho conta uma
+parte da história, na ordem:
+
+ABERTURA
+   Um vídeo ocupando a tela inteira, com o nome do projeto e a localização:
+   Bonito, Mato Grosso do Sul. É o cartão de visitas.
+
+01 - QUEM SOMOS
+   Explica a proposta: "Conectamos pessoas, cultura e natureza". Fala do
+   trabalho com oficinas, capacitações, projetos e parcerias que ajudam
+   artistas e empreendedores locais a transformar o que sabem fazer em
+   oportunidade de renda.
+
+   Logo em seguida, sobre a foto de uma artesã, aparecem três ideias que
+   resumem o espírito do projeto: Comunidade, Transformação e Futuro.
+
+02 - GALERIA: "O QUE NOS MOVIMENTA"
+   Um carrossel de fotos com as quatro frentes de atuação:
+
+      . Economia Criativa e Circular - artesanato, biojoias, moda
+        sustentável, reaproveitamento de materiais
+      . Aviturismo - observação de aves
+      . Audiovisual - documentários e registro de histórias
+      . Formação e Capacitação - cursos para criativos e empreendedores
+
+   Clicando em "Economia Criativa e Circular" ou em "Formação e Capacitação",
+   abre-se uma galeria de fotos reais daquela frente. Clicando em
+   "Aviturismo", a pessoa é levada direto para a seção sobre o tema.
+
+03 - AVITURISMO
+   A parte mais visual do site. Uma ave pousada num galho ocupa a tela, e os
+   textos explicam o que é a Trilha Urbana de Aviturismo da Grande Marambaia:
+   observar aves sem sair do ambiente urbano.
+
+   Aqui existe também um conteúdo à parte, chamado "O Voo da Marambaia" — uma
+   espécie de passeio guiado em texto, que abre em tela cheia quando a pessoa
+   clica em "Percorrer a trilha". Ele é dividido em estações:
+
+      Estação 1 - os Guardiões da Marambaia: moradores treinados que
+                  conduzem os visitantes e ensinam a observar sem
+                  perturbar as aves.
+      Estação 2 - a experiência pensada para todas as pessoas, incluindo
+                  quem tem necessidades específicas.
+      Estação 3 - a cultura criativa do bairro, que fecha o passeio.
+
+   No final, dois caminhos: conversar pelo WhatsApp ou ver a trilha
+   registrada no eBird, que é a plataforma internacional onde observadores
+   de aves do mundo inteiro catalogam o que avistam.
+
+04 - MUSEU DA PESSOA
+   Um acervo de vídeos com depoimentos de moradores, em parceria com o Museu
+   da Pessoa. Cada pessoa conta sua própria história:
+
+      . a artesã do crochê que guarda a memória do bairro
+      . quem transforma sacolinha plástica em peça de artesanato
+      . quem faz biojoia com sementes da região
+      . o chef que cozinha a tradição pantaneira
+      . o roteirista que registra tudo em audiovisual
+      . o biólogo responsável pela trilha de aves
+      . os monitores que guiam os visitantes
+
+   A frase que abre a seção resume a ideia: "Aqui, a voz é da comunidade".
+
+05 - GOVERNANÇA E TRANSPARÊNCIA
+   A prestação de contas, em números grandes e legíveis. Mostra o valor que
+   chegou à Grande Marambaia e como ele se divide entre as quatro metas do
+   projeto.
+
+
+--------------------------------------------------------------------------------
+4. O DINHEIRO: DE ONDE VEM E PARA ONDE VAI
+--------------------------------------------------------------------------------
+
+   Origem do recurso ........ FUNDTUR (fundo de turismo do estado)
+   Valor na Grande Marambaia . R$ 56.000,00
+   Período de execução ...... Fevereiro de 2026 a Fevereiro de 2027
+   Onde acontece ............ Bairro Grande Marambaia, Bonito/MS
+
+As quatro metas em que o recurso é aplicado:
+
+   Meta 1 - Encontros e capacitação de lideranças
+   Meta 2 - Identidade visual, produção e divulgação multimídia
+   Meta 3 - Oficinas temáticas e desenvolvimento de produtos
+   Meta 4 - Trilha urbana de aviturismo
+
+Observação importante: houve um repasse maior do FUNDTUR para o IASB, mas nem
+todo ele veio para a Marambaia. O site mostra apenas os R$ 56.000 que de fato
+chegaram ao bairro, para não dar a entender algo que não corresponde à
+realidade. A forma de divulgar o restante ainda está sendo definida.
+
+
+--------------------------------------------------------------------------------
+5. COMO O SITE FOI PENSADO
+--------------------------------------------------------------------------------
+
+A ideia não foi fazer um site institucional comum, com blocos de texto um
+embaixo do outro. A proposta é que a pessoa sinta que está percorrendo um
+lugar, não lendo um folheto.
+
+Por isso o site usa:
+
+   . Fotos e vídeos ocupando a tela inteira, para dar presença ao território.
+
+   . Textos que aparecem conforme a pessoa rola a página, no ritmo de quem
+     caminha e vai descobrindo.
+
+   . Um efeito de "revelar textura" quando se move o mouse em algumas áreas,
+     como se a trama de uma palha trançada ou a mata aparecesse por baixo.
+
+   . Cores tiradas do próprio lugar: verdes da mata, terracota, tons de areia
+     e o azul das águas.
+
+No celular, esses efeitos são simplificados de propósito. Animação presa à
+rolagem funciona bem no computador, mas no celular costuma atrapalhar a
+leitura — então ali o conteúdo aparece de forma mais direta, sem fazer a
+pessoa rolar muito para ver pouco.
+
+
+--------------------------------------------------------------------------------
+6. ACESSIBILIDADE
+--------------------------------------------------------------------------------
+
+O site tem o VLibras instalado, o tradutor gratuito do governo federal que
+converte o conteúdo para Língua Brasileira de Sinais. É aquele botão azul com
+as mãos que fica no canto da tela.
+
+Além disso, todas as imagens têm descrição por escrito, lida em voz alta por
+leitores de tela para quem não enxerga, e os botões têm tamanho adequado para
+serem tocados com o dedo no celular.
+
+Esse cuidado não é por acaso: a própria capacitação dos guias do projeto
+incluiu formação sobre inclusão de pessoas com necessidades específicas. O
+site segue a mesma linha do que o projeto defende.
+
+
+--------------------------------------------------------------------------------
+7. COMO FUNCIONA POR TRÁS (sem complicação)
+--------------------------------------------------------------------------------
+
+Para quem tem curiosidade sobre a parte técnica, em poucas palavras:
+
+   . O site inteiro é UM arquivo só. Não há banco de dados, não há área de
+     login, não há painel administrativo. Isso deixa tudo muito rápido de
+     carregar e muito barato de manter.
+
+   . O conteúdo fica guardado no GitHub, que funciona como um arquivo
+     histórico: cada alteração fica registrada, com data e descrição, e é
+     possível voltar atrás a qualquer momento se algo der errado.
+
+   . O site é publicado pela Vercel, um serviço que coloca a página no ar e
+     a distribui pelo mundo.
+
+   . Fotos e vídeos passam por um processo de redução antes de entrar no
+     site. As imagens vêm da câmera com tamanho enorme — uma única foto pode
+     ter mais peso do que o site inteiro. Reduzindo, a página abre rápido
+     inclusive para quem está no 4G, que é a maioria dos visitantes.
+
+     Para dar noção: o conjunto de fotos das galerias saiu de 213 MB para
+     4,3 MB. É a mesma imagem na tela, com uma fração do peso.
+
+
+--------------------------------------------------------------------------------
+8. SITUAÇÃO ATUAL
+--------------------------------------------------------------------------------
+
+O site está construído e o conteúdo está todo revisado com o cliente.
+
+PENDÊNCIA PRINCIPAL: a conta da Vercel, onde o site é publicado, está
+bloqueada por ter ultrapassado o limite de uso do plano. Enquanto isso não for
+regularizado, o site não fica acessível no endereço público. Todo o trabalho
+está salvo e preservado — é só religar a publicação quando a conta voltar.
+
+Outros pontos ainda em aberto, que dependem de definição:
+
+   . As três rotas da trilha de aviturismo (nomes, distâncias e tempos)
+     saíram do ar porque ainda precisam ser validadas com a FundTur.
+     Quando forem confirmadas, voltam facilmente.
+
+   . A forma de divulgar o repasse total ao IASB.
+
+   . O envolvimento da gastronomia local na trilha ainda não tem definição
+     de como será feito na prática.
+
+
+--------------------------------------------------------------------------------
+9. CONTATO
+--------------------------------------------------------------------------------
+
+   Associação Eco Criativos Grande Marambaia
+   CNPJ 63.403.726/0001-95
+   Rua Águas Marinhas, 486 - Vila Marambaia - Bonito, MS
+
+   E-mail ....... ecocriativos.marambaia@gmail.com
+   WhatsApp ..... (67) 99200-1469
+   Instagram .... @marambaiaecocriativa
+
+   Desenvolvimento: Beyond Bits
+
+
+================================================================================
