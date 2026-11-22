@@ -102,14 +102,15 @@
     .artesa-msg.mec-inview { opacity: 1 !important; transform: translateY(0) !important; }
     #car-prev, #car-next { width: 44px !important; height: 44px !important; }
 
-    /* Aviturismo: sem pin/scroll-jack no mobile, mas o enquadramento continua o mesmo
-       de sempre (imagem + passaro ocupando a tela) — os textos continuam SOBREPOSTOS
-       a ela, só que agora empilhados (em vez de cross-fade), entrando com transição
-       suave — ver _setupMobileReveal(). Nada do hero em si é redimensionado. */
-    #avi-scroll { height: 100vh !important; min-height: 560px !important; }
-    .avi-msgs { width: 86vw !important; padding: 0 7vw !important; }
-    .avi-msgbox { height: auto !important; display: flex !important; flex-direction: column !important; justify-content: center !important; gap: 24px !important; }
-    .avi-msg { position: relative !important; inset: auto !important; opacity: 0; transform: translateY(16px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+    /* Aviturismo, Museu da Pessoa e abertura da Governança: no mobile seguem o mesmo esquema
+       da artesã — foto em cima (44vh) e os textos embaixo, empilhados num bloco de cor sólida,
+       entrando com transição suave (ver _setupMobileReveal). Sem pin/scroll-jack. */
+    #avi-scroll { height: auto !important; min-height: 0 !important; }
+    #avi-stage { position: relative !important; height: auto !important; overflow: hidden !important; background: #12200F !important; }
+    #avi-bg-wrap { position: relative !important; inset: auto !important; height: 44vh !important; }
+    .avi-msgs { position: static !important; width: auto !important; display: block !important; padding: 30px 22px 46px !important; }
+    .avi-msgbox { height: auto !important; display: flex !important; flex-direction: column !important; gap: 34px !important; }
+    .avi-msg { position: relative !important; inset: auto !important; opacity: 0; transform: translateY(20px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
     .avi-msg.mec-inview { opacity: 1 !important; transform: translateY(0) !important; }
     .avi-msgs h2 { font-size: clamp(36px, 11vw, 60px) !important; }
     .avi-msgs p { font-size: clamp(16px, 4.4vw, 22px) !important; }
@@ -119,19 +120,26 @@
     .avi-motmot-wrap { margin-left: 0 !important; }
     #avi-motmot { height: 54vh !important; }
     /* passaro do aviturismo: compensa a margem transparente do PNG (~2,81% à esquerda)
-       sem estourar as laterais — o galho encosta nas duas bordas */
-    #avi-bird { left: -3% !important; right: auto !important; width: 103% !important; }
+       sem estourar as laterais — o galho encosta nas duas bordas. Fica preso à foto (topo). */
+    #avi-bird { left: -3% !important; right: auto !important; width: 103% !important; top: 9vh !important; }
 
-    /* Museu da Pessoa (intro): mesmo tratamento — a foto continua ocupando a tela
-       normalmente, os textos continuam sobrepostos a ela, agora empilhados. */
-    #museu-scroll { height: 100vh !important; min-height: 560px !important; }
+    /* Museu da Pessoa (intro): foto em cima, textos embaixo no bloco sólido */
+    #museu-scroll { height: auto !important; min-height: 0 !important; }
+    #mp-stage { position: relative !important; height: auto !important; overflow: hidden !important; background: #0A2531 !important; }
+    #mp-hero-photo { position: relative !important; inset: auto !important; height: 44vh !important; display: block !important; }
+    .mp-shade { height: 44vh !important; bottom: auto !important; }
     .mp-logo { width: 108px !important; }
-    .mp-msgs { width: 86vw !important; }
-    .mp-msgbox { height: auto !important; display: flex !important; flex-direction: column !important; justify-content: center !important; gap: 22px !important; }
-    .mp-msg { position: relative !important; inset: auto !important; opacity: 0; transform: translateY(16px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+    .mp-msgs { position: static !important; width: auto !important; display: block !important; padding: 30px 22px 46px !important; }
+    .mp-msgbox { height: auto !important; display: flex !important; flex-direction: column !important; gap: 34px !important; }
+    .mp-msg { position: relative !important; inset: auto !important; opacity: 0; transform: translateY(20px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
     .mp-msg.mec-inview { opacity: 1 !important; transform: translateY(0) !important; }
     .mp-msgs h2 { font-size: clamp(26px, 8vw, 46px) !important; }
     .mp-msgs p { font-size: clamp(16px, 4.4vw, 22px) !important; }
+    /* Abertura da Governança (olhos): foto em cima, texto e números embaixo no bloco sólido */
+    #prestacao-intro { height: auto !important; min-height: 0 !important; background: #22130B !important; }
+    #prestacao-intro .pi-img { position: relative !important; inset: auto !important; height: 44vh !important; display: block !important; }
+    #prestacao-intro .pi-shade { height: 44vh !important; bottom: auto !important; }
+    #prestacao-intro .pi-txt { position: static !important; padding: 30px 22px 46px !important; }
     .mp-grid { grid-template-columns: repeat(2, 1fr) !important; grid-auto-rows: calc((100vw - 4px) / 2) !important; }
     .mp-card { grid-column: span 1 !important; grid-row: span 1 !important; }
     .mp-card .mp-sum { display: none !important; }
@@ -688,9 +696,9 @@
 
     <!-- ==================== INTERLÚDIO — olhar full-bleed antes da Prestação ==================== -->
     <section id="prestacao-intro" style="position: relative; height: 100vh; min-height: 560px; overflow: hidden; background: #6E3B24;">
-      <img src="assets/prestacao-olhar.jpg" alt="Close nos olhos de uma pessoa da comunidade" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 74% center;">
-      <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,10,6,0.55) 0%, rgba(20,10,6,0) 34%, rgba(20,10,6,0) 60%, rgba(20,10,6,0.78) 100%);"></div>
-      <div style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: clamp(40px,8vh,90px) clamp(24px,6vw,96px);">
+      <img class="pi-img" src="assets/prestacao-olhar.jpg" alt="Close nos olhos de uma pessoa da comunidade" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 74% center;">
+      <div class="pi-shade" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,10,6,0.55) 0%, rgba(20,10,6,0) 34%, rgba(20,10,6,0) 60%, rgba(20,10,6,0.78) 100%);"></div>
+      <div class="pi-txt" style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: clamp(40px,8vh,90px) clamp(24px,6vw,96px);">
         <div style="max-width: 1440px; margin: 0 auto;">
           <div class="mec-kicker" style="color: #FFD3B0; margin-bottom: clamp(14px,2vh,24px); text-shadow: 0 2px 18px rgba(20,10,6,0.85), 0 1px 3px rgba(20,10,6,0.6);">A seguir · Governança e Transparência</div>
           <h2 style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(34px, 5.2vw, 82px); line-height: 1.02; color: #FBF3EA; margin: 0; max-width: 22ch; text-shadow: 0 3px 30px rgba(0,0,0,0.5);">Transparência é o compromisso que fortalece a <em style="font-weight: 700; font-style: italic; color: #F0B489;">confiança</em> em cada ação que realizamos.</h2>
@@ -2664,10 +2672,17 @@ class Component extends DCLogic {
     '  #hero-stage{position:relative!important;height:100%!important;}',
     '  .intro-grid{grid-template-columns:1fr!important;gap:26px!important;}',
     '  #car-prev,#car-next{width:44px!important;height:44px!important;}',
-    '  #avi-scroll{height:100vh!important;min-height:560px!important;}',
-    '  .avi-msgs{width:86vw!important;padding:0 7vw!important;}',
-    '  .avi-msgbox{height:auto!important;display:flex!important;flex-direction:column!important;justify-content:center!important;gap:24px!important;}',
-    '  .avi-msg{position:relative!important;inset:auto!important;opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}',
+    /* Aviturismo / Museu / abertura da Governança: foto em cima, textos embaixo em bloco sólido (igual à artesã) */
+    '  #artesa-scroll{height:auto!important;}',
+    '  #artesa-stage{position:relative!important;height:auto!important;overflow:hidden!important;}',
+    '  #artesa-img{position:relative!important;inset:auto!important;height:44vh!important;display:block!important;}',
+    '  #artesa-shade{height:44vh!important;bottom:auto!important;}',
+    '  #avi-scroll{height:auto!important;min-height:0!important;}',
+    '  #avi-stage{position:relative!important;height:auto!important;overflow:hidden!important;background:#12200F!important;}',
+    '  #avi-bg-wrap{position:relative!important;inset:auto!important;height:44vh!important;}',
+    '  .avi-msgs{position:static!important;width:auto!important;display:block!important;padding:30px 22px 46px!important;}',
+    '  .avi-msgbox{height:auto!important;display:flex!important;flex-direction:column!important;gap:34px!important;}',
+    '  .avi-msg{position:relative!important;inset:auto!important;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}',
     '  .avi-msg.mec-inview{opacity:1!important;transform:translateY(0)!important;}',
     '  .avi-msgs h2{font-size:clamp(36px,11vw,60px)!important;}',
     '  .avi-msgs p{font-size:clamp(16px,4.4vw,22px)!important;}',
@@ -2676,15 +2691,22 @@ class Component extends DCLogic {
     '  #avi-trilha-btn{width:100%!important;justify-content:center!important;}',
     '  .avi-motmot-wrap{margin-left:0!important;}',
     '  #avi-motmot{height:54vh!important;}',
-    '  #avi-bird{left:-3%!important;right:auto!important;width:103%!important;}',
-    '  #museu-scroll{height:100vh!important;min-height:560px!important;}',
+    '  #avi-bird{left:-3%!important;right:auto!important;width:103%!important;top:9vh!important;}',
+    '  #museu-scroll{height:auto!important;min-height:0!important;}',
+    '  #mp-stage{position:relative!important;height:auto!important;overflow:hidden!important;background:#0A2531!important;}',
+    '  #mp-hero-photo{position:relative!important;inset:auto!important;height:44vh!important;display:block!important;}',
+    '  .mp-shade{height:44vh!important;bottom:auto!important;}',
     '  .mp-logo{width:108px!important;}',
-    '  .mp-msgs{width:86vw!important;}',
-    '  .mp-msgbox{height:auto!important;display:flex!important;flex-direction:column!important;justify-content:center!important;gap:22px!important;}',
-    '  .mp-msg{position:relative!important;inset:auto!important;opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}',
+    '  .mp-msgs{position:static!important;width:auto!important;display:block!important;padding:30px 22px 46px!important;}',
+    '  .mp-msgbox{height:auto!important;display:flex!important;flex-direction:column!important;gap:34px!important;}',
+    '  .mp-msg{position:relative!important;inset:auto!important;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}',
     '  .mp-msg.mec-inview{opacity:1!important;transform:translateY(0)!important;}',
     '  .mp-msgs h2{font-size:clamp(26px,8vw,46px)!important;}',
     '  .mp-msgs p{font-size:clamp(16px,4.4vw,22px)!important;}',
+    '  #prestacao-intro{height:auto!important;min-height:0!important;background:#22130B!important;}',
+    '  #prestacao-intro .pi-img{position:relative!important;inset:auto!important;height:44vh!important;display:block!important;}',
+    '  #prestacao-intro .pi-shade{height:44vh!important;bottom:auto!important;}',
+    '  #prestacao-intro .pi-txt{position:static!important;padding:30px 22px 46px!important;}',
     '  .mp-grid{grid-template-columns:repeat(2,1fr)!important;grid-auto-rows:calc((100vw - 4px) / 2)!important;}',
     '  .mp-card{grid-column:span 1!important;grid-row:span 1!important;}',
     '  .mp-card .mp-sum{display:none!important;}',
