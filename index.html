@@ -163,6 +163,96 @@
   .mp-card:hover .mp-sum { max-height: 160px; opacity: 1; margin-top: 10px; }
   .mp-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(.9); z-index: 2; opacity: 0; transition: opacity .4s ease, transform .4s ease; pointer-events: none; }
   .mp-card:hover .mp-play { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+
+  /* ===== GOVERNANÇA E TRANSPARÊNCIA — abas Governança / Documentos / Financeiro =====
+     O estado da aba vem do aria-selected (setado pelo JS em _setupTransparencia). */
+  .gov-tablist { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: clamp(8px,1vw,14px); }
+  .gov-tab { -webkit-appearance: none; appearance: none; margin: 0; min-width: 0; min-height: 44px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: clamp(16px,1.5vw,22px) clamp(16px,1.6vw,24px); border: 1px solid rgba(35,38,30,0.14); border-radius: 14px; background: #F3EEE2; color: #23261E; text-align: left; cursor: pointer; font-family: 'Space Grotesk', system-ui, sans-serif; transition: background .25s ease, border-color .25s ease, color .25s ease; }
+  .gov-tab:hover { background: #ECE5D4; border-color: rgba(35,38,30,0.3); }
+  .gov-tab:focus-visible, .gov-btn:focus-visible, .gov-link:focus-visible, .gov-panel:focus-visible { outline: 2px solid #E96C15; outline-offset: 3px; }
+  .gov-tab svg { width: 20px; height: 20px; color: #2C6E49; margin-bottom: 6px; flex: 0 0 auto; }
+  .gov-tab-t { font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(16px,1.3vw,19px); line-height: 1.15; }
+  .gov-tab-s { font-size: 13px; line-height: 1.4; font-weight: 300; color: #5A5F4E; }
+  .gov-tab[aria-selected="true"] { background: #14110A; border-color: #14110A; color: #FBF8EE; }
+  .gov-tab[aria-selected="true"] svg { color: #F0B489; }
+  .gov-tab[aria-selected="true"] .gov-tab-s { color: rgba(251,248,238,0.74); }
+
+  .gov-panel { margin-top: clamp(12px,1.4vw,18px); background: #FFFDF7; border: 1px solid rgba(35,38,30,0.12); border-radius: 18px; padding: clamp(24px,3.2vw,48px); }
+  .gov-kicker { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #2C6E49; margin-bottom: 12px; }
+  .gov-h3 { font-weight: 300; font-size: clamp(24px,2.6vw,36px); line-height: 1.1; color: #23261E; margin: 0 0 12px; }
+  .gov-h3 em { font-weight: 700; font-style: italic; color: #2C6E49; }
+  .gov-lead { font-size: clamp(14px,1.1vw,16px); line-height: 1.6; color: #5A5F4E; max-width: 64ch; }
+  .gov-link { color: #2C6E49; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Governança: órgãos e membros */
+  .gov-orgaos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: clamp(22px,2.6vw,36px); margin-top: clamp(26px,3.4vw,40px); }
+  .gov-orgao { border-top: 2px solid #2C6E49; padding-top: 18px; min-width: 0; }
+  .gov-orgao--fiscal { border-top-color: #6E3B24; }
+  .gov-orgao h4 { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #23261E; margin: 0 0 8px; }
+  .gov-orgao > p { font-size: 14px; line-height: 1.55; color: #5A5F4E; margin: 0 0 18px; }
+  .gov-membros { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 10px; }
+  .gov-membro { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 12px; background: #F5F1E6; min-width: 0; }
+  .gov-ini { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #2C6E49; color: #FBF8EE; font-weight: 700; font-size: 13px; letter-spacing: 0.04em; }
+  .gov-orgao--fiscal .gov-ini { background: #6E3B24; }
+  .gov-membro-txt { min-width: 0; }
+  .gov-cargo { display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A5F4E; line-height: 1.35; }
+  .gov-nome { display: block; font-weight: 700; font-size: 15px; line-height: 1.3; color: #23261E; margin-top: 3px; }
+  .gov-mandato { display: flex; flex-wrap: wrap; align-items: center; gap: 18px clamp(24px,3.4vw,52px); margin-top: clamp(26px,3.4vw,40px); padding: clamp(20px,2.4vw,30px); border-radius: 14px; background: #14110A; color: #EDE6D6; }
+  .gov-mandato-l { flex: 0 0 auto; }
+  .gov-mandato-r { flex: 1 1 320px; min-width: 0; }
+  .gov-mandato-k { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #F0B489; }
+  .gov-mandato-ano { font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(28px,2.8vw,38px); line-height: 1.05; color: #FBF8EE; margin-top: 6px; }
+  .gov-mandato-datas { font-size: 13px; color: rgba(237,230,214,0.8); margin-top: 6px; font-variant-numeric: tabular-nums; }
+  .gov-mandato-t { font-weight: 700; font-size: 15px; color: #FBF8EE; margin-bottom: 6px; }
+  .gov-mandato-r p { font-size: 14px; line-height: 1.6; color: rgba(237,230,214,0.85); }
+  .gov-mandato .gov-link { color: #F0B489; }
+
+  /* Documentos / relatórios (lista de PDFs) */
+  .gov-docs { list-style: none; margin: clamp(22px,3vw,32px) 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .gov-doc { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; padding: clamp(16px,1.8vw,22px); border: 1px solid rgba(35,38,30,0.12); border-radius: 14px; background: #FFFFFF; }
+  .gov-doc-ic { flex: 0 0 auto; width: 46px; height: 54px; border-radius: 8px; background: #F5F1E6; color: #2C6E49; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; }
+  .gov-doc-ic svg { width: 22px; height: 22px; }
+  .gov-doc-txt { flex: 1 1 200px; min-width: 0; }
+  .gov-doc-t { font-weight: 700; font-size: clamp(15px,1.2vw,17px); line-height: 1.3; color: #23261E; }
+  .gov-doc-tag { display: inline-block; vertical-align: middle; margin-left: 8px; padding: 3px 9px; border-radius: 999px; background: #2C6E49; color: #FBF8EE; font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; }
+  .gov-doc-m { font-size: 13px; line-height: 1.55; color: #5A5F4E; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .gov-doc-acoes { flex: 0 0 auto; display: flex; gap: 8px; }
+  .gov-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 999px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; white-space: nowrap; transition: background .25s ease, border-color .25s ease, color .25s ease; }
+  .gov-btn svg { width: 15px; height: 15px; }
+  .gov-btn--pri { background: #2C6E49; border: 1px solid #2C6E49; color: #FBF8EE; }
+  .gov-btn--pri:hover { background: #235C3C; border-color: #235C3C; opacity: 1; }
+  .gov-btn--sec { background: transparent; border: 1px solid rgba(35,38,30,0.3); color: #23261E; }
+  .gov-btn--sec:hover { border-color: #23261E; opacity: 1; }
+
+  /* Financeiro: indicadores + barras ranqueadas (uma cor, maior primeiro, valor e % ao lado) */
+  .gov-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px; margin-top: clamp(22px,3vw,32px); }
+  .gov-kpi { min-width: 0; padding: clamp(18px,2vw,26px); border-radius: 14px; background: #F5F1E6; }
+  .gov-kpi-k { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #5A5F4E; }
+  .gov-kpi-v { font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(24px,2.3vw,32px); line-height: 1.1; color: #23261E; margin-top: 8px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .gov-kpi-s { font-size: 13px; line-height: 1.45; color: #5A5F4E; margin-top: 6px; }
+  .gov-kpi--destaque { background: #2C6E49; }
+  .gov-kpi--destaque .gov-kpi-k, .gov-kpi--destaque .gov-kpi-s { color: rgba(251,248,238,0.82); }
+  .gov-kpi--destaque .gov-kpi-v { color: #FBF8EE; }
+  .gov-sub { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #23261E; margin: clamp(32px,4vw,46px) 0 0; }
+  .gov-bars { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+  .gov-bar { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: baseline; gap: 6px 16px; }
+  .gov-bar-n { font-size: 15px; font-weight: 500; color: #23261E; min-width: 0; }
+  .gov-bar-v { font-size: 15px; font-weight: 700; color: #23261E; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .gov-bar-v small { font-size: 13px; font-weight: 300; color: #5A5F4E; margin-left: 8px; }
+  .gov-bar-track { grid-column: 1 / -1; display: block; height: 8px; border-radius: 0 4px 4px 0; background: rgba(44,110,73,0.14); overflow: hidden; }
+  .gov-bar-fill { display: block; height: 100%; width: 0; border-radius: 0 4px 4px 0; background: #2C6E49; transition: width 1.1s cubic-bezier(.2,.7,.2,1); }
+  .gov-bar-d { grid-column: 1 / -1; font-size: 13px; line-height: 1.5; color: #5A5F4E; }
+  .gov-nota { margin-top: clamp(22px,3vw,30px); font-size: 13px; line-height: 1.6; color: #5A5F4E; }
+  @media (prefers-reduced-motion: reduce) { .gov-bar-fill, .gov-tab { transition: none; } }
+  @media (max-width: 760px) {
+    .gov-tab { align-items: center; text-align: center; padding: 14px 8px; border-radius: 12px; }
+    .gov-tab svg { margin-bottom: 2px; }
+    .gov-tab-t { font-size: 14px; }
+    .gov-tab-s { display: none; }
+    .gov-panel { padding: 24px 18px; border-radius: 14px; }
+    .gov-doc-acoes { flex: 1 1 100%; }
+    .gov-doc-acoes .gov-btn { flex: 1 1 0; }
+  }
 </style>
 </helmet>
 
@@ -601,7 +691,7 @@
               <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(22px,3vw,44px); color: #2C6E49;">R$</span>
               <span id="pc-num" style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(52px,8.5vw,138px); color: #2C6E49; letter-spacing: -0.01em; font-variant-numeric: tabular-nums;">56.000</span>
             </div>
-            <div style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(12px,1.1vw,15px); letter-spacing: 0.14em; text-transform: uppercase; color: #7C8A6A; margin-top: clamp(10px,2vh,20px);">recurso executado na Grande Marambaia</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(12px,1.1vw,15px); letter-spacing: 0.14em; text-transform: uppercase; color: #7C8A6A; margin-top: clamp(10px,2vh,20px);">valor global do projeto na Grande Marambaia</div>
             <div style="margin-top: clamp(18px,2.6vh,30px); height: 6px; border-radius: 3px; background: rgba(44,110,73,0.14); overflow: hidden; max-width: 620px;">
               <div id="pc-bar" style="height: 100%; width: 100%; background: #2C6E49; border-radius: 3px;"></div>
             </div>
@@ -645,6 +735,118 @@
         </div>
 
         <div style="margin-top: clamp(28px,4vh,48px); font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">Cada real do recurso é aplicado nas metas acima e fica aberto para consulta pública.</div>
+
+        <!-- ============ ABAS: Governança / Documentos / Financeiro ============
+             Governança é HTML fixo. As listas de PDFs (Documentos e Financeiro) e os totais
+             do Financeiro são montados pelo JS a partir de _dadosTransparencia() — é lá que
+             se publica um relatório ou documento novo. Link direto para uma aba:
+             #governanca, #documentos ou #financeiro (ex.: site/#financeiro). -->
+        <div id="gov-abas" style="margin-top: clamp(64px,10vh,120px); padding-top: clamp(40px,6vh,64px); border-top: 1px solid rgba(35,38,30,0.12);">
+          <div style="max-width: 720px; margin-bottom: clamp(24px,3.4vh,36px);">
+            <h3 class="gov-h3" style="font-size: clamp(24px,2.6vw,38px); margin-bottom: 14px;">Gestão, documentos e <em>contas abertas</em></h3>
+            <p class="gov-lead">Quem conduz a associação, os documentos que a regem e como o recurso do projeto está sendo utilizado.</p>
+          </div>
+
+          <div class="gov-tablist" role="tablist" aria-label="Governança e Transparência">
+            <button type="button" class="gov-tab" role="tab" id="gov-tab-governanca" aria-controls="gov-panel-governanca" aria-selected="true" data-gov-tab="governanca">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9.5" cy="8" r="3.2" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 19v-1.2a3.8 3.8 0 0 1 3.8-3.8h4.4a3.8 3.8 0 0 1 3.8 3.8V19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15.2 4.9a3.2 3.2 0 0 1 0 6.2M20.5 19v-1.2a3.8 3.8 0 0 0-2.8-3.66" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              <span class="gov-tab-t">Governança</span>
+              <span class="gov-tab-s">Diretoria, Conselho Fiscal e assembleias.</span>
+            </button>
+            <button type="button" class="gov-tab" role="tab" id="gov-tab-documentos" aria-controls="gov-panel-documentos" aria-selected="false" data-gov-tab="documentos">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 18V6.5A1.5 1.5 0 0 1 5 5h4l2 2h6.5A1.5 1.5 0 0 1 19 8.5V10" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3.5 18l2.3-6.4A1.5 1.5 0 0 1 7.2 10.6h12.6a1 1 0 0 1 .94 1.33l-2.1 6.07a1.5 1.5 0 0 1-1.42 1H5a1.5 1.5 0 0 1-1.5-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              <span class="gov-tab-t">Documentos</span>
+              <span class="gov-tab-s">Estatuto, atas, regimentos e certidões.</span>
+            </button>
+            <button type="button" class="gov-tab" role="tab" id="gov-tab-financeiro" aria-controls="gov-panel-financeiro" aria-selected="false" data-gov-tab="financeiro">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18.5 7V5.8A1.8 1.8 0 0 0 16.7 4H6a2.5 2.5 0 0 0 0 5h12.7A1.8 1.8 0 0 1 20.5 10.8v7.4A1.8 1.8 0 0 1 18.7 20H6a2.5 2.5 0 0 1-2.5-2.5v-11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16.5" cy="14.5" r="1.2" fill="currentColor"/></svg>
+              <span class="gov-tab-t">Financeiro</span>
+              <span class="gov-tab-s">Balanços e prestações de contas.</span>
+            </button>
+          </div>
+
+          <!-- aba GOVERNANÇA (textos enviados pelo cliente) -->
+          <div class="gov-panel" role="tabpanel" id="gov-panel-governanca" aria-labelledby="gov-tab-governanca">
+            <h3 class="gov-h3">Governança <em>Institucional</em></h3>
+            <p class="gov-lead">Conheça a estrutura de gestão e fiscalização do Instituto Marambaia Eco Criativa.</p>
+
+            <div class="gov-orgaos">
+              <section class="gov-orgao" aria-labelledby="gov-diretoria-t">
+                <h4 id="gov-diretoria-t">Diretoria Executiva</h4>
+                <p>Responsável pela administração e condução das atividades institucionais.</p>
+                <ul class="gov-membros">
+                  <li class="gov-membro"><span class="gov-ini" aria-hidden="true">GL</span><div class="gov-membro-txt"><span class="gov-cargo">Diretor-Presidente</span><span class="gov-nome">Genivaldo Luz</span></div></li>
+                  <li class="gov-membro"><span class="gov-ini" aria-hidden="true">LO</span><div class="gov-membro-txt"><span class="gov-cargo">Diretora Vice-Presidente</span><span class="gov-nome">Leonida Rocha Ortega</span></div></li>
+                  <li class="gov-membro"><span class="gov-ini" aria-hidden="true">RS</span><div class="gov-membro-txt"><span class="gov-cargo">Diretora-Secretária</span><span class="gov-nome">Regiane Simão</span></div></li>
+                  <li class="gov-membro"><span class="gov-ini" aria-hidden="true">DC</span><div class="gov-membro-txt"><span class="gov-cargo">Diretor-Tesoureiro</span><span class="gov-nome">Diógenes Cardoso</span></div></li>
+                </ul>
+              </section>
+
+              <section class="gov-orgao gov-orgao--fiscal" aria-labelledby="gov-fiscal-t">
+                <h4 id="gov-fiscal-t">Conselho Fiscal</h4>
+                <p>Responsável pela fiscalização e análise das contas e da gestão financeira da instituição.</p>
+                <ul class="gov-membros">
+                  <li class="gov-membro"><span class="gov-ini" aria-hidden="true">MS</span><div class="gov-membro-txt"><span class="gov-cargo">Conselheira Fiscal Titular</span><span class="gov-nome">Maria Aparecida da Silva</span></div></li>
+                  <li class="gov-membro"><span class="gov-ini" aria-hidden="true">JA</span><div class="gov-membro-txt"><span class="gov-cargo">Conselheira Fiscal Titular</span><span class="gov-nome">Juliana Silva Aquino</span></div></li>
+                  <li class="gov-membro"><span class="gov-ini" aria-hidden="true">RT</span><div class="gov-membro-txt"><span class="gov-cargo">Conselheira Fiscal Titular</span><span class="gov-nome">Rosilene Aguero Tombini</span></div></li>
+                  <li class="gov-membro"><span class="gov-ini" aria-hidden="true">NP</span><div class="gov-membro-txt"><span class="gov-cargo">Conselheira Fiscal Suplente</span><span class="gov-nome">Nice Vieira Pereira</span></div></li>
+                </ul>
+              </section>
+            </div>
+
+            <div class="gov-mandato">
+              <div class="gov-mandato-l">
+                <div class="gov-mandato-k">Gestão</div>
+                <div class="gov-mandato-ano">2024–2028</div>
+                <div class="gov-mandato-datas">27/11/2024 a 31/03/2028</div>
+              </div>
+              <div class="gov-mandato-r">
+                <div class="gov-mandato-t">Diretoria Executiva e Conselho Fiscal</div>
+                <p>Mandato de quatro anos, conforme o <a href="#documentos" class="gov-link">Estatuto Social</a> e a Ata da Assembleia Geral de Fundação, realizada em 27 de novembro de 2024. Reeleição permitida conforme as disposições estatutárias.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- aba DOCUMENTOS (lista montada pelo JS) -->
+          <div class="gov-panel" role="tabpanel" id="gov-panel-documentos" aria-labelledby="gov-tab-documentos" style="display: none;">
+            <h3 class="gov-h3">Documentos <em>institucionais</em></h3>
+            <p class="gov-lead">Documentos oficiais da Associação Eco Criativos Grande Marambaia, para consulta e download.</p>
+            <ul class="gov-docs" id="gov-docs-lista"></ul>
+          </div>
+
+          <!-- aba FINANCEIRO (período, totais, barras e lista montados pelo JS) -->
+          <div class="gov-panel" role="tabpanel" id="gov-panel-financeiro" aria-labelledby="gov-tab-financeiro" style="display: none;">
+            <div class="gov-kicker" id="gov-fin-periodo">Prestação de contas</div>
+            <h3 class="gov-h3">Relatório Projeto Marambaia <em>Eco Criativa 2026</em></h3>
+            <p class="gov-lead">Como foi utilizado o recurso repassado pelo IASB ao projeto, com base nos demonstrativos financeiros da associação. Cada despesa, com fornecedor e nota fiscal, está detalhada nos PDFs abaixo.</p>
+
+            <div class="gov-kpis">
+              <div class="gov-kpi">
+                <div class="gov-kpi-k">Repassado pelo IASB</div>
+                <div class="gov-kpi-v" id="gov-kpi-rec">—</div>
+                <div class="gov-kpi-s">Parcelas do contrato firmado com o IASB</div>
+              </div>
+              <div class="gov-kpi gov-kpi--destaque">
+                <div class="gov-kpi-k">Aplicado no projeto</div>
+                <div class="gov-kpi-v" id="gov-kpi-apl">—</div>
+                <div class="gov-kpi-s" id="gov-kpi-apl-s"></div>
+              </div>
+              <div class="gov-kpi">
+                <div class="gov-kpi-k">Saldo do projeto</div>
+                <div class="gov-kpi-v" id="gov-kpi-saldo">—</div>
+                <div class="gov-kpi-s" id="gov-kpi-saldo-s"></div>
+              </div>
+            </div>
+
+            <h4 class="gov-sub">Onde o recurso foi aplicado</h4>
+            <ul class="gov-bars" id="gov-fin-bars"></ul>
+
+            <h4 class="gov-sub">Demonstrativos financeiros</h4>
+            <ul class="gov-docs" id="gov-fin-lista"></ul>
+
+            <p class="gov-nota">Novos relatórios serão publicados aqui mensalmente. Dúvidas sobre as contas: <a href="mailto:ecocriativos.marambaia@gmail.com" class="gov-link">ecocriativos.marambaia@gmail.com</a></p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -764,6 +966,7 @@ class Component extends DCLogic {
       this._raf = requestAnimationFrame(tick);
     }
 
+    try { this._setupTransparencia(); } catch (e) { console.error('transparência', e); }
     this._setupCarousel();
     this._setupLightbox();
     this._setupAviReveal();
@@ -940,6 +1143,208 @@ class Component extends DCLogic {
       if (x > W || y > H || x + r.width < 0 || y + r.height < 0) continue;
       ctx.clearRect(x - pad, y - pad, r.width + pad * 2, r.height + pad * 2);
     }
+  }
+
+  // =====================================================================
+  // GOVERNANÇA E TRANSPARÊNCIA — dados das abas Documentos e Financeiro
+  // ---------------------------------------------------------------------
+  // PUBLICAR UM NOVO RELATÓRIO FINANCEIRO (mensal):
+  //   1. salve o PDF em assets/financeiro/ (ex.: demonstrativo-2026-11.pdf);
+  //   2. acrescente um item em `relatorios` com o período (de/ate = 'AAAA-MM';
+  //      relatório de um mês só: de === ate) e os números do quadro-resumo do
+  //      PDF (Saldo Anterior, Receitas, Despesas), separando as despesas pelas
+  //      chaves de `destinos` (crie uma chave nova se surgir outro tipo de gasto).
+  //   A ordem do array não importa: a lista é ordenada pelo período e os totais
+  //   do topo da aba são recalculados. Se `destinos` não somar `despesas`, sai
+  //   um aviso no console do navegador.
+  // PUBLICAR UM NOVO DOCUMENTO (ata, regimento, certidão):
+  //   salve o PDF em assets/documentos/ e acrescente um item em `documentos`.
+  //   ATENÇÃO (LGPD): oculte RG/CPF/endereço de pessoas antes de publicar.
+  // =====================================================================
+  _dadosTransparencia() {
+    return {
+      destinos: {
+        marketing:       { nome: 'Marketing e apoio administrativo', desc: 'Comunicação do projeto e apoio à gestão, incluindo adiantamentos.' },
+        site:            { nome: 'Site e Museu da Pessoa', desc: 'Criação deste site e do Museu da Pessoa.' },
+        equipamentos:    { nome: 'Equipamentos e mobiliário', desc: 'Binóculos, projetor, tela de projeção, caixa de som, mesas dobráveis e tenda.' },
+        alvara:          { nome: 'Alvará de funcionamento', desc: 'Alvará de localização e funcionamento — Município de Bonito.' },
+        impulsionamento: { nome: 'Impulsionamento nas redes sociais', desc: 'Divulgação paga das ações do projeto.' },
+        tarifas:         { nome: 'Tarifas bancárias', desc: 'Manutenção da conta e envios de PIX.' },
+      },
+      relatorios: [
+        {
+          de: '2026-05', ate: '2026-07',
+          arquivo: 'assets/financeiro/demonstrativo-2026-05-a-2026-07.pdf', tamanho: '245 KB',
+          saldoAnterior: 0, receitas: 26200.00, despesas: 26049.14,
+          destinos: { marketing: 8500.00, site: 7500.00, equipamentos: 8635.60, alvara: 1174.54, tarifas: 239.00 },
+        },
+        {
+          de: '2026-08', ate: '2026-10',
+          arquivo: 'assets/financeiro/demonstrativo-2026-08-a-2026-10.pdf', tamanho: '265 KB',
+          saldoAnterior: 150.86, receitas: 17700.00, despesas: 13379.60,
+          destinos: { marketing: 7950.00, site: 3750.00, impulsionamento: 1000.00, equipamentos: 428.90, tarifas: 250.70 },
+        },
+      ],
+      documentos: [
+        {
+          titulo: 'Estatuto Social',
+          meta: 'Aprovado na Assembleia Geral de Fundação em 27/11/2024 e registrado em cartório em Bonito/MS em 07/10/2025. RG e CPF dos signatários foram ocultados nesta versão pública.',
+          arquivo: 'assets/documentos/estatuto-social.pdf', tamanho: '3,6 MB',
+        },
+      ],
+    };
+  }
+
+  _setupTransparencia() {
+    const root = document.getElementById('gov-abas');
+    if (!root) return;
+    const D = this._dadosTransparencia();
+
+    // ---------- formatação ----------
+    const cent = (v) => Math.round((v || 0) * 100);              // soma em centavos (sem erro de ponto flutuante)
+    const brl = (c) => 'R$ ' + (c / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const pct = (p) => p.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + '%';
+    const esc = (s) => String(s).replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+    const MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+    const mes = (ym) => { const p = String(ym).split('-'); return { ano: p[0], nome: MESES[(+p[1] || 1) - 1] }; };
+    const periodo = (de, ate) => {
+      const a = mes(de), b = mes(ate);
+      if (de === ate) return a.nome + ' de ' + a.ano;
+      if (a.ano === b.ano) return a.nome + ' a ' + b.nome + ' de ' + b.ano;
+      return a.nome + ' de ' + a.ano + ' a ' + b.nome + ' de ' + b.ano;
+    };
+    const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+    const ICON_PDF = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v5h5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+    const ICON_ABRIR = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 5h5v5M19 5l-8 8M18 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    const ICON_BAIXAR = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    const itemPdf = (d) =>
+      '<li class="gov-doc">' +
+        '<span class="gov-doc-ic" aria-hidden="true">' + ICON_PDF + 'PDF</span>' +
+        '<div class="gov-doc-txt">' +
+          '<div class="gov-doc-t">' + esc(d.titulo) + (d.tag ? '<span class="gov-doc-tag">' + esc(d.tag) + '</span>' : '') + '</div>' +
+          (d.meta ? '<div class="gov-doc-m">' + esc(d.meta) + '</div>' : '') +
+          '<div class="gov-doc-m">PDF' + (d.tamanho ? ' · ' + esc(d.tamanho) : '') + '</div>' +
+        '</div>' +
+        '<div class="gov-doc-acoes">' +
+          '<a class="gov-btn gov-btn--pri" href="' + esc(d.arquivo) + '" target="_blank" rel="noopener" aria-label="Abrir ' + esc(d.titulo) + ' em PDF (nova aba)">Abrir' + ICON_ABRIR + '</a>' +
+          '<a class="gov-btn gov-btn--sec" href="' + esc(d.arquivo) + '" download aria-label="Baixar ' + esc(d.titulo) + ' em PDF">Baixar' + ICON_BAIXAR + '</a>' +
+        '</div>' +
+      '</li>';
+
+    // ---------- Documentos ----------
+    const docsEl = document.getElementById('gov-docs-lista');
+    if (docsEl) docsEl.innerHTML = D.documentos.map(itemPdf).join('');
+
+    // ---------- Financeiro: totais, destinos e lista ----------
+    const rels = D.relatorios.slice().sort((a, b) => String(b.ate).localeCompare(String(a.ate)));   // mais recente primeiro
+    let totRec = 0, totDesp = 0;
+    const porDestino = {};
+    rels.forEach((r) => {
+      totRec += cent(r.receitas);
+      totDesp += cent(r.despesas);
+      let soma = 0;
+      Object.keys(r.destinos || {}).forEach((k) => { const v = cent(r.destinos[k]); porDestino[k] = (porDestino[k] || 0) + v; soma += v; });
+      if (soma !== cent(r.despesas)) console.warn('[transparência] ' + periodo(r.de, r.ate) + ': os destinos somam ' + brl(soma) + ', mas as despesas são ' + brl(cent(r.despesas)));
+      r._saldo = cent(r.saldoAnterior) + cent(r.receitas) - cent(r.despesas);
+    });
+
+    if (rels.length) {
+      const novo = rels[0], antigo = rels[rels.length - 1];
+      const setTxt = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+      setTxt('gov-fin-periodo', 'Prestação de contas · ' + periodo(antigo.de, novo.ate));
+      setTxt('gov-kpi-rec', brl(totRec));
+      setTxt('gov-kpi-apl', brl(totDesp));
+      setTxt('gov-kpi-apl-s', totRec ? pct(totDesp / totRec * 100) + ' do valor recebido' : '');
+      setTxt('gov-kpi-saldo', brl(novo._saldo));
+      setTxt('gov-kpi-saldo-s', 'Posição ao fim de ' + mes(novo.ate).nome + ' de ' + mes(novo.ate).ano);
+    }
+
+    const barsEl = document.getElementById('gov-fin-bars');
+    if (barsEl) {
+      barsEl.innerHTML = Object.keys(porDestino)
+        .map((k) => ({ v: porDestino[k], info: D.destinos[k] || { nome: k, desc: '' } }))
+        .sort((a, b) => b.v - a.v)
+        .map((it) => {
+          const p = totDesp ? it.v / totDesp * 100 : 0;
+          return '<li class="gov-bar">' +
+            '<span class="gov-bar-n">' + esc(it.info.nome) + '</span>' +
+            '<span class="gov-bar-v">' + brl(it.v) + '<small>' + pct(p) + '</small></span>' +
+            '<span class="gov-bar-track" aria-hidden="true"><span class="gov-bar-fill" data-w="' + p.toFixed(2) + '"></span></span>' +
+            (it.info.desc ? '<span class="gov-bar-d">' + esc(it.info.desc) + '</span>' : '') +
+          '</li>';
+        }).join('');
+    }
+
+    const listaEl = document.getElementById('gov-fin-lista');
+    if (listaEl) {
+      listaEl.innerHTML = rels.map((r, i) => itemPdf({
+        titulo: 'Demonstrativo financeiro · ' + cap(periodo(r.de, r.ate)),
+        tag: i === 0 ? 'Mais recente' : '',
+        meta: 'Recebido ' + brl(cent(r.receitas)) + ' · Aplicado ' + brl(cent(r.despesas)) + ' · Saldo ' + brl(r._saldo),
+        arquivo: r.arquivo, tamanho: r.tamanho,
+      })).join('');
+    }
+
+    // ---------- abas (WAI-ARIA tabs: clique, setas, Home/End) ----------
+    const tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
+    const panels = tabs.map((t) => document.getElementById(t.getAttribute('aria-controls')));
+    const ativar = (i, foco) => {
+      tabs.forEach((t, k) => {
+        const on = k === i;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        if (panels[k]) panels[k].style.display = on ? '' : 'none';
+      });
+      if (foco) tabs[i].focus();
+      // barras do Financeiro crescem na primeira vez que a aba aparece
+      const fills = panels[i] ? panels[i].querySelectorAll('.gov-bar-fill') : [];
+      if (fills.length) requestAnimationFrame(() => requestAnimationFrame(() => {
+        Array.prototype.forEach.call(fills, (f) => { f.style.width = f.getAttribute('data-w') + '%'; });
+      }));
+    };
+    panels.forEach((p) => { if (p) p.tabIndex = 0; });
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => {
+        ativar(i);
+        try { history.replaceState(null, '', '#' + t.getAttribute('data-gov-tab')); } catch (e) {}
+      });
+      t.addEventListener('keydown', (e) => {
+        let j = null;
+        if (e.key === 'ArrowRight') j = (i + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft') j = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') j = 0;
+        else if (e.key === 'End') j = tabs.length - 1;
+        if (j === null) return;
+        e.preventDefault();
+        ativar(j, true);
+      });
+    });
+
+    // link direto (#governanca, #documentos, #financeiro): abre a aba e rola até ela
+    const pelaHash = (rolar) => {
+      const h = (window.location.hash || '').slice(1);
+      const i = tabs.findIndex((t) => t.getAttribute('data-gov-tab') === h);
+      if (i < 0) return;
+      ativar(i);
+      if (rolar) this._rolarPara(root);
+    };
+    ativar(0);
+    pelaHash(false);
+    this._govHash = () => pelaHash(true);
+    window.addEventListener('hashchange', this._govHash);
+    // na carga, espera o layout e o ScrollTrigger assentarem antes de rolar
+    if (window.location.hash) setTimeout(() => { if (!this._dead) pelaHash(true); }, 900);
+  }
+
+  _rolarPara(el) {
+    if (!el) return;
+    const y = Math.max(0, el.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || 0) - 96);
+    if (this._lenis && this._lenis.scrollTo) {
+      try { this._lenis.scrollTo(y, { duration: this.reduce ? 0 : 1.2 }); return; } catch (e) {}
+    }
+    try { window.scrollTo({ top: y, behavior: this.reduce ? 'auto' : 'smooth' }); }
+    catch (e) { window.scrollTo(0, y); }
   }
 
   _setupCarousel() {
@@ -2176,6 +2581,7 @@ class Component extends DCLogic {
     if (this._galRaf) cancelAnimationFrame(this._galRaf);
     if (this._onKey) window.removeEventListener('keydown', this._onKey);
     if (this._lbKey) window.removeEventListener('keydown', this._lbKey);
+    if (this._govHash) window.removeEventListener('hashchange', this._govHash);
     if (this._lbRelayout) window.removeEventListener('resize', this._lbRelayout);
     document.body.style.overflow = '';
     if (this._blobUrl) { try { URL.revokeObjectURL(this._blobUrl); } catch (e) {} }
@@ -2252,6 +2658,12 @@ class Component extends DCLogic {
     '  .pc-top{grid-template-columns:1fr!important;gap:22px!important;align-items:start!important;}',
     '  #pc-num{font-size:clamp(56px,19vw,92px)!important;}',
     '  .pc-metas{grid-template-columns:1fr!important;}',
+    '  .gov-tab{align-items:center!important;text-align:center!important;padding:14px 8px!important;border-radius:12px!important;}',
+    '  .gov-tab-t{font-size:14px!important;}',
+    '  .gov-tab-s{display:none!important;}',
+    '  .gov-panel{padding:24px 18px!important;border-radius:14px!important;}',
+    '  .gov-doc-acoes{flex:1 1 100%!important;}',
+    '  .gov-doc-acoes .gov-btn{flex:1 1 0!important;}',
     '  .mec-foot-grid{grid-template-columns:1fr!important;gap:32px!important;}',
     '}'
   ].join('\n');

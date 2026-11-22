@@ -12,3 +12,7 @@ assets/nova_hero_museu_da _pessoa.jpeg
 # O site usa as versoes otimizadas em assets/galeria-economia e galeria-formacao.
 assets/Economia Circular/
 assets/Formação e Capacitação/
+
+# Material bruto enviado pelo cliente para os ajustes. O Estatuto original tem RG e CPF
+# dos signatários — o site usa a versão com tarja em assets/documentos/estatuto-social.pdf.
+ajustes/
