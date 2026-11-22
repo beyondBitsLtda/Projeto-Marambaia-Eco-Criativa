@@ -44,6 +44,14 @@
     src: url('assets/fonts/SpaceGrotesk-var.woff2') format('woff2');
     font-weight: 300 700; font-style: normal; font-display: swap;
   }
+  /* Kickers das seções (Quem somos, Galeria, Aviturismo...): letra de pincel, pra dar
+     cara artesanal aos rótulos. Self-hosted como a Space Grotesk (subset latin, OFL). */
+  @font-face {
+    font-family: 'Caveat Brush';
+    src: url('assets/fonts/CaveatBrush-latin.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  .mec-kicker { font-family: 'Caveat Brush', 'Space Grotesk', cursive; font-weight: 400; font-size: clamp(21px, 1.75vw, 26px); line-height: 1.1; letter-spacing: 0.01em; text-transform: none; }
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: #FCFAF4; color: #23261E; font-family: 'Space Grotesk', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
   body { overflow-x: hidden; }
@@ -133,26 +141,55 @@
     .pc-metas { grid-template-columns: 1fr !important; }
     .mec-foot-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
   }
-  /* TESTE (só desktop): topo dos cards de meta em forma de onda.
-     A crista é um SVG que se repete acima do card, no mesmo verde — o card tem o topo
-     reto e só as pontas de baixo arredondadas, pra onda encaixar sem emenda. */
+  /* Só desktop: topo dos cards de meta em forma de onda.
+     ::after = onda da frente (verde sólido, a mesma de sempre); ::before = onda de trás,
+     mais alta e translúcida, que só aparece no hover. No hover as duas correm em sentidos
+     opostos e a de trás balança, como água se movendo. O card tem o topo reto e só as
+     pontas de baixo arredondadas, pra onda encaixar sem emenda. */
   @media (min-width: 761px) {
-    .pc-metas { margin-top: 20px; }
+    .pc-metas { margin-top: 26px; }
     .pc-metas > article {
       position: relative;
       border-radius: 0 0 16px 16px !important;
     }
-    .pc-metas > article::before {
+    .pc-metas > article::before,
+    .pc-metas > article::after {
       content: '';
       position: absolute;
-      left: 0; right: 0; bottom: 100%;
-      height: 18px;
+      left: 0; right: 0; bottom: calc(100% - 1px);
       pointer-events: none;
+      background-repeat: repeat-x;
+      background-position: 0 bottom;
+    }
+    .pc-metas > article::after {
+      height: 18px;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 18' preserveAspectRatio='none'%3E%3Cpath d='M0 18 V9 Q15 0 30 9 T60 9 T90 9 T120 9 V18 Z' fill='%232C6E49'/%3E%3C/svg%3E");
       background-size: 120px 18px;
-      background-repeat: repeat-x;
-      background-position: left bottom;
     }
+    /* sem transform/opacity animados de propósito: só background-position, que não cria
+       camada de composição (com a palha em canvas por trás, a camada deixava frisos). */
+    .pc-metas > article::before {
+      height: 28px;
+      visibility: hidden;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 24' preserveAspectRatio='none'%3E%3Cpath d='M0 24 V11 Q20 -1 40 11 T80 11 T120 11 T160 11 V24 Z' fill='%232C6E49' fill-opacity='0.42'/%3E%3C/svg%3E");
+      background-size: 160px 24px;
+      background-position: 0 4px;
+    }
+    .pc-metas > article:hover::after { animation: pcOndaFrente 1.5s linear infinite; }
+    .pc-metas > article:hover::before { visibility: visible; animation: pcOndaTras 2.4s ease-in-out infinite; }
+    @keyframes pcOndaFrente { to { background-position: 120px bottom; } }
+    /* a onda de trás corre para o outro lado e sobe/desce enquanto corre */
+    @keyframes pcOndaTras {
+      0%   { background-position: 0 4px; }
+      25%  { background-position: -40px 0; }
+      50%  { background-position: -80px 4px; }
+      75%  { background-position: -120px 0; }
+      100% { background-position: -160px 4px; }
+    }
+  }
+  @media (min-width: 761px) and (prefers-reduced-motion: reduce) {
+    .pc-metas > article:hover::after,
+    .pc-metas > article:hover::before { animation: none; }
   }
   .mp-card { position: relative; overflow: hidden; background: #0A1A22; cursor: pointer; min-width: 0; }
   .mp-card img.mp-thumb { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s ease; }
@@ -329,13 +366,12 @@
     <section id="intro" style="max-width: 1180px; margin: 0 auto; padding: clamp(90px, 16vh, 170px) clamp(24px, 6vw, 64px);">
       <div class="intro-grid" style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(32px, 6vw, 80px); align-items: start;">
         <div>
-          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 22px;">01 · Quem somos</div>
+          <div class="mec-kicker" style="color: #5C7A3A; margin-bottom: 22px;">Quem somos</div>
           <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 300; color: #23261E;"><em style="font-weight: 700; font-style: italic; color: var(--accent, #1E8B8A);">Conectamos</em> pessoas, cultura e natureza.</h2>
         </div>
         <div style="padding-top: clamp(8px, 3vh, 40px);">
           <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; margin-bottom: 22px; text-align: justify;">Trabalhamos com a comunidade para que ela se fortaleça e encontre novas possibilidades de desenvolvimento a partir do que já constrói. Oferecemos oficinas e capacitações, desenvolvemos projetos e estabelecemos parcerias que ajudam artistas e empreendedores locais a transformar o que sabem fazer em novas oportunidades.</p>
           <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; text-align: justify;">Também desenvolvemos experiências de aviturismo e imersão na natureza, criando encontros entre o território e o olhar de visitantes estrangeiros, em contato direto com a biodiversidade e a paisagem de Bonito.</p>
-          <div class="mec-cursor-hint" style="margin-top: 36px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar a trança de palha</div>
         </div>
       </div>
     </section>
@@ -350,15 +386,15 @@
         <div id="artesa-textwrap" style="position: absolute; inset: 0; display: flex; align-items: center; padding: 0 clamp(24px, 7vw, 130px);">
           <div class="artesa-msgbox" style="position: relative; width: min(640px, 78vw); height: 340px;">
             <div class="artesa-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">Comunidade</div>
+              <div class="mec-kicker" style="color: #FFBE7D; margin-bottom: 20px;">Comunidade</div>
               <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(24px, 3.2vw, 44px); line-height: 1.14; color: #FBF5E9; margin: 0; max-width: 18ch;">Comunidades <em style="font-weight: 700; font-style: italic; color: #FFD9A6;">unidas</em> geram novas possibilidades.</p>
             </div>
             <div class="artesa-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">Transformação</div>
+              <div class="mec-kicker" style="color: #FFBE7D; margin-bottom: 20px;">Transformação</div>
               <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(24px, 3.2vw, 44px); line-height: 1.14; color: #FBF5E9; margin: 0; max-width: 18ch;">Cada talento encontra espaço para <em style="font-weight: 700; font-style: italic; color: #FFD9A6;">crescer</em></p>
             </div>
             <div class="artesa-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFBE7D; margin-bottom: 20px;">Futuro</div>
+              <div class="mec-kicker" style="color: #FFBE7D; margin-bottom: 20px;">Futuro</div>
               <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(24px, 3.2vw, 44px); line-height: 1.14; color: #FBF5E9; margin: 0; max-width: 18ch;">Investir nas pessoas é criar espaço para as <em style="font-weight: 700; font-style: italic; color: #FFD9A6;">próximas gerações</em>.</p>
             </div>
           </div>
@@ -370,7 +406,7 @@
     <section id="galeria" style="position: relative; z-index: 2; background: transparent; padding: clamp(78px, 12vh, 128px) 0; overflow: hidden;">
       <div style="max-width: 1240px; margin: 0 auto clamp(36px, 6vh, 56px); padding: 0 clamp(24px, 6vw, 64px); display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
         <div>
-          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 16px;">02 · Galeria</div>
+          <div class="mec-kicker" style="color: #5C7A3A; margin-bottom: 16px;">Galeria</div>
           <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.06; font-weight: 300; color: #23261E; max-width: 640px;">O que <em style="font-weight: 700; font-style: italic; color: var(--accent, #1E8B8A);">nos movimenta</em>.</h2>
         </div>
         <a href="#avi-scroll" style="display: inline-flex; align-items: center; gap: 12px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #23261E; padding-bottom: 6px; border-bottom: 1px solid rgba(35,38,30,0.3); flex: 0 0 auto;">
@@ -434,16 +470,16 @@
         <div class="avi-msgs" style="position: absolute; top: 0; bottom: 0; left: 0; z-index: 4; display: flex; align-items: center; padding: 0 clamp(24px, 6vw, 110px); width: min(720px, 58vw);">
           <div class="avi-msgbox" style="position: relative; width: 100%; height: 320px;">
             <div class="avi-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 14px;">03 · Onde a natureza encontra o olhar</div>
+              <div class="mec-kicker" style="color: #8FD0C4; margin-bottom: 14px;">Onde a natureza encontra o olhar</div>
               <h2 style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(52px, 8vw, 120px); line-height: 0.94; letter-spacing: -0.02em; color: #F3F7EC; margin: 0 0 16px; text-shadow: 0 4px 40px rgba(0,0,0,0.55);">Avi<em style="font-weight: 700; font-style: italic; color: #7FE0CE;">turismo</em></h2>
               <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(17px, 1.9vw, 26px); line-height: 1.2; color: #F3F7EC; margin: 0; max-width: 26ch; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">Conheça a diversidade de aves da Grande Marambaia e descubra uma nova forma de <em style="font-weight: 700; font-style: italic; color: #7FE0CE;">explorar Bonito</em>.</p>
             </div>
             <div class="avi-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 18px;">O olhar</div>
+              <div class="mec-kicker" style="color: #8FD0C4; margin-bottom: 18px;">O olhar</div>
               <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(24px, 3.2vw, 44px); line-height: 1.14; color: #F3F7EC; margin: 0; max-width: 22ch; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">Nossa Trilha Urbana de Aviturismo convida visitantes a observar as aves no próprio ambiente urbano, uma experiência de descoberta e <em style="font-weight: 700; font-style: italic; color: #7FE0CE;">conexão com a natureza</em>.</p>
             </div>
             <div class="avi-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #8FD0C4; margin-bottom: 18px;">O destino</div>
+              <div class="mec-kicker" style="color: #8FD0C4; margin-bottom: 18px;">O destino</div>
               <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(24px, 3.2vw, 44px); line-height: 1.14; color: #F3F7EC; margin: 0; max-width: 20ch; text-shadow: 0 2px 24px rgba(0,0,0,0.5);">Quem conhece a biodiversidade ajuda a proteger o que torna <em style="font-weight: 700; font-style: italic; color: #7FE0CE;">Bonito único</em>.</p>
             </div>
           </div>
@@ -537,7 +573,7 @@
           })();
           </script>
           <div>
-            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #5C7A3A; margin-bottom: 22px;">03 · Aviturismo</div>
+            <div class="mec-kicker" style="color: #5C7A3A; margin-bottom: 22px;">Aviturismo</div>
             <h2 style="font-size: clamp(30px, 4.2vw, 56px); line-height: 1.08; font-weight: 300; color: #23261E; margin-bottom: 26px;">O mundo olha para <em style="font-weight: 700; font-style: italic; color: var(--accent, #1E8B8A);">Bonito</em>.</h2>
             <p style="font-size: clamp(15px, 1.3vw, 18px); line-height: 1.75; color: #4B4A3E; max-width: 46ch; text-align: justify;">O treinamento em observação de aves, voltado também à inclusão de pessoas com necessidades específicas, tem ampliado o contato direto entre a comunidade e visitantes estrangeiros, gerando novas fontes de renda e fortalecendo o Marambaia como destino dentro do turismo de natureza em circulação internacional.</p>
             <div class="avi-sobre-acoes" style="display: flex; align-items: center; flex-wrap: wrap; gap: 14px 26px; margin-top: 30px;">
@@ -546,7 +582,6 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
             </div>
-            <div class="mec-cursor-hint" style="margin-top: 20px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">↳ mova o cursor para revelar as aves</div>
           </div>
         </div>
       </div>
@@ -570,15 +605,15 @@
           <div class="mp-msgs" style="position: absolute; left: clamp(24px, 6vw, 96px); top: 0; bottom: 0; z-index: 3; display: flex; align-items: center; width: min(620px, 52vw);">
             <div class="mp-msgbox" style="position: relative; width: 100%; height: 360px;">
               <div class="mp-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FD9D3; margin-bottom: 18px;">04 · Museu da Pessoa</div>
+                <div class="mec-kicker" style="color: #7FD9D3; margin-bottom: 18px;">Museu da Pessoa</div>
                 <h2 style="font-size: clamp(34px, 5vw, 66px); line-height: 1.06; font-weight: 300; color: #FBFDFF; max-width: 16ch; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Bem-vindo ao espaço onde cada membro partilha a <em style="font-weight: 700; font-style: italic; color: #7FD9D3;">sua história</em>.</h2>
               </div>
               <div class="mp-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FD9D3; margin-bottom: 18px;">Acervo vivo</div>
+                <div class="mec-kicker" style="color: #7FD9D3; margin-bottom: 18px;">Acervo vivo</div>
                 <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(23px, 3vw, 40px); line-height: 1.16; color: #FBFDFF; margin: 0; max-width: 18ch; text-shadow: 0 2px 30px rgba(0,0,0,0.4);">Aqui, a <em style="font-weight: 700; font-style: italic; color: #7FD9D3;">voz é da comunidade</em>.</p>
               </div>
               <div class="mp-msg" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;">
-                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #7FD9D3; margin-bottom: 18px;">Como explorar</div>
+                <div class="mec-kicker" style="color: #7FD9D3; margin-bottom: 18px;">Como explorar</div>
                 <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(23px, 3vw, 40px); line-height: 1.16; margin: 0; max-width: 20ch; text-shadow: 0 2px 30px rgba(0,0,0,0.4);"><a href="#mp-acervo" style="color: #FBFDFF; text-decoration: none; pointer-events: auto; cursor: pointer;"><em style="font-weight: 700; font-style: italic; color: #7FD9D3;">Clica</em> para ouvir.</a></p>
               </div>
             </div>
@@ -653,11 +688,11 @@
 
     <!-- ==================== INTERLÚDIO — olhar full-bleed antes da Prestação ==================== -->
     <section id="prestacao-intro" style="position: relative; height: 100vh; min-height: 560px; overflow: hidden; background: #6E3B24;">
-      <img src="assets/prestacao-olhar.png" alt="Close nos olhos de uma pessoa da comunidade" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center;">
+      <img src="assets/prestacao-olhar.jpg" alt="Close nos olhos de uma pessoa da comunidade" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 74% center;">
       <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,10,6,0.55) 0%, rgba(20,10,6,0) 34%, rgba(20,10,6,0) 60%, rgba(20,10,6,0.78) 100%);"></div>
       <div style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: clamp(40px,8vh,90px) clamp(24px,6vw,96px);">
         <div style="max-width: 1440px; margin: 0 auto;">
-          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #F0B489; margin-bottom: clamp(14px,2vh,24px);">A seguir · Governança e Transparência</div>
+          <div class="mec-kicker" style="color: #FFD3B0; margin-bottom: clamp(14px,2vh,24px); text-shadow: 0 2px 18px rgba(20,10,6,0.85), 0 1px 3px rgba(20,10,6,0.6);">A seguir · Governança e Transparência</div>
           <h2 style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(34px, 5.2vw, 82px); line-height: 1.02; color: #FBF3EA; margin: 0; max-width: 22ch; text-shadow: 0 3px 30px rgba(0,0,0,0.5);">Transparência é o compromisso que fortalece a <em style="font-weight: 700; font-style: italic; color: #F0B489;">confiança</em> em cada ação que realizamos.</h2>
 
           <dl style="display: flex; flex-wrap: wrap; gap: clamp(22px,4vw,64px); margin: clamp(24px,4vh,44px) 0 0; padding-top: clamp(18px,3vh,28px); border-top: 1px solid rgba(251,243,234,0.22);">
@@ -676,22 +711,21 @@
           </dl>
         </div>
       </div>
-      <div style="position: absolute; top: clamp(88px,14vh,130px); left: 50%; transform: translateX(-50%); z-index: 2; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(251,243,234,0.72);">↓ role para ver os números</div>
     </section>
 
     <!-- ==================== PRESTAÇÃO DE CONTAS — valor global + metas, tudo visível ==================== -->
-    <section id="prestacao" style="position: relative; background: #FCFAF4; padding: clamp(72px,11vh,130px) clamp(24px,6vw,96px) clamp(84px,12vh,130px);">
+    <section id="prestacao" style="position: relative; padding: clamp(72px,11vh,130px) clamp(24px,6vw,96px) clamp(84px,12vh,130px);">
       <div style="max-width: 1440px; margin: 0 auto; width: 100%;">
-        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #2C6E49; margin-bottom: clamp(28px,4vh,50px);">05 · Governança e transparência</div>
+        <div class="mec-kicker" style="color: #2C6E49; margin-bottom: clamp(28px,4vh,50px);">Governança e transparência</div>
 
         <!-- topo: valor global + apresentação das metas -->
         <div class="pc-top" style="display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: clamp(36px,5vw,88px); align-items: end; margin-bottom: clamp(44px,7vh,80px);">
           <div style="min-width: 0;">
-            <div style="display: flex; align-items: baseline; gap: 0.15em; line-height: 0.9; white-space: nowrap;">
+            <div class="pc-guard" style="display: flex; align-items: baseline; gap: 0.15em; line-height: 0.9; white-space: nowrap;">
               <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(22px,3vw,44px); color: #2C6E49;">R$</span>
               <span id="pc-num" style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(52px,8.5vw,138px); color: #2C6E49; letter-spacing: -0.01em; font-variant-numeric: tabular-nums;">56.000</span>
             </div>
-            <div style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(12px,1.1vw,15px); letter-spacing: 0.14em; text-transform: uppercase; color: #7C8A6A; margin-top: clamp(10px,2vh,20px);">valor global do projeto na Grande Marambaia</div>
+            <div class="pc-guard" style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(12px,1.1vw,15px); letter-spacing: 0.14em; text-transform: uppercase; color: #7C8A6A; margin-top: clamp(10px,2vh,20px);">valor global do projeto na Grande Marambaia</div>
             <div style="margin-top: clamp(18px,2.6vh,30px); height: 6px; border-radius: 3px; background: rgba(44,110,73,0.14); overflow: hidden; max-width: 620px;">
               <div id="pc-bar" style="height: 100%; width: 100%; background: #2C6E49; border-radius: 3px;"></div>
             </div>
@@ -705,36 +739,36 @@
         <!-- as quatro metas, todas visíveis -->
         <div class="pc-metas" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: clamp(12px,1.4vw,20px);">
           <article style="background: #2C6E49; border-radius: 16px; padding: clamp(22px,2vw,30px); display: flex; flex-direction: column; min-height: clamp(180px,23vh,232px);">
-            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
-              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251,248,238,0.72);">Meta 1</span>
-              <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(20px,1.8vw,26px); color: rgba(251,248,238,0.28);">01</span>
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251,248,238,0.72); padding-top: 6px;">Meta 1</span>
+              <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(48px,4.6vw,76px); line-height: 0.85; letter-spacing: -0.03em; color: rgba(251,248,238,0.3);">01</span>
             </div>
             <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(17px,1.35vw,21px); line-height: 1.28; color: #FBF8EE; margin: auto 0 0;">Encontros e <strong style="font-weight: 700;">capacitação de lideranças</strong></p>
           </article>
           <article style="background: #2C6E49; border-radius: 16px; padding: clamp(22px,2vw,30px); display: flex; flex-direction: column; min-height: clamp(180px,23vh,232px);">
-            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
-              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251,248,238,0.72);">Meta 2</span>
-              <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(20px,1.8vw,26px); color: rgba(251,248,238,0.28);">02</span>
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251,248,238,0.72); padding-top: 6px;">Meta 2</span>
+              <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(48px,4.6vw,76px); line-height: 0.85; letter-spacing: -0.03em; color: rgba(251,248,238,0.3);">02</span>
             </div>
             <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(17px,1.35vw,21px); line-height: 1.28; color: #FBF8EE; margin: auto 0 0;">Identidade visual, produção e <strong style="font-weight: 700;">divulgação multimídia</strong></p>
           </article>
           <article style="background: #2C6E49; border-radius: 16px; padding: clamp(22px,2vw,30px); display: flex; flex-direction: column; min-height: clamp(180px,23vh,232px);">
-            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
-              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251,248,238,0.72);">Meta 3</span>
-              <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(20px,1.8vw,26px); color: rgba(251,248,238,0.28);">03</span>
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251,248,238,0.72); padding-top: 6px;">Meta 3</span>
+              <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(48px,4.6vw,76px); line-height: 0.85; letter-spacing: -0.03em; color: rgba(251,248,238,0.3);">03</span>
             </div>
             <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(17px,1.35vw,21px); line-height: 1.28; color: #FBF8EE; margin: auto 0 0;">Oficinas temáticas e <strong style="font-weight: 700;">desenvolvimento de produtos</strong></p>
           </article>
           <article style="background: #2C6E49; border-radius: 16px; padding: clamp(22px,2vw,30px); display: flex; flex-direction: column; min-height: clamp(180px,23vh,232px);">
-            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
-              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251,248,238,0.72);">Meta 4</span>
-              <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(20px,1.8vw,26px); color: rgba(251,248,238,0.28);">04</span>
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251,248,238,0.72); padding-top: 6px;">Meta 4</span>
+              <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(48px,4.6vw,76px); line-height: 0.85; letter-spacing: -0.03em; color: rgba(251,248,238,0.3);">04</span>
             </div>
             <p style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 300; font-size: clamp(17px,1.35vw,21px); line-height: 1.28; color: #FBF8EE; margin: auto 0 0;"><strong style="font-weight: 700;">Trilha urbana de aviturismo</strong></p>
           </article>
         </div>
 
-        <div style="margin-top: clamp(28px,4vh,48px); font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">Cada real do recurso é aplicado nas metas acima e fica aberto para consulta pública.</div>
+        <div class="pc-guard" style="margin-top: clamp(28px,4vh,48px); font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A89A76;">Cada real do recurso é aplicado nas metas acima e fica aberto para consulta pública.</div>
 
         <!-- ============ ABAS: Governança / Documentos / Financeiro ============
              Governança é HTML fixo. As listas de PDFs (Documentos e Financeiro) e os totais
@@ -1036,7 +1070,7 @@ class Component extends DCLogic {
     ctx.restore();
     // recorta a textura revelada no FORMATO das pedras (padrao anexo), ao redor do cursor
     this._maskToPebble(ctx, this.cx, this.cy);
-    this._punchGuards(ctx, { left: 0, top: 0 }, this.W, this.H, '#intro h2,#intro h3,#intro p,#intro .mec-cursor-hint,#galeria h2,#galeria h3,#galeria p,#car-counter');
+    this._punchGuards(ctx, { left: 0, top: 0 }, this.W, this.H, '#intro h2,#intro h3,#intro p,#intro .mec-kicker,#galeria h2,#galeria h3,#galeria p,#galeria .mec-kicker,#car-counter,#prestacao h2,#prestacao h3,#prestacao p,#prestacao .mec-kicker,#prestacao .pc-guard');
   }
 
   // Le a silhueta de uma forma como "raio por angulo" (perfil polar) normalizado.
@@ -2241,7 +2275,7 @@ class Component extends DCLogic {
         ctx.globalAlpha = 1;
         // janela revelada no FORMATO das pedras (padrao anexo)
         this._maskToPebble(ctx, cx, cy);
-        this._punchGuards(ctx, box.getBoundingClientRect(), W, H, '#' + secId + ' h2, #' + secId + ' h3, #' + secId + ' p, #' + secId + ' .mec-cursor-hint');
+        this._punchGuards(ctx, box.getBoundingClientRect(), W, H, '#' + secId + ' h2, #' + secId + ' h3, #' + secId + ' p, #' + secId + ' .mec-kicker');
       }
       this[rafKey] = requestAnimationFrame(draw);
     };
