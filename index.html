@@ -149,13 +149,13 @@
     .pc-metas { grid-template-columns: 1fr !important; }
     .mec-foot-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
   }
-  /* Só desktop: topo dos cards de meta em forma de onda.
+  /* Topo dos cards de meta em forma de onda (desktop e celular).
      ::after = onda da frente (verde sólido, a mesma de sempre); ::before = onda de trás,
      mais alta e translúcida, que só aparece no hover. No hover as duas correm em sentidos
      opostos e a de trás balança, como água se movendo. O card tem o topo reto e só as
      pontas de baixo arredondadas, pra onda encaixar sem emenda. */
-  @media (min-width: 761px) {
-    .pc-metas { margin-top: 26px; }
+  @media screen {
+    .pc-metas { margin-top: 26px; row-gap: 34px !important; }
     .pc-metas > article {
       position: relative;
       border-radius: 0 0 16px 16px !important;
@@ -195,9 +195,77 @@
       100% { background-position: -160px 4px; }
     }
   }
-  @media (min-width: 761px) and (prefers-reduced-motion: reduce) {
+  @media (prefers-reduced-motion: reduce) {
     .pc-metas > article:hover::after,
     .pc-metas > article:hover::before { animation: none; }
+  }
+  /* ===== Ondas na Governança e Transparência =====
+     Cards e containers ganham o mesmo topo ondulado dos cards de meta, e as linhas (valor
+     global, barras do Financeiro, divisórias) viram linhas onduladas: a seção deixa de ter
+     cara de planilha. Cada onda é um pseudo-elemento com máscara SVG pintado com a cor do
+     próprio card (--onda-cor); nos cards com borda, o ::before fica 1px acima na cor da borda
+     (--onda-borda) e vira o contorno. No hover a onda corre animando só --onda-x
+     (mask-position) — sem transform/opacity, pra não criar camada sobre a palha. */
+  @property --onda-x { syntax: '<length>'; inherits: false; initial-value: 0px; }
+  @keyframes ondaCorre { from { --onda-x: 0px; } to { --onda-x: 192px; } }
+  :root {
+    --onda-topo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 18' preserveAspectRatio='none'%3E%3Cpath d='M0 18 V9 Q15 0 30 9 T60 9 T90 9 T120 9 V18 Z'/%3E%3C/svg%3E");
+    --onda-linha: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 12' preserveAspectRatio='none'%3E%3Cpath d='M0 6 Q12 0 24 6 T48 6' fill='none' stroke='%23000' stroke-width='3'/%3E%3C/svg%3E");
+    --onda-fio: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 12' preserveAspectRatio='none'%3E%3Cpath d='M0 6 Q24 1 48 6 T96 6' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E");
+  }
+  .gov-tab, .gov-panel, .gov-doc, .gov-membro, .gov-mandato, .gov-kpi {
+    position: relative; --onda-h: 12px; --onda-w: 64px; --onda-b: 0px; --onda-borda: transparent;
+  }
+  #gov-abas :is(.gov-tab, .gov-panel, .gov-doc, .gov-membro, .gov-mandato, .gov-kpi) {
+    border-top-left-radius: 0 !important; border-top-right-radius: 0 !important;
+  }
+  #gov-abas :is(.gov-tab, .gov-panel, .gov-doc) { border-top-width: 0 !important; --onda-b: 1px; }
+  :is(.gov-tab, .gov-panel, .gov-doc, .gov-membro, .gov-mandato, .gov-kpi)::before,
+  :is(.gov-tab, .gov-panel, .gov-doc, .gov-membro, .gov-mandato, .gov-kpi)::after {
+    content: ''; position: absolute; height: var(--onda-h); pointer-events: none;
+    -webkit-mask-image: var(--onda-topo); mask-image: var(--onda-topo);
+    -webkit-mask-repeat: repeat-x; mask-repeat: repeat-x;
+    -webkit-mask-size: var(--onda-w) var(--onda-h); mask-size: var(--onda-w) var(--onda-h);
+    transition: background-color .25s ease;
+  }
+  /* contorno (só nos cards com borda): a mesma onda, 1px acima e 1px mais larga de cada lado */
+  :is(.gov-tab, .gov-panel, .gov-doc, .gov-membro, .gov-mandato, .gov-kpi)::before {
+    left: calc(-1 * var(--onda-b)); right: calc(-1 * var(--onda-b)); bottom: calc(100% - 1px);
+    background-color: var(--onda-borda);
+    -webkit-mask-position: var(--onda-x) 0; mask-position: var(--onda-x) 0;
+  }
+  /* preenchimento, na cor do card */
+  :is(.gov-tab, .gov-panel, .gov-doc, .gov-membro, .gov-mandato, .gov-kpi)::after {
+    left: 0; right: 0; bottom: calc(100% - 1px - var(--onda-b));
+    background-color: var(--onda-cor);
+    -webkit-mask-position: calc(var(--onda-x) - var(--onda-b)) 0; mask-position: calc(var(--onda-x) - var(--onda-b)) 0;
+  }
+  .gov-tab { --onda-cor: #F3EEE2; --onda-borda: rgba(35,38,30,0.14); }
+  .gov-tab:hover { --onda-cor: #ECE5D4; --onda-borda: rgba(35,38,30,0.3); }
+  .gov-tab[aria-selected="true"] { --onda-cor: #14110A; --onda-borda: #14110A; }
+  .gov-panel { --onda-cor: #FFFDF7; --onda-borda: rgba(35,38,30,0.12); --onda-h: 16px; --onda-w: 96px; }
+  .gov-doc { --onda-cor: #FFFFFF; --onda-borda: rgba(35,38,30,0.12); --onda-h: 10px; --onda-w: 48px; }
+  .gov-membro { --onda-cor: #F5F1E6; --onda-h: 8px; --onda-w: 48px; }
+  .gov-mandato { --onda-cor: #14110A; --onda-h: 16px; --onda-w: 96px; }
+  .gov-kpi { --onda-cor: #F5F1E6; }
+  .gov-kpi--destaque { --onda-cor: #2C6E49; }
+  /* respiro para as ondas não encostarem no card de cima */
+  #gov-abas .gov-panel { margin-top: clamp(28px,3vw,38px); }
+  .gov-membros { row-gap: 18px; }
+  .gov-docs { gap: 20px; }
+  .gov-kpis { row-gap: 22px; }
+  /* divisória acima das abas: fio ondulado no lugar da linha reta */
+  #gov-abas { position: relative; }
+  #gov-abas::before { content: ''; position: absolute; left: 0; right: 0; top: -6px; height: 12px; background: rgba(35,38,30,0.22); pointer-events: none;
+    -webkit-mask: var(--onda-fio) repeat-x 0 50% / 96px 12px; mask: var(--onda-fio) repeat-x 0 50% / 96px 12px; }
+  /* linha do valor global (R$ 56.000): ondulada, o preenchimento verde cresce dentro dela */
+  .pc-linha { height: 12px; background: rgba(44,110,73,0.18);
+    -webkit-mask: var(--onda-linha) repeat-x; mask: var(--onda-linha) repeat-x;
+    -webkit-mask-size: 48px 12px; mask-size: 48px 12px; -webkit-mask-position: var(--onda-x) 50%; mask-position: var(--onda-x) 50%; }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    :is(.gov-tab, .gov-panel, .gov-doc, .gov-membro, .gov-mandato, .gov-kpi):hover::before,
+    :is(.gov-tab, .gov-panel, .gov-doc, .gov-membro, .gov-mandato, .gov-kpi):hover::after { animation: ondaCorre 2.4s linear infinite; }
+    .pc-valor:hover .pc-linha, .gov-bar:hover .gov-bar-track { animation: ondaCorre 3.2s linear infinite; }
   }
   .mp-card { position: relative; overflow: hidden; background: #0A1A22; cursor: pointer; min-width: 0; }
   .mp-card img.mp-thumb { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s ease; }
@@ -231,8 +299,10 @@
 
   /* Governança: órgãos e membros */
   .gov-orgaos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: clamp(22px,2.6vw,36px); margin-top: clamp(26px,3.4vw,40px); }
-  .gov-orgao { border-top: 2px solid #2C6E49; padding-top: 18px; min-width: 0; }
-  .gov-orgao--fiscal { border-top-color: #6E3B24; }
+  .gov-orgao { position: relative; padding-top: 26px; min-width: 0; }
+  .gov-orgao::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 10px; background: #2C6E49; pointer-events: none;
+    -webkit-mask: var(--onda-linha) repeat-x 0 50% / 48px 10px; mask: var(--onda-linha) repeat-x 0 50% / 48px 10px; }
+  .gov-orgao--fiscal::before { background: #6E3B24; }
   .gov-orgao h4 { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #23261E; margin: 0 0 8px; }
   .gov-orgao > p { font-size: 14px; line-height: 1.55; color: #5A5F4E; margin: 0 0 18px; }
   .gov-membros { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 10px; }
@@ -284,8 +354,11 @@
   .gov-bar-n { font-size: 15px; font-weight: 500; color: #23261E; min-width: 0; }
   .gov-bar-v { font-size: 15px; font-weight: 700; color: #23261E; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
   .gov-bar-v small { font-size: 13px; font-weight: 300; color: #5A5F4E; margin-left: 8px; }
-  .gov-bar-track { grid-column: 1 / -1; display: block; height: 8px; border-radius: 0 4px 4px 0; background: rgba(44,110,73,0.14); overflow: hidden; }
-  .gov-bar-fill { display: block; height: 100%; width: 0; border-radius: 0 4px 4px 0; background: #2C6E49; transition: width 1.1s cubic-bezier(.2,.7,.2,1); }
+  /* barra = linha ondulada (máscara), o preenchimento cresce por dentro dela */
+  .gov-bar-track { grid-column: 1 / -1; display: block; height: 10px; background: rgba(44,110,73,0.16); overflow: hidden;
+    -webkit-mask: var(--onda-linha) repeat-x; mask: var(--onda-linha) repeat-x;
+    -webkit-mask-size: 48px 10px; mask-size: 48px 10px; -webkit-mask-position: var(--onda-x) 50%; mask-position: var(--onda-x) 50%; }
+  .gov-bar-fill { display: block; height: 100%; width: 0; background: #2C6E49; transition: width 1.1s cubic-bezier(.2,.7,.2,1); }
   .gov-bar-d { grid-column: 1 / -1; font-size: 13px; line-height: 1.5; color: #5A5F4E; }
   .gov-nota { margin-top: clamp(22px,3vw,30px); font-size: 13px; line-height: 1.6; color: #5A5F4E; }
   @media (prefers-reduced-motion: reduce) { .gov-bar-fill, .gov-tab { transition: none; } }
@@ -432,8 +505,8 @@
             <figure class="car-slide" data-title="Aviturismo" data-scroll-to="#avi-scroll" data-desc="A observação de aves convida visitantes a descobrir a natureza de Bonito e amplia as possibilidades do turismo sustentável por meio da nossa Trilha Urbana de Aviturismo da Grande Marambaia." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
               <img src="assets/capa-aviturismo.jpg" alt="Saíra-de-bando pousada em galho na mata da Grande Marambaia" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: 85% center; display: block;">
             </figure>
-            <figure class="car-slide" data-title="Audiovisual" data-desc="Documentários e produções audiovisuais que registram histórias e dão voz a comunidade." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
-              <img src="assets/madeira.avif" alt="Produção audiovisual da comunidade" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <figure class="car-slide" data-title="Audiovisual" data-gallery="audiovisual" data-gallery-mode="whole" data-desc="Documentários e produções audiovisuais que registram histórias e dão voz a comunidade." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
+              <img src="assets/galeria-audiovisual/av-capa.jpg" alt="Câmera gravando uma entrevista, vista por trás de quem filma" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
             </figure>
             <figure class="car-slide" data-title="Formação e Capacitação" data-gallery="formacao" data-desc="Capacitações para criativos e empreendedores da Grande Marambaia desenvolverem seus conhecimentos e transformá-los em negócios." style="flex: 0 0 auto; margin: 0; position: relative; overflow: hidden; cursor: pointer; background: #0d0f09; box-shadow: 0 30px 70px rgba(0,0,0,0.45); transition: opacity .55s ease, transform .55s ease, filter .55s ease;">
               <img src="assets/galeria-formacao/fc-01.jpg" alt="Participantes da capacitação em gestão e ferramentas digitais" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;">
@@ -728,14 +801,14 @@
 
         <!-- topo: valor global + apresentação das metas -->
         <div class="pc-top" style="display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: clamp(36px,5vw,88px); align-items: end; margin-bottom: clamp(44px,7vh,80px);">
-          <div style="min-width: 0;">
+          <div class="pc-valor" style="min-width: 0;">
             <div class="pc-guard" style="display: flex; align-items: baseline; gap: 0.15em; line-height: 0.9; white-space: nowrap;">
               <span style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(22px,3vw,44px); color: #2C6E49;">R$</span>
               <span id="pc-num" style="font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(52px,8.5vw,138px); color: #2C6E49; letter-spacing: -0.01em; font-variant-numeric: tabular-nums;">56.000</span>
             </div>
             <div class="pc-guard" style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(12px,1.1vw,15px); letter-spacing: 0.14em; text-transform: uppercase; color: #7C8A6A; margin-top: clamp(10px,2vh,20px);">valor global do projeto na Grande Marambaia</div>
-            <div style="margin-top: clamp(18px,2.6vh,30px); height: 6px; border-radius: 3px; background: rgba(44,110,73,0.14); overflow: hidden; max-width: 620px;">
-              <div id="pc-bar" style="height: 100%; width: 100%; background: #2C6E49; border-radius: 3px;"></div>
+            <div class="pc-linha" style="margin-top: clamp(16px,2.4vh,28px); max-width: 620px;">
+              <div id="pc-bar" style="height: 100%; width: 100%; background: #2C6E49;"></div>
             </div>
           </div>
           <div style="min-width: 0;">
@@ -783,7 +856,7 @@
              do Financeiro são montados pelo JS a partir de _dadosTransparencia() — é lá que
              se publica um relatório ou documento novo. Link direto para uma aba:
              #governanca, #documentos ou #financeiro (ex.: site/#financeiro). -->
-        <div id="gov-abas" style="margin-top: clamp(64px,10vh,120px); padding-top: clamp(40px,6vh,64px); border-top: 1px solid rgba(35,38,30,0.12);">
+        <div id="gov-abas" style="margin-top: clamp(64px,10vh,120px); padding-top: clamp(40px,6vh,64px);">
           <div style="max-width: 720px; margin-bottom: clamp(24px,3.4vh,36px);">
             <h3 class="gov-h3" style="font-size: clamp(24px,2.6vw,38px); margin-bottom: 14px;">Gestão, documentos e <em>contas abertas</em></h3>
             <p class="gov-lead">Quem conduz a associação, os documentos que a regem e como o recurso do projeto está sendo utilizado.</p>
@@ -1014,6 +1087,7 @@ class Component extends DCLogic {
     this._setupAviReveal();
     this._setupMuseu();
     this._setupMobileNav();
+    this._setupAncoras();
 
     // ---------- wait for libs, then wire scroll reveal ----------
     this._dead = false;
@@ -1618,6 +1692,11 @@ class Component extends DCLogic {
         { src: 'assets/galeria-economia/ec-17.jpg', ar: 1500/841,  caption: 'Rodas de conversa organizam a produção coletiva.' },
         { src: 'assets/galeria-economia/ec-18.jpg', ar: 1500/841,  caption: 'A comunidade decide junto os rumos do trabalho.' }
       ],
+      'audiovisual': [
+        { src: 'assets/galeria-audiovisual/av-01.jpg', ar: 640/335,   caption: 'Gravação do videocast.' },
+        { src: 'assets/galeria-audiovisual/av-02.jpg', ar: 1200/1600, caption: 'Sob o Manto e a Luz, documentário de Genivaldo Luz, na Seleção Oficial da Mostra Comunidade do 4º Bonito CineSur.' },
+        { src: 'assets/galeria-audiovisual/av-03.jpg', ar: 1080/614,  caption: 'Bonito CineSur: roteiro, atuação cinematográfica e design audiovisual.' }
+      ],
       'formacao': [
         { src: 'assets/galeria-formacao/fc-01.jpg', ar: 1500/1000, caption: 'Capacitação em gestão e ferramentas digitais.' },
         { src: 'assets/galeria-formacao/fc-02.jpg', ar: 1500/1000, caption: 'Mão na massa: a formação acontece no computador.' },
@@ -1746,7 +1825,7 @@ class Component extends DCLogic {
     grid.style.padding = '0 clamp(10px,2vw,22px) clamp(40px,7vh,80px)';
     // modo "inteiro": masonry por colunas — cada foto aparece completa (sem corte)
     if (this._galleryMode === 'whole') {
-      const cols = cw < 560 ? 2 : cw < 1000 ? 3 : 4;
+      const cols = Math.max(1, Math.min(cw < 560 ? 2 : cw < 1000 ? 3 : 4, this._activePhotos.length));
       grid.style.display = 'block';
       grid.style.columnCount = cols;
       grid.style.columnGap = gap + 'px';
@@ -1842,7 +1921,7 @@ class Component extends DCLogic {
       '.avt p{margin:0;}',
       /* capa */
       '.avt-hero{position:relative;overflow:hidden;min-height:clamp(330px,54vh,540px);display:flex;align-items:flex-end;background:#101a10;}',
-      '.avt-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:68% center;}',
+      '.avt-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:68% 4%;}',
       '.avt-hero-sh{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,12,.34) 0%,rgba(10,22,12,.08) 32%,rgba(10,22,12,.80) 100%);}',
       '.avt-hero-in{position:relative;z-index:2;width:100%;max-width:1080px;margin:0 auto;padding:clamp(26px,5vw,54px);}',
       '.avt-kicker{font-family:var(--ffh);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mint);margin:0 0 12px;}',
@@ -2183,7 +2262,9 @@ class Component extends DCLogic {
       const chave = s ? s.getAttribute('data-gallery') : null;
       const propria = chave && this._galerias ? this._galerias[chave] : null;
       this._activePhotos = (propria && propria.length) ? propria : this._photos;
-      this._galleryMode = 'mosaic';
+      // data-gallery-mode="whole": cada foto inteira e uma vez só (sem corte nem repetição) —
+      // usado no Audiovisual, que tem poucas fotos e formatos bem diferentes (cartaz em pé)
+      this._galleryMode = (s && s.getAttribute('data-gallery-mode')) || 'mosaic';
     }
     if (this._lbTitle) this._lbTitle.textContent = title;
     // header: laranja padrão; azul-água p/ Bonito; verde p/ aviturismo
@@ -2402,6 +2483,37 @@ class Component extends DCLogic {
     requestAnimationFrame(() => { fs.style.opacity = '1'; });
     document.body.style.overflow = 'hidden';
     if (this._lenis) { try { this._lenis.stop(); } catch (e) {} }
+  }
+
+  // Links internos (#secao): menu do topo, "Descubra mais", "Ver Aviturismo"...
+  // O salto nativo do navegador brigava com a rolagem suave (Lenis): se a página ainda
+  // estava deslizando de uma rolagem anterior, o Lenis puxava de volta e o clique "não ia".
+  // Agora a rolagem sempre passa pelo Lenis. As abas da Transparência (#governanca,
+  // #documentos, #financeiro) seguem o fluxo próprio delas (hashchange).
+  _setupAncoras() {
+    const ABAS = ['governanca', 'documentos', 'financeiro'];
+    this._onAncora = (e) => {
+      if (e.defaultPrevented || e.button > 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (!a || a.closest('#mec-lb')) return;
+      let id = '';
+      try { id = decodeURIComponent(a.getAttribute('href').slice(1)); } catch (err) { return; }
+      if (!id || ABAS.indexOf(id) >= 0) return;
+      const alvo = document.getElementById(id);
+      if (!alvo) return;
+      e.preventDefault();
+      const margem = parseFloat(getComputedStyle(alvo).scrollMarginTop) || 0;
+      const y = Math.max(0, alvo.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || 0) - margem);
+      if (this._lenis && this._lenis.scrollTo) {
+        try { this._lenis.scrollTo(y, { duration: this.reduce ? 0 : 1.2, immediate: !!this.reduce, force: true }); }
+        catch (err) { window.scrollTo(0, y); }
+      } else {
+        try { window.scrollTo({ top: y, behavior: this.reduce ? 'auto' : 'smooth' }); }
+        catch (err) { window.scrollTo(0, y); }
+      }
+      try { history.replaceState(null, '', '#' + id); } catch (err) {}
+    };
+    document.addEventListener('click', this._onAncora);
   }
 
   _setupMobileNav() {
@@ -2624,6 +2736,7 @@ class Component extends DCLogic {
     if (this._onKey) window.removeEventListener('keydown', this._onKey);
     if (this._lbKey) window.removeEventListener('keydown', this._lbKey);
     if (this._govHash) window.removeEventListener('hashchange', this._govHash);
+    if (this._onAncora) document.removeEventListener('click', this._onAncora);
     if (this._lbRelayout) window.removeEventListener('resize', this._lbRelayout);
     document.body.style.overflow = '';
     if (this._blobUrl) { try { URL.revokeObjectURL(this._blobUrl); } catch (e) {} }
@@ -2762,6 +2875,9 @@ class Component extends DCLogic {
       var nav = document.querySelector('.mec-nav');
       if (burger && nav) {
         e.preventDefault();
+        // o componente também escuta o botão (_setupMobileNav); sem isto o clique chegava
+        // nos dois e o menu abria e fechava no mesmo toque
+        e.stopPropagation();
         var open = nav.classList.toggle('open');
         burger.setAttribute('aria-expanded', open ? 'true' : 'false');
         return;
