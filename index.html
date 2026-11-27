@@ -387,7 +387,7 @@
     <!-- ==================== ARTESÃ — full-bleed image + scroll messages ==================== -->
     <section id="artesa-scroll" style="position: relative; height: 300vh; z-index: 3;">
       <div id="artesa-stage" style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #1A140A;">
-        <img id="artesa-img" src="assets/artesa.png" alt="Artesã de Bonito segurando um cesto de palha trançada" decoding="async"
+        <img id="artesa-img" src="assets/comunidade-hero.jpg" alt="Artesã da Grande Marambaia segurando um cesto trançado com sacolas plásticas reaproveitadas" decoding="async"
              style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 28%; will-change: transform;">
         <div id="artesa-shade" aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(105deg, rgba(18,13,5,0.80) 0%, rgba(18,13,5,0.42) 46%, rgba(18,13,5,0.10) 100%);"></div>
 
@@ -696,8 +696,8 @@
 
     <!-- ==================== INTERLÚDIO — olhar full-bleed antes da Prestação ==================== -->
     <section id="prestacao-intro" style="position: relative; height: 100vh; min-height: 560px; overflow: hidden; background: #6E3B24;">
-      <img class="pi-img" src="assets/prestacao-olhar.jpg" alt="Close nos olhos de uma pessoa da comunidade" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 74% center;">
-      <div class="pi-shade" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,10,6,0.55) 0%, rgba(20,10,6,0) 34%, rgba(20,10,6,0) 60%, rgba(20,10,6,0.78) 100%);"></div>
+      <img class="pi-img" src="assets/governanca-sementes.jpg" alt="Sementes do cerrado usadas nas biojoias da comunidade" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center;">
+      <div class="pi-shade" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,10,6,0.55) 0%, rgba(20,10,6,0.12) 26%, rgba(20,10,6,0.52) 48%, rgba(20,10,6,0.86) 100%);"></div>
       <div class="pi-txt" style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: clamp(40px,8vh,90px) clamp(24px,6vw,96px);">
         <div style="max-width: 1440px; margin: 0 auto;">
           <div class="mec-kicker" style="color: #FFD3B0; margin-bottom: clamp(14px,2vh,24px); text-shadow: 0 2px 18px rgba(20,10,6,0.85), 0 1px 3px rgba(20,10,6,0.6);">A seguir · Governança e Transparência</div>
@@ -1650,14 +1650,14 @@ class Component extends DCLogic {
       titleHtml: 'O <em>Voo</em> da Marambaia',
       sub: 'Uma jornada lúdica pelos céus e encantos de Bonito',
       lead: 'Imagine fechar os olhos por um instante e ouvir, no coração da cidade, uma sinfonia que não vem dos carros, mas das copas das árvores. Bem-vindo à Grande Marambaia, em Bonito, onde a magia não está apenas nas águas cristalinas, mas dança pelos ares. Aqui, o aviturismo não é apenas um passeio; é um convite para desacelerar, olhar para cima e se reconectar com a natureza de um jeito que você nunca imaginou.',
-      heroImg: 'assets/avi/trilha-hero.jpg',
+      heroImg: 'assets/avi/trilha-hero-motmot.jpg',
       estacoes: [
         {
           n: '01', short: 'O Despertar da Trilha',
           title: 'O Despertar da Trilha',
           sub: 'com os Guardiões da Marambaia',
-          img: 'assets/avi/trilha-guia.jpg',
-          alt: 'Guia local conduzindo visitantes na Trilha Urbana de Aviturismo',
+          img: 'assets/avi/trilha-despertar.jpg',
+          alt: 'Grupo de observadores de aves diante da Cachoeira da Gruta, no Parque das Cachoeiras, em Bonito',
           body: 'Nossa aventura começa com um encontro especial: os Guardiões da Marambaia. Moradores locais, apaixonados e treinados, serão seus guias nesta jornada. Eles conhecem cada canto, cada lenda e cada som. Com eles, você aprenderá o segredo da observação invisível — pisar leve, falar manso e deixar que a própria natureza revele seus habitantes de penas e cores vibrantes, sem pressa e com total respeito aos seus ninhos e rituais de vida.',
           chips: ['Pisar leve', 'Falar manso', 'Respeitar os ninhos']
         },
@@ -1665,8 +1665,8 @@ class Component extends DCLogic {
           n: '02', short: 'Todos os Sentidos',
           title: 'Uma Experiência para Todos os Sentidos',
           sub: 'e para todos!',
-          img: 'assets/avi/trilha-caminho.jpg',
-          alt: 'Caminho arborizado da trilha urbana da Grande Marambaia',
+          img: 'assets/avi/trilha-todos.jpg',
+          alt: 'Grupo de visitantes de todas as idades, com binóculos, num deck à beira do rio',
           body: 'A magia do voo não tem barreiras. O treinamento dos nossos guias incluiu a inclusão de pessoas com necessidades específicas: traduzir as cores em descrições sonoras, respeitar o tempo de cada visitante e acolher quem sente o mundo de forma diferente. O compromisso é que a beleza das aves do cerrado bonitense seja uma experiência inclusiva, segura e acolhedora.',
           chips: ['Guias preparados', 'Descrição sonora', 'Experiência inclusiva']
         },
@@ -1674,8 +1674,8 @@ class Component extends DCLogic {
           n: '03', short: 'A Alma da Comunidade',
           title: 'A Alma da Comunidade',
           sub: 'arte, saberes e memória',
-          img: 'assets/avi/cesto.jpg',
-          alt: 'Mãos tecendo peça artesanal da comunidade da Grande Marambaia',
+          img: 'assets/avi/trilha-alma.jpg',
+          alt: 'Mãos de artesã trançando um cesto com tiras de sacolas plásticas reaproveitadas',
           body: 'Mas o que seria de uma jornada sem as memórias que levamos para casa? A experiência se completa na cultura criativa do bairro, no encontro com as mãos habilidosas de artesãs e artesãos que transformam fibras, sementes e outros materiais da região em peças únicas. É uma comunidade que protege a natureza enquanto compartilha com você seus saberes e paixões.',
           chips: ['Artesanato local', 'Saberes da comunidade']
         }
@@ -1842,7 +1842,7 @@ class Component extends DCLogic {
       '.avt p{margin:0;}',
       /* capa */
       '.avt-hero{position:relative;overflow:hidden;min-height:clamp(330px,54vh,540px);display:flex;align-items:flex-end;background:#101a10;}',
-      '.avt-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;}',
+      '.avt-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:68% center;}',
       '.avt-hero-sh{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,12,.34) 0%,rgba(10,22,12,.08) 32%,rgba(10,22,12,.80) 100%);}',
       '.avt-hero-in{position:relative;z-index:2;width:100%;max-width:1080px;margin:0 auto;padding:clamp(26px,5vw,54px);}',
       '.avt-kicker{font-family:var(--ffh);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mint);margin:0 0 12px;}',
