@@ -143,6 +143,7 @@
     .mp-grid { grid-template-columns: repeat(2, 1fr) !important; grid-auto-rows: calc((100vw - 4px) / 2) !important; }
     .mp-card { grid-column: span 1 !important; grid-row: span 1 !important; }
     .mp-card:first-child { grid-column: span 2 !important; }
+    #mp-acervo { scroll-margin-top: 71px !important; }
     .mp-card .mp-sum { display: none !important; }
     #prestacao { padding: 72px 22px 84px !important; }
     .pc-top { grid-template-columns: 1fr !important; gap: 22px !important; align-items: start !important; }
@@ -276,11 +277,6 @@
   .mp-card:focus-visible .mp-play { opacity: 1; transform: translate(-50%,-50%) scale(1); }
   /* prévia do YouTube cobre o card inteiro (16:9 recortado), sem faixas pretas no card quadrado */
   .mp-card iframe.mp-hover { position: absolute; top: 50%; left: 50%; width: max(100cqw, 177.78cqh); height: max(100cqh, 56.25cqw); transform: translate(-50%,-50%); border: 0; pointer-events: none; z-index: 1; }
-  .mp-rotulo { font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #5E6B4F; }
-  .mp-canal { margin-left: auto; font-family: 'Space Grotesk', sans-serif; font-size: 13px; color: #2C6E49; text-decoration: none; border-bottom: 1px solid rgba(44,110,73,0.35); padding-bottom: 2px; transition: border-color .25s ease, color .25s ease; }
-  .mp-canal:hover, .mp-canal:focus-visible { color: #1E5236; border-bottom-color: #1E5236; }
-  .mp-px-nome { display: block; font-family: 'Space Grotesk', sans-serif; font-feature-settings: 'ss01','ss02','ss03','ss05'; font-weight: 700; font-size: clamp(16px, 1.2vw, 19px); line-height: 1.2; color: #23261E; }
-  .mp-px-papel { display: block; margin-top: 6px; font-size: 14px; line-height: 1.5; color: #5E6B57; }
   .mp-meta { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: clamp(16px,1.6vw,26px); background: linear-gradient(to top, rgba(4,20,28,0.92) 0%, rgba(4,20,28,0.55) 45%, transparent 100%); pointer-events: none; }
   .mp-sum { max-height: 0; opacity: 0; overflow: hidden; transition: max-height .5s ease, opacity .4s ease, margin-top .4s ease; margin-top: 0; }
   .mp-card:hover .mp-sum { max-height: 160px; opacity: 1; margin-top: 10px; }
@@ -712,12 +708,7 @@
         </div>
       </div>
 
-      <div id="mp-acervo" style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; max-width: 1440px; margin: 0 auto; padding: 0 clamp(12px,2vw,22px); scroll-margin-top: 90px;">
-        <span class="mp-rotulo">Acervo em vídeo</span>
-        <a class="mp-canal" href="https://www.youtube.com/@ecocriativosgrandemarambaia" target="_blank" rel="noopener">Ver o canal no YouTube <span aria-hidden="true">↗</span></a>
-      </div>
-
-      <div class="mp-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: calc((100vw - 12px) / 4); grid-auto-flow: dense; gap: 4px; background: #FCFAF4; margin-top: clamp(18px, 3vh, 30px);">
+      <div id="mp-acervo" class="mp-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: calc((100vw - 12px) / 4); grid-auto-flow: dense; gap: 4px; background: #FCFAF4; margin-top: 4px; scroll-margin-top: 82px;">
         <article class="mp-card" data-yt="kCMThSoKNlU" role="button" tabindex="0" aria-label="Assistir à história de Maria Aparecida" style="grid-column: span 2; grid-row: span 2;">
           <img class="mp-thumb" src="assets/museu/mp-maria-aparecida.jpg" alt="" loading="lazy" decoding="async">
           <div class="mp-play" aria-hidden="true"><svg width="66" height="66" viewBox="0 0 66 66" fill="none"><circle cx="33" cy="33" r="32" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M27 24l16 9-16 9V24z" fill="#fff"/></svg></div>
@@ -742,17 +733,6 @@
             <div class="mp-sum" style="font-size: 13px; line-height: 1.55; color: #CFE6EF; max-width: 46ch;">Dona Jesulina conta sua história e como a associação apoia sua produção de artesanato.</div>
           </div>
         </article>
-      </div>
-
-      <div class="mp-proximas" style="max-width: 1440px; margin: clamp(36px, 6vh, 64px) auto 0; padding: 0 clamp(12px,2vw,22px);">
-        <div class="mp-rotulo" style="margin-bottom: 18px;">Próximas histórias</div>
-        <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 22px 28px;">
-          <li><span class="mp-px-nome">Maria de Jesus</span><span class="mp-px-papel">Biojoias com sementes do cerrado</span></li>
-          <li><span class="mp-px-nome">Regiane Simão</span><span class="mp-px-papel">Chef da cozinha pantaneira</span></li>
-          <li><span class="mp-px-nome">Genivaldo Luz</span><span class="mp-px-papel">Administrador e roteirista do audiovisual</span></li>
-          <li><span class="mp-px-nome">Lucas Yanai</span><span class="mp-px-papel">Biólogo da Trilha Urbana de Aviturismo</span></li>
-          <li><span class="mp-px-nome">Janaína Quintana e Antonio (Puka)</span><span class="mp-px-papel">Observadores de aves e monitores da trilha</span></li>
-        </ul>
       </div>
       <div aria-hidden="true" style="height: clamp(80px, 12vh, 160px); background: #FCFAF4;"></div>
     </section>
@@ -2824,6 +2804,7 @@ class Component extends DCLogic {
     '  .mp-grid{grid-template-columns:repeat(2,1fr)!important;grid-auto-rows:calc((100vw - 4px) / 2)!important;}',
     '  .mp-card{grid-column:span 1!important;grid-row:span 1!important;}',
     '  .mp-card:first-child{grid-column:span 2!important;}',
+    '  #mp-acervo{scroll-margin-top:71px!important;}',
     '  .mp-card .mp-sum{display:none!important;}',
     '  #prestacao{padding:72px 22px 84px!important;}',
     '  .pc-top{grid-template-columns:1fr!important;gap:22px!important;align-items:start!important;}',
